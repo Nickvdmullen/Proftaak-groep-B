@@ -16,7 +16,7 @@ public class User
 {
     //************************datavelden*************************************
     private int playerID;
-    private String name;
+    private String username;
     private int rating;
     private int wins;
     private int losses;

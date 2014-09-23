@@ -20,6 +20,7 @@ public class Lobby
     private String password;
     private String map;
     private List<String> chatMessages;
+    private User admin;
     private List<User> spectators;
     private List<User> players;
 
@@ -27,9 +28,10 @@ public class Lobby
     /**
      * creates an lobby with ...
      */
-    public Lobby()
+    public Lobby(User addedByUser)
     {
         this.chatMessages = new ArrayList<>();
+        this.admin = addedByUser;
         this.spectators = new ArrayList<>();
         this.players = new ArrayList<>();
     }
