@@ -9,25 +9,47 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * OK
  * @author Melanie
  */
 public class Bot
 {    
     //************************datavelden*************************************
     private int botID;
+    private int nextBotID = 1;
     private String name;
     private int difficulty;
 
     //***********************constructoren***********************************
     /**
-     * creates an bot with ...
+     * creates a bot with ...
      */
-    public Bot()
+    public Bot(String name, int difficulty)
     {
-        //todo
+        this.name = name;
+        this.difficulty = difficulty;        
+        this.botID = this.nextBotID;
+        this.nextBotID++;
     }
 
     //**********************methoden****************************************
+    public int getBotID()
+    {
+        return this.botID;
+    }
     
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public int getDifficulty()
+    {
+        return this.difficulty;
+    }
+    
+    public void setDifficulty(int difficulty)
+    {
+        this.difficulty = difficulty;
+    }
 }

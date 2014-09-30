@@ -15,16 +15,15 @@ import java.util.*;
 public class Game
 {
     //************************datavelden*************************************
-    private int gameID;
     private int[] grid;
     private double timer;
-    private String level;
+    private Level level;
     private int botDifficulty;
     private int round;
 
     //***********************constructoren***********************************
     /**
-     * creates an game with ...
+     * creates a game with ...
      */
     public Game()
     {

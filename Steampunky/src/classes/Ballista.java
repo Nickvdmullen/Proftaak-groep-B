@@ -9,27 +9,40 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * OK
  * @author Melanie
  */
-public class Ballista
+public class Ballista extends Object
 {    
     //************************datavelden*************************************
     private int ballistaID;
-    private int[] position;
+    private int nextBallistaID = 1;
     private String direction;
     private int shots;
-    private int AmmoSpeed;
+    private int projectileSpeed;
+    private Projectile projectile;
 
     //***********************constructoren***********************************
     /**
-     * creates an ballista with ...
+     * creates a ballista with ...
      */
-    public Ballista()
+    public Ballista(String direction, int shots, int projectileSpeed)
     {
-        //todo
+        this.ballistaID = this.nextBallistaID;
+        this.nextBallistaID++;
+        this.direction = direction;
+        this.shots = shots;
+        this.projectileSpeed = projectileSpeed;
     }
 
     //**********************methoden****************************************
+    public int getBallistaID()
+    {
+        return this.ballistaID;
+    }
     
+    public void createProjectile()
+    {
+        //todo
+    }
 }

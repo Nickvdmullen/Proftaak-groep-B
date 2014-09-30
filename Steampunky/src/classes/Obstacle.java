@@ -9,26 +9,38 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * OK
  * @author Melanie
  */
-public class Obstacle
+public class Obstacle extends Object
 {
     //************************datavelden*************************************
     private int obstacleID;
     private String type;
-    private int[] position;
     private boolean broken;
 
     //***********************constructoren***********************************
     /**
      * creates an obstacle with ...
      */
-    public Obstacle()
+    public Obstacle(String type)
     {
-        //todo
+        this.type = type;
     }
 
     //**********************methoden****************************************
+    public String getType()
+    {
+        return this.type;
+    }
     
+    public boolean getBroken()
+    {
+        return this.broken;
+    }
+    
+    public void setBroken(boolean broken)
+    {
+        this.broken = broken;
+    }
 }

@@ -12,11 +12,10 @@ import java.util.*;
  *
  * @author Melanie
  */
-public class PowerUp
+public class PowerUp extends Object
 {
     //************************datavelden*************************************
-    private int powerupID;
-    private int[] positon;
+    private int powerUpID;
     private String name;
     private String type;
     private String description;
@@ -24,7 +23,7 @@ public class PowerUp
 
     //***********************constructoren***********************************
     /**
-     * creates an powerup with ...
+     * creates a powerup with ...
      */
     public PowerUp()
     {
@@ -32,5 +31,28 @@ public class PowerUp
     }
 
     //**********************methoden****************************************
+    public String getName()
+    {
+        return this.name;
+    }
     
+    public String getType()
+    {
+        return this.type;
+    }
+    
+    public String getDescription()
+    {
+        return this.description;
+    }
+    
+    public boolean getAvailable()
+    {
+        return this.available;
+    }
+    
+    public void setAvailable(boolean available)
+    {
+        this.available = available;
+    }
 }

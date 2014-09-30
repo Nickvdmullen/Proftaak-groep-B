@@ -9,13 +9,14 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * OK
  * @author Melanie
  */
 public class Lobby
 {
     //************************datavelden*************************************
     private int lobbyID;
+    private int nextLobbyID = 1;
     private String lobbyName;
     private String password;
     private String map;
@@ -23,13 +24,20 @@ public class Lobby
     private User admin;
     private List<User> spectators;
     private List<User> players;
+    private int ratingDifference;
+    private Game game;
 
     //***********************constructoren***********************************
     /**
-     * creates an lobby with ...
+     * creates a lobby with ...
      */
-    public Lobby(User addedByUser)
-    {
+    public Lobby(String lobbyname, User addedByUser)
+    {        
+        this.lobbyName = lobbyname;
+        this.admin = addedByUser;
+        this.lobbyID = this.nextLobbyID;
+        this.nextLobbyID++;
+        
         this.chatMessages = new ArrayList<>();
         this.admin = addedByUser;
         this.spectators = new ArrayList<>();
@@ -37,5 +45,15 @@ public class Lobby
     }
 
     //**********************methoden****************************************
+    public boolean checkPassword(String password)
+    {
+        //todo
+        return false;
+    }
     
+    public boolean createGame(double timelimit, int botDifficulty, String level, int rounds)
+    {
+        //todo
+        return false;
+    }
 }

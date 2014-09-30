@@ -9,43 +9,46 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * OK
  * @author Melanie
  */
 public class Server
 {
     //************************datavelden*************************************
     private List<User> users;
-    private List<Lobby> lobbies;
+    private List<User> lobbies;
 
     //***********************constructoren***********************************
     /**
-     * creates an bot with ...
+     * creates a server with ...
+     * 
      */
-    public Server()
+    private Server()
     {
         this.users = new ArrayList<>();
         this.lobbies = new ArrayList<>();
     }
 
     //**********************methoden****************************************
-    public void addUser(String username, String password)
-    {
-        //todo
-    }
-    
-    public void loginUser(String username, String password)
-    {
-        //todo
-    }
-    
-    public boolean addLobby(String lobbyName, String password, User admin)
+    public boolean createUser(String username, String password)
     {
         //todo
         return false;
     }
     
-    public boolean joinLobby(Lobby lobby, User user)
+    public boolean loginUser(String username, String password)
+    {
+        //todo
+        return false;
+    }
+    
+    public boolean createLobby(String lobbyName, String password, User admin)
+    {
+        //todo
+        return false;
+    }
+    
+    public boolean joinLobby(Lobby lobby, User user, String password)
     {
         //todo
         return false;
@@ -61,5 +64,11 @@ public class Server
     {
         //todo
         return false;
+    }
+    
+    public Server getServer()
+    {
+        //todo
+        return null;
     }
 }

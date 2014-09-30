@@ -9,21 +9,20 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * OK
  * @author Melanie
  */
-public class Projectile
+public class Projectile extends Object
 {
     //************************datavelden*************************************
     private int projectileID;
     private String type;
     private double speed;
     private String direction;
-    private int[] position;
 
     //***********************constructoren***********************************
     /**
-     * creates an projectile with ...
+     * creates a projectile with ...
      */
     public Projectile()
     {
@@ -31,5 +30,9 @@ public class Projectile
     }
 
     //**********************methoden****************************************
-    
+    public Object checkCollision()
+    {
+        //todo
+        return null;
+    }
 }
