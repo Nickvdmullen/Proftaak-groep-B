@@ -74,7 +74,7 @@ public class User
         return this.userID;
     }
     
-    public int setRating(int rating)
+    public void setRating(int rating)
     {
         this.rating = rating;
     }

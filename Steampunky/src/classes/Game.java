@@ -9,27 +9,100 @@ package classes;
 import java.util.*;
 
 /**
- *
+ * 
  * @author Melanie
  */
 public class Game
 {
     //************************datavelden*************************************
     private int[] grid;
-    private double timer;
-    private Level level;
     private int botDifficulty;
+    private double timer;
+    private double totalTime;
+    private int totalRounds;
     private int round;
+    private List<Level> levels;
+    private List<Objects> objects;
 
     //***********************constructoren***********************************
     /**
      * creates a game with ...
      */
-    public Game()
+    public Game(double timelimit, int botDifficulty, int rounds)
     {
-        //todo
+        this.botDifficulty = botDifficulty;
+        this.totalTime = timelimit;
+        this.totalRounds = rounds;
+        
+        this.levels = new ArrayList<>();
+        this.objects = new ArrayList<>(); 
     }
 
     //**********************methoden****************************************
+    public Object getGrid(Object[] position)
+    {
+        //todo
+        return null;
+    }
     
+    public int getBotDifficulty()
+    {
+        //todo
+        return 0;
+    }
+    
+    public int getTotalRounds()
+    {
+        return this.totalRounds;
+    }
+    
+    public int getCurrentRound()
+    {
+        //todo
+        return this.round;
+    }
+    
+    public double getTotalTime()
+    {
+        return this.totalTime;
+    }
+    
+    public double getCurrentTime()
+    {
+        //todo
+        return this.timer;
+    }
+    
+    public List<Object> getCharacters()
+    {
+        //todo
+        return null;
+    }
+    
+    public boolean setBotDifficulty(int difficulty)
+    {
+        //todo
+        this.botDifficulty = difficulty;
+        return false;
+    }
+    
+    public void setCurrentRound(int round)
+    {
+        this.round = round;
+    }
+    
+    public void setCurrentTime(double timer)
+    {
+        this.timer = timer;
+    }
+    
+    public void setObjectInGrid(Object object)
+    {
+        //todo
+    }
+    
+    public void ChooseLevel(int round)
+    {
+        //todo
+    }
 }
