@@ -23,6 +23,10 @@ public abstract class Object
     //***********************constructoren***********************************
     /**
      * creates an abstract class object with ...
+     * @param X
+     * @param Y
+     * @param Active
+     * @param Movable
      */
 
     public Object(int X, int Y, boolean Active, boolean Movable) 
