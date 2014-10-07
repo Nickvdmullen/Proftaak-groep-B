@@ -57,6 +57,7 @@ public class Ballista extends Object
                 createProjectile(Direction.Down);
                 createProjectile(Direction.Left);
                 createProjectile(Direction.Right);
+                shotsShot += 4;
             }
             else
             {
@@ -64,6 +65,7 @@ public class Ballista extends Object
                 createProjectile(Direction.Right); 
                 createProjectile(Direction.Up);
                 createProjectile(Direction.Down);
+                shotsShot += 4;
             }
 
         }

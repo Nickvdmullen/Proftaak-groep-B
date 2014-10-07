@@ -113,7 +113,5 @@ public class Projectile extends Object
             
         }
         return hitObject;
-    }
-    
-    
+    }   
 }
