@@ -14,8 +14,8 @@ public abstract class Object
 {
     //************************datavelden*************************************
     private int interfaceID;
-    private int positionX;
-    private int positionY;
+    private int positionX; //moet deze?
+    private int positionY; //moet deze?
     private boolean active;
     private boolean movable;
     
@@ -25,57 +25,25 @@ public abstract class Object
      */
     public Object()
     {
-        //todo
+        //todo (vraag)
     }
 
     //**********************methoden****************************************
-    int getInterfaceID()
-    {
-        //todo
-        return 0;
-    }
+    abstract int getInterfaceID();
     
-    int getPositionX()
-    {
-        //todo
-        return 0;
-    }
+    abstract int getPositionX();
     
-    int getPositionY()
-    {
-        //todo
-        return 0;
-    }
+    abstract int getPositionY();
     
-    boolean getActive()
-    {
-        //todo
-        return false;
-    }
+    abstract boolean getActive();
     
-    void setPistionX(int positionX)
-    {
-        //todo
-    }
+    abstract void setPositionX(int positionX);
     
-    void setPositionY(int positionY)
-    {
-        //todo
-    }
+    abstract void setPositionY(int positionY);
     
-    void setActive (boolean active)
-    {
-        //todo
-    }
+    abstract void setActive (boolean active);
     
-    void move(String direction)
-    {
-        //todo
-    }
+    abstract void move(String direction);
     
-    boolean checkCollision(Object object)
-    {
-        //todo
-        return false;
-    }
+    abstract boolean checkCollision(Object object);
 }
