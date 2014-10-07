@@ -14,8 +14,8 @@ public abstract class Object
 {
     //************************datavelden*************************************
     private int interfaceID;
-    private int positionX; //moet deze?
-    private int positionY; //moet deze?
+    private int positionX; 
+    private int positionY; 
     private boolean active;
     private boolean movable;
     
@@ -23,19 +23,36 @@ public abstract class Object
     /**
      * creates an abstract class object with ...
      */
-    public Object()
+    public Object(int interfaceId, int positionX, int positionY, boolean active, boolean movable)
     {
         //todo (vraag)
+        this.interfaceID = interfaceId;
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.active = active;
+        this.movable = movable;
     }
 
     //**********************methoden****************************************
-    abstract int getInterfaceID();
+    public int getInterfaceID()
+    {
+        return this.interfaceID;
+    }
     
-    abstract int getPositionX();
+    public int getPositionX()
+    {
+        return this.positionX;
+    }
     
-    abstract int getPositionY();
+    public int getPositionY()
+    {
+        return this.positionY;
+    }
     
-    abstract boolean getActive();
+    public boolean getActive()
+    {
+        return active;
+    }
     
     abstract void setPositionX(int positionX);
     
