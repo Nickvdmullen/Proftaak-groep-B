@@ -33,7 +33,7 @@ public class Character extends Object
     public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
             String directions, int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
-        super(positionX,positionY,movable,direction,active);
+        super(0, positionX, positionY, active, movable);
         this.characterID = characterID;
         this.score = score;
         this.speed = speed;
@@ -104,6 +104,11 @@ public class Character extends Object
     public void createBllista(String direction, int shots, double projectileSpeed)
     {
         //todo
-        //this.ballista = new Ballista(0, direction, shots, projectileSpeed);
+        int positionx = this.getPositionX();
+        int positiony = this.getPositionY();
+        boolean active = this.getActive();
+        
+        
+        this.ballista = new Ballista("", shots,  projectileSpeed, positionx, positiony,active,false,direction);
     }
 }

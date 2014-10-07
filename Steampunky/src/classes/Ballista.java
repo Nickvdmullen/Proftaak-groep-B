@@ -21,7 +21,7 @@ public class Ballista extends Object
     private String ballistaType;
     private int shots;
     private int shotsShot;
-    private int projectileSpeed;
+    private double projectileSpeed;
     /////
 
     /**
@@ -38,7 +38,7 @@ public class Ballista extends Object
      * @param movable           An attribute of Object that sets if an Object is movable or not.
      * @param direction         An attribute of Object that is used to decide which way to shoot first.
     **/
-    public Ballista(String type, int shots, int projectileSpeed,int positionX,int positionY,boolean active,boolean movable,Direction direction)
+    public Ballista(String type, int shots, double projectileSpeed,int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
         super(positionX,positionY,movable,direction,active);
         this.ballistaID = this.nextBallistaID;
