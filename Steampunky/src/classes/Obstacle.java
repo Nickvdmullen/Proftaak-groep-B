@@ -14,6 +14,10 @@ public class Obstacle extends Object
 {
     //************************datavelden*************************************
     private int obstacleID = 1;
+    
+    private boolean active;
+    private boolean movable;
+    
     private final String type;
     private boolean broken;
     
@@ -23,8 +27,10 @@ public class Obstacle extends Object
      * @param type
      * @param broken
      */
-    public Obstacle(String type, boolean broken)
+    public Obstacle(String type, boolean broken, int posX, int posY, boolean active, boolean movable)
     {
+        super(posX, posY, active, movable);
+        
         this.type = type;
         this.broken = broken;
         
@@ -48,47 +54,47 @@ public class Obstacle extends Object
     }
 
     @Override
-    int getInterfaceID() {
+    public int getInterfaceID() {
         return obstacleID;
     }
 
     @Override
-    int getPositionX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getPositionX() {
+        return this.getPositionX();
     }
 
     @Override
-    int getPositionY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getPositionY() {
+        return this.getPositionY();
     }
 
     @Override
-    boolean getActive() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean getActive() {
+        return this.getActive();
     }
 
     @Override
-    void setPositionX(int positionX) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setPositionX(int positionX) {
+        setPositionX(positionX);
     }
 
     @Override
-    void setPositionY(int positionY) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setPositionY(int positionY) {
+        setPositionY(positionY);
     }
 
     @Override
-    void setActive(boolean active) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setActive(boolean active) {
+        setActive(active);
     }
 
     @Override
-    void move(String direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void move(String direction) {
+        //doesn't need to be implemented
     }
 
     @Override
-    boolean checkCollision(Object object) {
+    public boolean checkCollision(Object object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
