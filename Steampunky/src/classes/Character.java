@@ -8,9 +8,9 @@ package classes;
 
 import java.util.*;
 
-/**
+ /**
  * OK
- * @author Melanie
+ * @author Linda
  */
 public class Character
 {
@@ -28,9 +28,11 @@ public class Character
     /**
      * creates a character with ...
      */
+
     public Character()
     {
         //todo
+        
     }
 
     //**********************methoden****************************************
@@ -88,9 +90,10 @@ public class Character
     {
         this.direction = direction;
     }
-    
+
     public void createBllista(String direction, int shots, double projectileSpeed)
     {
         //todo
+        //this.ballista = new Ballista(0, direction, shots, projectileSpeed);
     }
 }

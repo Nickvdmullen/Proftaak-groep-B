@@ -8,9 +8,9 @@ package classes;
 
 import java.util.*;
 
-/**
+ /**
  * OK
- * @author Melanie
+ * @author Linda
  */
 public class User
 {
@@ -51,11 +51,16 @@ public class User
     {
         return this.rating;
     }
-    
+
     public boolean checkPassword(String password)
     {
         //todo
-        return false;
+        boolean gelukt = false;
+        if(password.equals(this.password))
+        {
+            gelukt = true;
+        }
+        return gelukt;
     }
     
     public String getUsername()
@@ -66,7 +71,8 @@ public class User
     public int[] getWinLoss()
     {
         //todo
-        return null;
+       int [] winst = new int[]{wins , losses};
+        return winst;
     }
     
     public int getUserID()
