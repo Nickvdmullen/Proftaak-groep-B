@@ -22,6 +22,7 @@ public class Ballista extends Object
     private int shots;
     private int shotsShot;
     private int projectileSpeed;
+    /////
 
     /**
      * The constructor of the Object Ballista, 
