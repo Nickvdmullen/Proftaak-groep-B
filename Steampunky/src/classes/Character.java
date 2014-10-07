@@ -12,7 +12,7 @@ import java.util.*;
  * OK
  * @author Linda
  */
-public class Character
+public class Character extends Object
 {
     //************************datavelden*************************************
     private int characterID;
@@ -23,14 +23,24 @@ public class Character
     private int torchLight;
     private String direction;
     private Ballista ballista;
+    
 
     //***********************constructoren***********************************
     /**
      * creates a character with ...
      */
 
-    public Character()
+    public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
+            String directions, int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
+        super(positionX,positionY,movable,direction,active);
+        this.characterID = characterID;
+        this.score = score;
+        this.speed = speed;
+        this.dead = dead;
+        this.maxBallistae = maxBalista;
+        this.torchLight = torch;
+        this.direction = directions;
         //todo
         
     }
