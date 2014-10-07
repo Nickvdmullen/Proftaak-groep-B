@@ -21,7 +21,7 @@ public class Character extends Object
     private boolean dead;
     private int maxBallistae;
     private int torchLight;
-    private String direction;
+    private Direction direction;
     private Ballista ballista;
     
 
@@ -31,7 +31,7 @@ public class Character extends Object
      */
 
     public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
-            String directions, int positionX,int positionY,boolean active,boolean movable,Direction direction)
+             int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
         super(0, positionX, positionY, active, movable);
         this.characterID = characterID;
@@ -40,7 +40,7 @@ public class Character extends Object
         this.dead = dead;
         this.maxBallistae = maxBalista;
         this.torchLight = torch;
-        this.direction = directions;
+        this.direction = direction;
         //todo
         
     }
@@ -71,7 +71,7 @@ public class Character extends Object
         return this.torchLight;
     }
     
-    public String getDirection()
+    public Direction getDirection()
     {
         return this.direction;
     }
@@ -96,12 +96,12 @@ public class Character extends Object
         this.torchLight = range;
     }
     
-    public void setDirection(String direction)
+    public void setDirection(Direction direction)
     {
         this.direction = direction;
     }
 
-    public void createBllista(String direction, int shots, double projectileSpeed)
+    public void createBllista(Direction direction, int shots, double projectileSpeed)
     {
         //todo
         int positionx = this.getPositionX();
@@ -110,5 +110,30 @@ public class Character extends Object
         
         
         this.ballista = new Ballista("", shots,  projectileSpeed, positionx, positiony,active,false,direction);
+    }
+
+    @Override
+    void setPositionX(int positionX) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void setPositionY(int positionY) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void setActive(boolean active) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void move(String direction) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    boolean checkCollision(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
