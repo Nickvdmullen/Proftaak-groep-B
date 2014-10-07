@@ -21,7 +21,7 @@ public class Server
 {
     //************************datavelden*************************************
     private List<User> users;
-    private List<User> lobbies;
+    private List<Lobby> lobbies;
     private Connection con;
 
     //***********************constructoren***********************************
@@ -60,10 +60,9 @@ public class Server
         ResultSet rs = stat.executeQuery(queryread);
         while
                 (rs.next())
-                {          
-                    if(rs.getString(2).equals(username))
+                {     
+                    if(rs.getString("Naam").equals(username))
                     {
-                    //probleem met ophalen of naam al voorkomt??????????
                     adduser = false;
                     System.out.println("Dubbele gebruiker gevonden");
                     }
@@ -86,7 +85,6 @@ public class Server
             stat2.setString(2, password);
             stat2.execute();
             return true;
-            //todo
             }
         catch(Exception ex)
         {
@@ -95,19 +93,47 @@ public class Server
         }
         }
         return false;
-        //todo
     }
     
     public boolean loginUser(String username, String password)
-    {
-        //todo
+    {       
+        try
+        {
+        Connectionstring();
+        String queryread = "SELECT NAAM,WACHTWOORD FROM USERS";
+        PreparedStatement stat2 = con.prepareStatement(queryread);
+        ResultSet rs = stat2.executeQuery();    
+        while
+                (rs.next())
+                {     
+                    if(rs.getString("NAAM").equals(username) && rs.getString("WACHTWOORD").equals(password))
+                    {
+                    System.out.println("Gebruiker mag inloggen");
+                    return true;
+                    }   
+                }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Gebruiker niet gevonden" + ex);
+            return false;
+        }
+        System.out.println("Gebruiker mag niet inloggen"); 
         return false;
     }
     
     public boolean createLobby(String lobbyName, String password, User admin)
     {
-        //todo
-        return false;
+        if(lobbyName != null && admin != null)
+        {
+        this.lobbies.add(new Lobby(lobbyName,admin,password));
+        return true;
+        }
+        else
+        {
+         return false;   
+        }
+        //password
     }
     
     public boolean joinLobby(Lobby lobby, User user, String password)
@@ -124,8 +150,23 @@ public class Server
     
     public boolean deleteLobby(Lobby lobby)
     {
-        //todo
-        return false;
+        Lobby templobby = null;
+        for(Lobby lobbylist : lobbies)
+        {
+            if(lobbylist == lobby)
+            {
+                templobby = lobbylist;
+            }
+        }
+        if(templobby != null)
+        {
+        lobbies.remove(templobby);
+        return true;
+        }
+        else 
+        {
+          return false;  
+        } 
     }
     
     public Server getServer()

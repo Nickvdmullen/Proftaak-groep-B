@@ -19,7 +19,8 @@ public class Steampunky {
      */
     public static void main(String[] args) {
           Server a = new Server();
-          a.createUser("afsdaf", "Kat");
+          a.createUser("test", "Kat");
+          a.loginUser("test1", "Kat");
     }
     
 }

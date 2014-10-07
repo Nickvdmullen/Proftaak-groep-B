@@ -32,13 +32,13 @@ public class Lobby
     /**
      * creates a lobby with ...
      */
-    public Lobby(String lobbyname, User addedByUser)
+    public Lobby(String lobbyname, User addedByUser,String password)
     {        
         this.lobbyName = lobbyname;
         this.admin = addedByUser;
         this.lobbyID = this.nextLobbyID;
         this.nextLobbyID++;
-        
+        this.password = password;
         this.chatMessages = new ArrayList<>();
         this.admin = addedByUser;
         this.spectators = new ArrayList<>();
@@ -46,6 +46,10 @@ public class Lobby
         this.games = new ArrayList<>();
     }
 
+    public String GetLobbyname(){
+       return this.lobbyName;
+  }
+    
     //**********************methoden****************************************
     public boolean checkPassword(String password)
     {
