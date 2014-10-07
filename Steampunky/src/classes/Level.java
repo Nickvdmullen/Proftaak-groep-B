@@ -22,7 +22,7 @@ public class Level
 
     //***********************constructoren***********************************
     /**
-     * creates a level with ...
+     * creates a level with height, width, texture and name
      */
     public Level(int height, int width, String texture, String name)
     {

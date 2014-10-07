@@ -13,6 +13,7 @@ package classes;
 public abstract class Object
 {
     //************************datavelden*************************************
+
     private int interfaceID = 1;
     private int positionX;
     private int positionY;
@@ -23,6 +24,7 @@ public abstract class Object
     /**
      * creates an abstract class object with ...
      */
+
     public Object(int X, int Y, boolean Active, boolean Movable) 
     {
         //todo (vraag)
@@ -34,21 +36,35 @@ public abstract class Object
     }
 
     //**********************methoden****************************************
-    public abstract int getInterfaceID();
     
-    public abstract int getPositionX();
+    public Object(int interfaceId, int positionX, int positionY, boolean active, boolean movable)
+    {
+        //todo (vraag)
+        this.interfaceID = interfaceId;
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.active = active;
+        this.movable = movable;
+    }
+
+    //**********************methoden****************************************
+    public int getInterfaceID()
+    {
+        return this.interfaceID;
+    }
     
-    public abstract int getPositionY();
+    public int getPositionX()
+    {
+        return this.positionX;
+    }
     
-    public abstract boolean getActive();
+    public int getPositionY()
+    {
+        return this.positionY;
+    }
     
-    public abstract void setPositionX(int positionX);
-    
-    public abstract void setPositionY(int positionY);
-    
-    public abstract void setActive (boolean active);
-    
-    public abstract void move(String direction);
-    
-    public abstract boolean checkCollision(Object object);
+    public boolean getActive()
+    {
+        return active;
+    }
 }

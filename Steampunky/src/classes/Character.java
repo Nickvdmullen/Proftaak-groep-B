@@ -8,11 +8,11 @@ package classes;
 
 import java.util.*;
 
-/**
+ /**
  * OK
- * @author Melanie
+ * @author Linda
  */
-public class Character
+public class Character extends Object
 {
     //************************datavelden*************************************
     private int characterID;
@@ -21,16 +21,28 @@ public class Character
     private boolean dead;
     private int maxBallistae;
     private int torchLight;
-    private String direction;
+    private Direction direction;
     private Ballista ballista;
+    
 
     //***********************constructoren***********************************
     /**
      * creates a character with ...
      */
-    public Character()
+
+    public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
+             int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
+        super(0, positionX, positionY, active, movable);
+        this.characterID = characterID;
+        this.score = score;
+        this.speed = speed;
+        this.dead = dead;
+        this.maxBallistae = maxBalista;
+        this.torchLight = torch;
+        this.direction = direction;
         //todo
+        
     }
 
     //**********************methoden****************************************
@@ -59,7 +71,7 @@ public class Character
         return this.torchLight;
     }
     
-    public String getDirection()
+    public Direction getDirection()
     {
         return this.direction;
     }
@@ -84,13 +96,44 @@ public class Character
         this.torchLight = range;
     }
     
-    public void setDirection(String direction)
+    public void setDirection(Direction direction)
     {
         this.direction = direction;
     }
-    
-    public void createBllista(String direction, int shots, double projectileSpeed)
+
+    public void createBllista(Direction direction, int shots, double projectileSpeed)
     {
         //todo
+        int positionx = this.getPositionX();
+        int positiony = this.getPositionY();
+        boolean active = this.getActive();
+        
+        
+        this.ballista = new Ballista("", shots,  projectileSpeed, positionx, positiony,active,false,direction);
+    }
+
+    @Override
+    void setPositionX(int positionX) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void setPositionY(int positionY) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void setActive(boolean active) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void move(String direction) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    boolean checkCollision(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
