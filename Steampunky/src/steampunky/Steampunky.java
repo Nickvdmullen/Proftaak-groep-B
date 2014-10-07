@@ -6,6 +6,8 @@
 
 package steampunky;
 
+import classes.Server;
+
 /**
  *
  * @author Melanie
@@ -16,7 +18,8 @@ public class Steampunky {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+          Server a = new Server();
+          a.createUser("afsdaf", "Kat");
     }
     
 }

@@ -24,6 +24,7 @@ public class Lobby
     private User admin;
     private List<User> spectators;
     private List<User> players;
+    private List<Game> games;
     private int ratingDifference;
     private Game game;
 
@@ -42,18 +43,31 @@ public class Lobby
         this.admin = addedByUser;
         this.spectators = new ArrayList<>();
         this.players = new ArrayList<>();
+        this.games = new ArrayList<>();
     }
 
     //**********************methoden****************************************
     public boolean checkPassword(String password)
     {
-        //todo
-        return false;
+        if(this.password.equals(password))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public boolean createGame(double timelimit, int botDifficulty, String level, int rounds)
     {
-        //todo
+                //todo
+        if(timelimit != 0 && botDifficulty != 0 && level != null && rounds != 0)
+        {
+        games.add(game = new Game(timelimit,botDifficulty,rounds));
+        return true;
+        }
+      
         return false;
     }
 }
