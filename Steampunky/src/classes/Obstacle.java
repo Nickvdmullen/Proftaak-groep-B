@@ -6,6 +6,8 @@
 
 package classes;
 
+import java.util.ArrayList;
+
 /**
  * OK
  * @author Melanie
@@ -13,28 +15,44 @@ package classes;
 public class Obstacle extends Object
 {
     //************************datavelden*************************************
+    private int interfaceID;
     private int obstacleID = 1;
     
     private boolean active;
     private boolean movable;
-    
+       
     private final String type;
     private boolean broken;
+    
+    ArrayList<Integer> obstacleIDs = new ArrayList<>();
     
     //***********************constructoren***********************************
     /**
      * creates an obstacle with ...
+     * @param interfaceID
      * @param type
      * @param broken
+     * @param active
+     * @param movable
      */
     public Obstacle(String type, boolean broken, int posX, int posY, boolean active, boolean movable)
     {
-        super(posX, posY, active, movable);
+        super(posX, posY, active, movable, null);
+        
+        interfaceID = super.getInterfaceID();
+        if (interfaceID == 0) {
+            throw new IllegalArgumentException("interfaceID en obstacleID mogen niet 0 zijn");
+        }
+        
+        if (obstacleIDs.contains(obstacleID)) {
+            throw new IllegalArgumentException("het obstacleID bestaat al");
+        }
         
         this.type = type;
         this.broken = broken;
         
-        this.obstacleID++;
+        this.obstacleID = interfaceID;
+        obstacleIDs.add(obstacleID);
     }
 
     //**********************methoden****************************************
@@ -55,46 +73,36 @@ public class Obstacle extends Object
 
     @Override
     public int getInterfaceID() {
-        return obstacleID;
+        return super.getInterfaceID();
     }
 
     @Override
     public int getPositionX() {
-        return this.getPositionX();
+        return super.getPositionX();
     }
 
     @Override
     public int getPositionY() {
-        return this.getPositionY();
+        return super.getPositionY();
     }
 
     @Override
     public boolean getActive() {
-        return this.getActive();
+        return this.active;
     }
-
+    
     @Override
-    public void setPositionX(int positionX) {
-        setPositionX(positionX);
+    public void setPositionX(int PositionX) {
+        super.setPositionX(PositionX);
     }
-
+    
     @Override
-    public void setPositionY(int positionY) {
-        setPositionY(positionY);
+    public void setPositionY(int PositionY) {
+        super.setPositionY(PositionY);
     }
-
+    
     @Override
-    public void setActive(boolean active) {
-        setActive(active);
-    }
-
-    @Override
-    public void move(String direction) {
-        //doesn't need to be implemented
-    }
-
-    @Override
-    public boolean checkCollision(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

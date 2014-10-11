@@ -6,6 +6,8 @@
 
 package classes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Melanie
@@ -19,6 +21,7 @@ public abstract class Object
     private int positionY;
     private boolean active;
     private boolean movable;
+    private Direction direction;
     
     //***********************constructoren***********************************
     /**
@@ -29,27 +32,23 @@ public abstract class Object
      * @param Movable
      */
 
-    public Object(int X, int Y, boolean Active, boolean Movable) 
+    public Object(int X, int Y, boolean Active, boolean Movable, Direction direction) 
     {
         //todo (vraag)
         this.positionX = X;
         this.positionY = Y;
         this.active = Active;
         this.movable = Movable;
+        
+        this.direction = direction;
+        
+        if (!movable) {
+            this.direction = null;
+        }
+        
         interfaceID++;
     }
 
-    //**********************methoden****************************************
-    
-    public Object(int interfaceId, int positionX, int positionY, boolean active, boolean movable)
-    {
-        //todo (vraag)
-        this.interfaceID = interfaceId;
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.active = active;
-        this.movable = movable;
-    }
 
     //**********************methoden****************************************
     public int getInterfaceID()
@@ -70,5 +69,61 @@ public abstract class Object
     public boolean getActive()
     {
         return active;
+    }
+    
+    public void setPositionX(int PositionX) {
+        this.positionX = PositionX;
+    }
+    
+    public void setPositionY(int PositionY) {
+        this.positionY = PositionY;
+    }
+    
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+    
+    public void move(Direction direction) {
+        if (movable) {
+            if(direction == direction.Right)
+            {
+                positionX++;
+            }
+            else if(direction == direction.Left)
+            {
+                positionX--;
+            }
+            else if(direction == direction.Up)
+            {
+                positionY++;
+            }
+            else
+            {
+                positionY--;
+            }
+        }
+        else {
+            System.out.println("Kan unmovable object niet bewegen");
+        }
+    }
+    
+    public Object checkCollision(ArrayList<Object> objects) {
+        int tempPositionX = this.getPositionX();
+        int tempPositionY = this.getPositionY();
+        Object hitObject = null;
+                
+        for(Object nxtObject : objects)
+        {
+            int oPositionX = nxtObject.getPositionX();
+            int oPositionY = nxtObject.getPositionY();
+            
+            if((tempPositionX == oPositionX) && (tempPositionY == oPositionY))
+            {
+                hitObject = nxtObject;
+                break;
+            }
+            
+        }
+        return hitObject;
     }
 }
