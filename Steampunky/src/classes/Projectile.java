@@ -71,6 +71,11 @@ public class Projectile extends Object
         return this.direction;
     }
     
+    public int getID()
+    {
+        return this.projectileID;
+    }
+    
     /**
      * An method to check if the next Position of this projectile will collide with another object.
      * @param objects   An list of all object currently in the game.
