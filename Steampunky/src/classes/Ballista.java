@@ -6,8 +6,6 @@
 
 package classes;
 
-import java.util.*;
-
 /**
  * OK
  * @author Nick van der Mullen
@@ -40,7 +38,10 @@ public class Ballista extends Object
     **/
     public Ballista(String type, int shots, double projectileSpeed,int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
-        super(positionX,positionY,movable,direction,active);
+        super(positionX,positionY,movable,active,direction);
+        
+        if(!movable && type != null || !type.isEmpty())
+        {        
         this.ballistaID = this.nextBallistaID;
         this.nextBallistaID++;
         this.ballistaType = type;
@@ -49,27 +50,26 @@ public class Ballista extends Object
         this.shotsShot = 0;
         this.projectileSpeed = projectileSpeed;
         
-        while(shotsShot < shots)
-        {
-            if(direction == Direction.Up || this.direction == Direction.Down)
+            while(shotsShot < shots)
             {
-                createProjectile(Direction.Up);
-                createProjectile(Direction.Down);
-                createProjectile(Direction.Left);
-                createProjectile(Direction.Right);
-                shotsShot += 4;
+                if(direction == Direction.Up || this.direction == Direction.Down)
+                {
+                    createProjectile(Direction.Up);
+                    createProjectile(Direction.Down);
+                    createProjectile(Direction.Left);
+                    createProjectile(Direction.Right);
+                    shotsShot += 4;
+                }
+                else
+                {
+                    createProjectile(Direction.Left);
+                    createProjectile(Direction.Right); 
+                    createProjectile(Direction.Up);
+                    createProjectile(Direction.Down);
+                    shotsShot += 4;
+                }
             }
-            else
-            {
-                createProjectile(Direction.Left);
-                createProjectile(Direction.Right); 
-                createProjectile(Direction.Up);
-                createProjectile(Direction.Down);
-                shotsShot += 4;
-            }
-
         }
-        
     }
 
     //**********************methoden****************************************
@@ -83,6 +83,10 @@ public class Ballista extends Object
         return this.ballistaID;
     }
     
+    public String getType()
+    {
+        return this.ballistaType;
+    }
     /**
      * The getter of shots.
      * @return  Returns an integer with the amount of shots the Ballista can fire.
@@ -96,7 +100,7 @@ public class Ballista extends Object
      * An Method that creates a projectile with the given direction.
      * @param direction     The direction the projectile will go.
      */
-    public void createProjectile(Direction direction)
+    private void createProjectile(Direction direction)
     {            
             Projectile newProjectile = new Projectile(this.ballistaType,this.projectileSpeed,this.getPositionX(),this.getPositionY(),false,false,direction);            
     }

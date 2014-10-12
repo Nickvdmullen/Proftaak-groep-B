@@ -33,7 +33,7 @@ public class Character extends Object
     public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
              int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
-        super(0, positionX, positionY, active, movable);
+        super(positionX, positionY, active, movable,direction);
         this.characterID = characterID;
         this.score = score;
         this.speed = speed;
