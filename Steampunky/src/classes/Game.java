@@ -18,7 +18,7 @@ public class Game
     private int[] grid;
     private int botDifficulty;
     private double timer;
-    private double totalTime;
+    private double totalTime; //in seconds
     private int totalRounds;
     private int round;
     private List<Level> levels;
@@ -32,7 +32,9 @@ public class Game
     {
         this.botDifficulty = botDifficulty;
         this.totalTime = timelimit;
+        this.timer = 0;
         this.totalRounds = rounds;
+        this.round = 1;        
         
         this.levels = new ArrayList<>();
         this.objects = new ArrayList<>(); 
@@ -79,6 +81,12 @@ public class Game
         return null;
     }
     
+    public List<Level> getLevels()
+    {
+        //todo
+        return null;
+    }
+    
     public boolean setBotDifficulty(int difficulty)
     {
         //todo
@@ -99,6 +107,11 @@ public class Game
     public void setObjectInGrid(Object object)
     {
         //todo
+    }
+    
+    public void addLevel(Level level)
+    {
+        levels.add(level);
     }
     
     public void ChooseLevel(int round)
