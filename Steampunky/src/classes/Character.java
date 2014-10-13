@@ -27,7 +27,6 @@ public class Character extends Object
     private List<PowerUp> powerups;
     private User user;
     
-
     //***********************constructoren***********************************
     /**
      * creates a character with ...
@@ -38,13 +37,20 @@ public class Character extends Object
     {        
         //todo
         super(positionX, positionY, active, movable,direction);
+        if(dead == true)
+        {
+            throw new IllegalArgumentException("bij maken een nieuw character mag dead niet true zijn");
+        }
         this.characterID = characterID;
         this.score = score;
         this.speed = speed;
         this.dead = dead;
         this.maxBallistae = maxBalista;
         this.torchLight = torch;
-        this.direction = direction;    
+        this.direction = direction; 
+        if (!movable) {
+            this.direction = null;
+        }
         ballistaes = new ArrayList<>();
         powerups = new ArrayList<>();
     }

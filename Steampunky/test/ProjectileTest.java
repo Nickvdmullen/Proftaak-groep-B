@@ -25,7 +25,9 @@ public class ProjectileTest {
    private Projectile thirdProjectile;
    
     @Before
-    public void setUp() {
+    public void setUp() 
+    {
+        //Setup for testing, making objects,making lists, adding objects to the list
         firstProjectile = new Projectile("normal",1,19,19,true,true,Direction.Left);
         secondProjectile = new Projectile("normal",1,19,19,true,true,Direction.Left);
         thirdProjectile = new Projectile(null,1,19,19,true,true,Direction.Left);
@@ -36,6 +38,10 @@ public class ProjectileTest {
     
     
     @Test
+    //First test: check if constructor works.
+    //Second test: setup for autoincrement test
+    //Third test: check if autoincrement works
+    //Fourth test: check if you can input null where it shouln't be possible
     public void testProjectile()
     {
         assertEquals("invalid Values",1, (int)firstProjectile.getSpeed());
@@ -45,6 +51,7 @@ public class ProjectileTest {
     }
     
     @Test
+    //Test all 3 getters
     public void testGetters()
     {
         assertEquals("invalid Values",1, (int)firstProjectile.getSpeed());
@@ -53,6 +60,7 @@ public class ProjectileTest {
     }
     
     @Test
+    //Test if putting 2 objects at the same positionX and positionY throws an error
     public void TestCollision()
     {
     

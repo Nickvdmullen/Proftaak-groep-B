@@ -15,8 +15,8 @@ import java.util.*;
 public class Projectile extends Object
 {
     //************************datavelden*************************************
-    private Integer projectileID ;
-    private Integer nextProjectileID = 1;
+    private int projectileID;
+    private int nextProjectileID = 1;
     private String type;
     private double speed;
     private Direction direction;

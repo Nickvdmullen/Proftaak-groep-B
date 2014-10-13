@@ -21,13 +21,16 @@ public class BallistaTest {
     private Ballista secondBallista;
     
     @Before
-    public void setUp() {
-        
+    public void setUp() 
+    {
+    // constructor setup
     firstBallista = new Ballista("normal",4,1,10,10,true,false,Direction.Left);
     secondBallista = new Ballista(null,7,2,10,10,true,false,Direction.Right);
     }
     
     @Test
+    //First test is to check if constructor is working
+    //Second test is to check whether you can input null where it shouldn't be possible
     public void testBallista()
     {
         assertEquals("invalid input",firstBallista.getShots(),4);
@@ -35,6 +38,7 @@ public class BallistaTest {
     }
     
     @Test
+    //Test all 3 getters
     public void testGetters()
     {
         assertEquals("invalid value",firstBallista.getBallistaID(),1);

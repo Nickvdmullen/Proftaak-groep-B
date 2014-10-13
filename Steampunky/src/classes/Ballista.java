@@ -40,33 +40,36 @@ public class Ballista extends Object
     {
         super(positionX,positionY,movable,active,direction);
         
-        if(!movable && type != null || !type.isEmpty())
+        if(!movable && type != null)
         {        
-        this.ballistaID = this.nextBallistaID;
-        this.nextBallistaID++;
-        this.ballistaType = type;
-        this.direction = direction;
-        this.shots = shots;
-        this.shotsShot = 0;
-        this.projectileSpeed = projectileSpeed;
-        
-            while(shotsShot < shots)
+            if(!type.isEmpty())
             {
-                if(direction == Direction.Up || this.direction == Direction.Down)
+                this.ballistaID = this.nextBallistaID;
+                this.nextBallistaID++;
+                this.ballistaType = type;
+                this.direction = direction;
+                this.shots = shots;
+                this.shotsShot = 0;
+                this.projectileSpeed = projectileSpeed;
+
+                while(shotsShot < shots)
                 {
-                    createProjectile(Direction.Up);
-                    createProjectile(Direction.Down);
-                    createProjectile(Direction.Left);
-                    createProjectile(Direction.Right);
-                    shotsShot += 4;
-                }
-                else
-                {
-                    createProjectile(Direction.Left);
-                    createProjectile(Direction.Right); 
-                    createProjectile(Direction.Up);
-                    createProjectile(Direction.Down);
-                    shotsShot += 4;
+                    if(direction == Direction.Up || this.direction == Direction.Down)
+                    {
+                        createProjectile(Direction.Up);
+                        createProjectile(Direction.Down);
+                        createProjectile(Direction.Left);
+                        createProjectile(Direction.Right);
+                        shotsShot += 4;
+                    }
+                    else
+                    {
+                        createProjectile(Direction.Left);
+                        createProjectile(Direction.Right); 
+                        createProjectile(Direction.Up);
+                        createProjectile(Direction.Down);
+                        shotsShot += 4;
+                    }
                 }
             }
         }
