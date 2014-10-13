@@ -43,6 +43,10 @@ public class User
      */
     public User(int userID, String username, String password, int rating, int wins, int losses)
     {
+        if(wins <0 ||losses <0 || rating <0)
+        {
+             throw new IllegalArgumentException("geen negatieve wins, losses of rating");
+        }
         this.userID = userID;
         this.username = username;
         this.password = password;
