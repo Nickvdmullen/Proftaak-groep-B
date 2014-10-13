@@ -19,15 +19,38 @@ public class PowerUp extends Object
     private String name;
     private String type;
     private String description;
+    private String imgURL;
     private boolean available;
 
     //***********************constructoren***********************************
     /**
      * creates a powerup with ...
      */
-    public PowerUp()
+    public PowerUp(String name,String type,String description,boolean available,int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {
-        //todo
+        super(positionX,positionY,active,movable,direction);
+        
+        if((name != null) || (type != null) || (description != null))
+        {
+            if(!name.isEmpty() && !type.isEmpty() && !description.isEmpty())
+            {
+            this.name = name;
+            this.type = type;
+            this.description = description;
+
+            switch (type)
+                {
+                    case "runspeed"     : this.imgURL = "powerup01";
+                                          break;
+                    case "torch"        : this.imgURL = "powerup02";
+                                          break;
+                    case "shield"       : this.imgURL = "powerup03";
+                                          break;
+                    case "projectile"   : this.imgURL = "powerup03";
+                                          break;
+                }
+            }
+        }
     }
 
     //**********************methoden****************************************
