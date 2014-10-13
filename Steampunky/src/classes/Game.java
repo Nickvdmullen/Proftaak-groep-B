@@ -22,7 +22,8 @@ public class Game
     private int totalRounds;
     private int round;
     private List<Level> levels;
-    private List<Objects> objects;
+    private List<Object> objects;
+    private boolean gameEnd;
 
     //***********************constructoren***********************************
     /**
@@ -43,14 +44,13 @@ public class Game
     //**********************methoden****************************************
     public Object getGrid(Object[] position)
     {
-        //todo
+        //todo???
         return null;
     }
     
     public int getBotDifficulty()
     {
-        //todo
-        return 0;
+        return this.botDifficulty;
     }
     
     public int getTotalRounds()
@@ -60,7 +60,6 @@ public class Game
     
     public int getCurrentRound()
     {
-        //todo
         return this.round;
     }
     
@@ -71,37 +70,40 @@ public class Game
     
     public double getCurrentTime()
     {
-        //todo
         return this.timer;
     }
     
     public List<Object> getCharacters()
     {
-        //todo
-        return null;
+        return this.objects;
     }
     
     public List<Level> getLevels()
     {
-        //todo
-        return null;
+        return this.levels;
+    }
+    
+    public boolean getGameEnd()
+    {
+        return this.gameEnd;
     }
     
     public boolean setBotDifficulty(int difficulty)
     {
-        //todo
         this.botDifficulty = difficulty;
+        
+        //Check if this botDifficulty isn't to low or to high???
         return false;
     }
     
-    public void setCurrentRound(int round)
+    public void addLevel(Level level)
     {
-        this.round = round;
+        this.levels.add(level);
     }
     
-    public void setCurrentTime(double timer)
+    public void addObject(Object object)
     {
-        this.timer = timer;
+        this.objects.add(object);
     }
     
     public void setObjectInGrid(Object object)
@@ -109,13 +111,17 @@ public class Game
         //todo
     }
     
-    public void addLevel(Level level)
+    public void setGameEnd(boolean isEnded)
     {
-        levels.add(level);
-    }
-    
-    public void ChooseLevel(int round)
-    {
-        //todo
-    }
+        if (isEnded)
+        {
+            this.gameEnd = true;
+            
+            //Ga naar de volgende ronde mits die er is
+            if (this.round < this.totalRounds)
+            {
+                this.round++;
+            }
+        }
+    }    
 }
