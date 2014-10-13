@@ -22,8 +22,12 @@ public class Level
 
     //***********************constructoren***********************************
     /**
-     * creates a level with height, width, texture and name
-     */
+    * Constructor of Level
+    * @param height     The height of the level
+    * @param width      The width of the level
+    * @param texture    The texture to be used as background image
+    * @param name       The name of the level
+    */
     public Level(int height, int width, String texture, String name)
     {
         this.height = height;
@@ -36,26 +40,47 @@ public class Level
     }
 
     //**********************methoden****************************************
+    
+    /**
+     * Getter of LevelID
+     * @return  an int with the levelID
+     */
     public int getLevelID()
     {
         return this.levelID;
     }
     
+    /**
+     * Getter of Height
+     * @return an int with the height of the level
+     */
     public int getHeight()
     {
         return this.height;
     }
     
+    /**
+     * Getter of Width
+     * @return return the width of the level
+     */
     public int getWidth()
     {
         return this.width;
     }
     
+    /**
+     * Getter of Texture
+     * @return a String that has the location of the texture
+     */
     public String getTexture()
     {
         return this.texture;
     }
     
+    /**
+     * Gettter of Name
+     * @return a String with the name of the level
+     */
     public String getName()
     {
         return this.name;
