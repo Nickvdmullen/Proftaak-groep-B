@@ -21,6 +21,11 @@ public class User
     private int rating;
     private int wins;
     private int losses;
+    //relaties
+    private Character character;
+    private Lobby playerLobby;
+    private Lobby spectatorLobby;
+    private Lobby adminLobby;  
 
     //***********************constructoren***********************************
     /**

@@ -22,7 +22,10 @@ public class Character extends Object
     private int maxBallistae;
     private int torchLight;
     private Direction direction;
-    private Ballista ballista;
+    //relaties
+    private List<Ballista> ballistaes;
+    private List<PowerUp> powerups;
+    private User user;
     
 
     //***********************constructoren***********************************
@@ -32,7 +35,8 @@ public class Character extends Object
 
     public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
              int positionX,int positionY,boolean active,boolean movable,Direction direction)
-    {
+    {        
+        //todo
         super(positionX, positionY, active, movable,direction);
         this.characterID = characterID;
         this.score = score;
@@ -40,15 +44,15 @@ public class Character extends Object
         this.dead = dead;
         this.maxBallistae = maxBalista;
         this.torchLight = torch;
-        this.direction = direction;
-        //todo
-        
+        this.direction = direction;    
+        ballistaes = new ArrayList<>();
+        powerups = new ArrayList<>();
     }
 
     //**********************methoden****************************************
     public int getCharacterID()
     {
-        return this.getCharacterID();
+        return this.characterID;
     }
     
     public double getSpeed()
@@ -107,33 +111,7 @@ public class Character extends Object
         int positionx = this.getPositionX();
         int positiony = this.getPositionY();
         boolean active = this.getActive();
-        
-        
-        this.ballista = new Ballista("", shots,  projectileSpeed, positionx, positiony,active,false,direction);
-    }
-
-    @Override
-    void setPositionX(int positionX) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    void setPositionY(int positionY) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    void setActive(boolean active) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    void move(String direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    boolean checkCollision(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            
+        ballistaes.add(new Ballista("", shots,  projectileSpeed, positionx, positiony,active,false,direction));
     }
 }
