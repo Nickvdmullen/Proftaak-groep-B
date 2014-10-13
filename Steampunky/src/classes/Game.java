@@ -138,28 +138,13 @@ public class Game
         return false;
     }
     
-<<<<<<< HEAD
+
     public void addLevel(Level level)
-=======
-    /**
-     * Setter of CurrentRound
-     * @param round  the current round
-     */
-    public void setCurrentRound(int round)
->>>>>>> origin/master
     {
         this.levels.add(level);
     }
     
-<<<<<<< HEAD
     public void addObject(Object object)
-=======
-    /**
-     * Setter of CurrentTime
-     * @param timer  the current time
-     */
-    public void setCurrentTime(double timer)
->>>>>>> origin/master
     {
         this.objects.add(object);
     }
@@ -173,24 +158,7 @@ public class Game
         //todo
     }
     
-<<<<<<< HEAD
     public void setGameEnd(boolean isEnded)
-=======
-    /**
-     * Method to add a new level
-     * @param level     Level to be added
-     */
-    public void addLevel(Level level)
-    {
-        levels.add(level);
-    }
-    
-    /**
-     * Method to manualy choose which level is next
-     * @param round     the int value of the level you have selected
-     */
-    public void ChooseLevel(int round)
->>>>>>> origin/master
     {
         if (isEnded)
         {
