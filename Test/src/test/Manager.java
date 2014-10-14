@@ -21,8 +21,7 @@ public class Manager
     
     public Manager(Game game)
     {
-        //this.game = game;
-        this.game = new Game(9, 9);
+        this.game = game;
     }
     
     public void setUp()
