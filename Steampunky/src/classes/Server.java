@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package classes;
 
 import java.sql.Connection;
@@ -15,10 +14,11 @@ import java.util.*;
 
 /**
  * OK
- * @author Melanie
+ *
+ * @author Bart
  */
-public class Server
-{
+public class Server {
+
     //************************datavelden*************************************
     private List<User> users;
     private List<Lobby> lobbies;
@@ -28,158 +28,131 @@ public class Server
     //***********************constructoren***********************************
     /**
      * creates a server with ...
-     * 
+     *
      */
-    private Server()
-    {
+    private Server() {
         this.users = new ArrayList<>();
         this.lobbies = new ArrayList<>();
     }
 
-    public void Connectionstring()
-    {
-        try
-        {
-        con = DriverManager.getConnection("jdbc:oracle:thin:@fhictora01.fhict.local:1521:fhictora", "dbi291539", "H96K7hR65A");
-        }
-        
-        catch(Exception ex)
-        {
+    public void Connectionstring() {
+        try {
+            con = DriverManager.getConnection("jdbc:oracle:thin:@fhictora01.fhict.local:1521:fhictora", "dbi291539", "H96K7hR65A");
+        } catch (Exception ex) {
             System.out.println("Geen verbinding met database mogelijk: " + ex);
         }
     }
+
     //**********************methoden****************************************
-    public boolean createUser(String username, String password)
-    {
+    public boolean createUser(String username, String password) {
         boolean adduser = true;
-        try
-        {
-        Connectionstring();
-        System.out.println("Verbing maken is geslaagd voor add user");
-        Statement stat = con.createStatement();
-        String queryread = "SELECT NAAM FROM USERS";
-        ResultSet rs = stat.executeQuery(queryread);
-        while
-                (rs.next())
-                {     
-                    if(rs.getString("Naam").equals(username))
-                    {
+        try {
+            Connectionstring();
+            System.out.println("Verbing maken is geslaagd voor add user");
+            Statement stat = con.createStatement();
+            String queryread = "SELECT NAAM FROM USERS";
+            ResultSet rs = stat.executeQuery(queryread);
+            while (rs.next()) {
+                if (rs.getString("Naam").equals(username)) {
                     adduser = false;
                     System.out.println("Dubbele gebruiker gevonden");
-                    }
                 }
-        }
-        catch(Exception ex)
-        {
+            }
+        } catch (Exception ex) {
             System.out.println("Dubbele gebruiker gevonden" + ex);
             return false;
         }
-  
-        if(adduser == true)
-        {
-            try
-            {
-            Connectionstring();
-            String querywrite = "INSERT INTO USERS VALUES (2,?,?)";
-            PreparedStatement stat2 = con.prepareStatement(querywrite);
-            stat2.setString(1, username);
-            stat2.setString(2, password);
-            stat2.execute();
-            System.out.println("Aanmaken van de user is gelukt: ");
-            return true;
+
+        if (adduser == true) {
+            try {
+                Connectionstring();
+                String querywrite = "INSERT INTO USERS VALUES (2,?,?)";
+                PreparedStatement stat2 = con.prepareStatement(querywrite);
+                stat2.setString(1, username);
+                stat2.setString(2, password);
+                stat2.execute();
+                System.out.println("Aanmaken van de user is gelukt: ");
+                return true;
+            } catch (Exception ex) {
+                System.out.println("Aanmaken van de user is milsukt: " + ex);
+                return false;
             }
-        catch(Exception ex)
-        {
-            System.out.println("Aanmaken van de user is milsukt: " + ex);
-            return false;
-        }
         }
         return false;
     }
-    
-    public boolean loginUser(String username, String password)
-    {       
-        try
-        {
-        Connectionstring();
-        System.out.println("Verbing maken is geslaagd voor het in loggen van de user");
-        String queryread = "SELECT NAAM,WACHTWOORD FROM USERS";
-        PreparedStatement stat2 = con.prepareStatement(queryread);
-        ResultSet rs = stat2.executeQuery();    
-        while
-                (rs.next())
-                {     
-                    if(rs.getString("NAAM").equals(username) && rs.getString("WACHTWOORD").equals(password))
-                    {
+
+    public boolean loginUser(String username, String password) {
+        try {
+            Connectionstring();
+            System.out.println("Verbing maken is geslaagd voor het in loggen van de user");
+            String queryread = "SELECT NAAM,WACHTWOORD FROM USERS";
+            PreparedStatement stat2 = con.prepareStatement(queryread);
+            ResultSet rs = stat2.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("NAAM").equals(username) && rs.getString("WACHTWOORD").equals(password)) {
                     System.out.println("Gebruiker mag inloggen");
                     return true;
-                    }   
                 }
-        }
-        catch(Exception ex)
-        {
+            }
+        } catch (Exception ex) {
             System.out.println("Gebruiker niet gevonden" + ex);
             return false;
         }
-        System.out.println("Gebruiker mag niet inloggen"); 
+        System.out.println("Gebruiker mag niet inloggen");
         return false;
     }
-    
-    public boolean createLobby(String lobbyName, String password, User admin)
-    {
-        if(lobbyName != null && admin != null)
-        {
-        this.lobbies.add(new Lobby(lobbyName,admin,password));
-        return true;
+
+    public boolean createLobby(String lobbyName, String password, User admin) {
+        if (lobbyName != null && admin != null) {
+            this.lobbies.add(new Lobby(lobbyName, admin, password));
+            return true;
+        } else {
+            return false;
         }
-        else
-        {
-         return false;   
+    }
+
+    public boolean joinLobby(Lobby lobby, User user, String password) {
+        if (lobby.addUser(user)) {
+            return true;
         }
-        //password
-    }
-    
-    public boolean joinLobby(Lobby lobby, User user, String password)
-    {
-        //todo
-        //lobby.addUser(user);
         return false;
     }
-    
-    public boolean leaveLobby(Lobby lobby, User user)
-    {
-        //todo
+
+    public boolean leaveLobby(Lobby lobby, User user) {
+
+        if (lobby.removeUser(user) == 1) 
+        {
+            return true;
+        }
+        else if(lobby.removeUser(user) == -1)
+        {
+            this.lobbies.remove(lobby);
+            return true;
+        }
+
         return false;
     }
-    
-    public boolean deleteLobby(Lobby lobby)
-    {
+
+    public boolean deleteLobby(Lobby lobby) {
         Lobby templobby = null;
-        for(Lobby lobbylist : lobbies)
-        {
-            if(lobbylist == lobby)
-            {
+        for (Lobby lobbylist : lobbies) {
+            if (lobbylist == lobby) {
                 templobby = lobbylist;
             }
         }
-        if(templobby != null)
-        {
-        lobbies.remove(templobby);
-        return true;
+        if (templobby != null) {
+            lobbies.remove(templobby);
+            return true;
+        } else {
+            return false;
         }
-        else 
-        {
-          return false;  
-        } 
     }
-    
-    public static Server getServer()
-    {
-        if(server == null)
-        {
+
+    public static Server getServer() {
+        if (server == null) {
             server = new Server();
         }
-        //todo
+        
         return server;
     }
 }
