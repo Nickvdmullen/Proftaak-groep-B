@@ -15,7 +15,7 @@ import java.util.*;
 public class Game
 {
     //************************datavelden*************************************
-    private int[] grid;
+    private List<Position> grid;
     private int botDifficulty;
     private double timer;
     private double totalTime; //in seconds
@@ -47,13 +47,21 @@ public class Game
     //**********************methoden****************************************
     
     /**
-     * Getter of an object
-     * @param position      Position of the object
-     * @return              the object;
+     * gets a list of objects on the position with coordinates (x,y).
+     * @param x the x coordinate of the position.
+     * @param y the y coordinate of the position.
+     * @return the list of objects on the position(x,y), if there are no objects returns null.
      */
-    public Object getGrid(Object[] position)
+    public List<Object> getObjectsFromGrid(int x, int y)
     {
         //todo???
+        for (Position p : grid)
+        {
+            if(p.getX() == x && p.getY() == y)
+            {
+                return p.getObjects();
+            }
+        }
         return null;
     }
     
