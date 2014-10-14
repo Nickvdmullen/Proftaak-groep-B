@@ -151,8 +151,7 @@ public class Server {
     public static Server getServer() {
         if (server == null) {
             server = new Server();
-        }
-        
+        }      
         return server;
     }
 }
