@@ -47,7 +47,7 @@ public class CharacterTest {
     {
     assertEquals("id niet gelijk",test.getCharacterID(), 1);
     assertEquals("score niet gelijk", test.getScore(), 5);
-    assertEquals("speed niet gelijk", test.getSpeed(), 5.0);
+    assertEquals("speed niet gelijk", (int)test.getSpeed(), (int)5.0);
     assertEquals("boolean dead niet gelijk", test.getDead(), false);
     assertEquals("torch niet gelijk", test.getTorchRange(), 1);
     assertEquals("direction niet gelijk", test.getDirection(), Direction.Down);
@@ -60,7 +60,7 @@ public class CharacterTest {
         assertEquals("setter active werkt niet goed", test.getActive(), false);
         
         test.setDead(true);
-        assertEquals("setter dead werkt niet goed", test.getDead(), false);
+        assertEquals("setter dead werkt niet goed", test.getDead(), true);
         
         test.setDirection(Direction.Right);
         assertEquals("setter direction werkt niet goed", test.getDirection(), Direction.Right);
@@ -69,7 +69,7 @@ public class CharacterTest {
         assertEquals("setter score werkt niet goed", test.getScore(), 10);
         
         test.setSpeed(9.0);
-        assertEquals("setter speed werkt niet goed", test.getSpeed(), 9.0);
+        assertEquals("setter speed werkt niet goed", (int)test.getSpeed(), (int)9.0);
         
         test.setTorch(10);
         assertEquals("setter torch werkt niet goed", test.getTorchRange(), 10);

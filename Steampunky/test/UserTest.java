@@ -48,8 +48,17 @@ public class UserTest {
         assertEquals("userid niet coorect", test.getUserID(), 1);
         assertEquals("username niet coorect", test.getUsername(), "lotje");
         assertEquals("rating niet coorect", test.getRating(), 10);
+        String testen = "gefaald";
         int[] nieuw = new int []{0,9};
-        assertEquals("winlosses niet coorect", test.getWinLoss(), nieuw);
+        int[] oud = test.getWinLoss();
+        if(nieuw[0] == oud[0])
+        {
+            if(nieuw[1] == oud[1])
+            {
+                testen = "geslaagd";
+            }
+        }
+        assertEquals("winlosses niet correct", testen, "geslaagd");
     }
     @Test
     public void TestPassword()
