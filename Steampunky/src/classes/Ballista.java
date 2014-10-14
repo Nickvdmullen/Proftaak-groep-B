@@ -14,7 +14,6 @@ public class Ballista extends Object
 {    
     //************************datavelden*************************************
     private int ballistaID;
-    private int nextBallistaID = 1;
     private Direction direction;
     private String ballistaType;
     private int shots;
@@ -44,8 +43,8 @@ public class Ballista extends Object
         {        
             if(!type.isEmpty())
             {
-                this.ballistaID = this.nextBallistaID;
-                this.nextBallistaID++;
+                this.ballistaID = super.getInterfaceID();
+
                 this.ballistaType = type;
                 this.direction = direction;
                 this.shots = shots;

@@ -34,28 +34,7 @@ public class FullTestSuite {
         Result result = JUnitCore.runClasses(FullTestSuite.class);
         for (Failure failure : result.getFailures()) {
             System.out.println(failure.toString());
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
         }
         if (result.wasSuccessful()) {
             System.out.println("all tests were succesful");

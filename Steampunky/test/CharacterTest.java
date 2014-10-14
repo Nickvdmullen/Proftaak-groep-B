@@ -32,7 +32,7 @@ public class CharacterTest {
     
     @Before
     public void setUp() {
-        test = new Character(1, 5, 5.0 , false, 1, 1, 1, 1, true, true, Direction.Down);
+        test = new Character(5, 5.0 , false, 1, 1, 1, 1, true, true, Direction.Down);
     }
     
     @After
@@ -78,6 +78,6 @@ public class CharacterTest {
     @Test  (expected = IllegalArgumentException.class)
     public void TestFoutiveInvoer()
     {
-        Character nieuw = new Character(1, 5, 5.0 , true, 1, 1, 1, 1, true, true, Direction.Down);
+        Character nieuw = new Character(5, 5.0 , true, 1, 1, 1, 1, true, true, Direction.Down);
     }
 }

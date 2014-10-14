@@ -43,6 +43,7 @@ public class PowerUp extends Object
         {
             if(!name.isEmpty() && !type.isEmpty() && !description.isEmpty())
             {
+            this.powerUpID = super.getInterfaceID();
             this.name = name;
             this.type = type;
             this.description = description;

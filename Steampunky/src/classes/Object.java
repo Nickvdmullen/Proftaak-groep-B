@@ -16,7 +16,7 @@ public abstract class Object
 {
     //************************datavelden*************************************
 
-    private int interfaceID = 1;
+    private int interfaceID = 0;
     private int positionX;
     private int positionY;
     private boolean active;
@@ -46,7 +46,7 @@ public abstract class Object
             this.direction = null;
         }
         
-        interfaceID++;
+        this.interfaceID++;
     }
 
 

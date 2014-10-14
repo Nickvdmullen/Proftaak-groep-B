@@ -32,7 +32,7 @@ public class Character extends Object
      * creates a character with ...
      */
 
-    public Character(int characterID, int score, double speed, boolean dead, int maxBalista, int torch,
+    public Character(int score, double speed, boolean dead, int maxBalista, int torch,
              int positionX,int positionY,boolean active,boolean movable,Direction direction)
     {        
         //todo
@@ -41,7 +41,7 @@ public class Character extends Object
         {
             throw new IllegalArgumentException("bij maken een nieuw character mag dead niet true zijn");
         }
-        this.characterID = characterID;
+        this.characterID = super.getInterfaceID();
         this.score = score;
         this.speed = speed;
         this.dead = dead;

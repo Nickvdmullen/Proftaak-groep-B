@@ -16,7 +16,6 @@ public class Projectile extends Object
 {
     //************************datavelden*************************************
     private int projectileID;
-    private int nextProjectileID = 1;
     private String type;
     private double speed;
     private Direction direction;
@@ -35,11 +34,10 @@ public class Projectile extends Object
     {
         super(positionX,positionY,active,movable,direction);
         
-        this.projectileID = nextProjectileID;
+        this.projectileID = super.getInterfaceID();
         this.type = type;
         this.speed = speed;
         this.direction = direction;
-        this.nextProjectileID++;
     }
 
     //**********************methoden****************************************
