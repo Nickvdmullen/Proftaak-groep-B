@@ -17,10 +17,10 @@ public class Steampunky {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-          Server a = new Server();
-          a.createUser("Willem2", "Kat");
-          a.loginUser("Willem2", "Kat");
+    public static void main(String[] args) {       
+          Server server = Server.getServer();
+          server.createUser("Willem2", "Kat");
+          server.loginUser("Willem2", "Kat");
     }
     
 }

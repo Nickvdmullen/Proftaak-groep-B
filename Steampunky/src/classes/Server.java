@@ -23,17 +23,17 @@ public class Server
     private List<User> users;
     private List<Lobby> lobbies;
     private Connection con;
+    private static Server server = null;
 
     //***********************constructoren***********************************
     /**
      * creates a server with ...
      * 
      */
-    public Server()
+    private Server()
     {
         this.users = new ArrayList<>();
         this.lobbies = new ArrayList<>();
-        
     }
 
     public void Connectionstring()
@@ -173,9 +173,13 @@ public class Server
         } 
     }
     
-    public Server getServer()
+    public static Server getServer()
     {
+        if(server == null)
+        {
+            server = new Server();
+        }
         //todo
-        return null;
+        return server;
     }
 }
