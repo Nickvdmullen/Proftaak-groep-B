@@ -55,6 +55,7 @@ public class Server
         try
         {
         Connectionstring();
+        System.out.println("Verbing maken is geslaagd voor add user");
         Statement stat = con.createStatement();
         String queryread = "SELECT NAAM FROM USERS";
         ResultSet rs = stat.executeQuery(queryread);
@@ -84,6 +85,7 @@ public class Server
             stat2.setString(1, username);
             stat2.setString(2, password);
             stat2.execute();
+            System.out.println("Aanmaken van de user is gelukt: ");
             return true;
             }
         catch(Exception ex)
@@ -100,6 +102,7 @@ public class Server
         try
         {
         Connectionstring();
+        System.out.println("Verbing maken is geslaagd voor het in loggen van de user");
         String queryread = "SELECT NAAM,WACHTWOORD FROM USERS";
         PreparedStatement stat2 = con.prepareStatement(queryread);
         ResultSet rs = stat2.executeQuery();    
