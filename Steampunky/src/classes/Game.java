@@ -24,6 +24,7 @@ public class Game
     private List<Level> levels;
     private List<Object> objects;
     private boolean gameEnd;
+    private Level currentLevel;
 
     //***********************constructoren***********************************
     /**
@@ -127,7 +128,9 @@ public class Game
     {
         return this.levels;
     }
-    
+    public Level getCurrentLevel(){
+        return this.currentLevel;
+    }
     public boolean getGameEnd()
     {
         return this.gameEnd;
@@ -178,5 +181,18 @@ public class Game
                 this.round++;
             }
         }
-    }    
+    }
+    
+    public void startRound(){
+        /**
+         * this creates positions and puts them in the grid.
+         */
+        for(int y=1; y < this.getCurrentLevel().getHeight()+1; y++){
+            for(int x=1; x < this.getCurrentLevel().getWidth()+1; x++){
+                grid.add(new Position(x,y));
+            }
+        }
+        
+    }
+            
 }
