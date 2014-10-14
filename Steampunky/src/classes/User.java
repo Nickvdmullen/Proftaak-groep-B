@@ -23,9 +23,7 @@ public class User
     private int losses;
     //relaties
     private Character character;
-    private Lobby playerLobby;
-    private Lobby spectatorLobby;
-    private Lobby adminLobby;  
+    private Lobby currentLobby;
 
     //***********************constructoren***********************************
     /**
@@ -53,6 +51,7 @@ public class User
         this.rating = rating;
         this.wins = wins;
         this.losses = losses;
+        this.currentLobby = null;
     }
 
     //**********************methoden****************************************
@@ -97,5 +96,17 @@ public class User
     public void setPassword(String password)
     {
         this.password = password;
+    }
+    
+    public boolean joinLobby(Lobby lobby)
+    {
+        lobby.assignSlot(this);
+        this.currentLobby = lobby;
+    }
+    
+    public boolean leaveLobby(Lobby lobby)
+    {
+        lobby.removeUser(this);
+        this.currentLobby = null;
     }
 }
