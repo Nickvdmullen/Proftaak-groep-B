@@ -45,7 +45,6 @@ public class CharacterTest {
     @Test
     public void TestGetters() 
     {
-    assertEquals("id niet gelijk",test.getCharacterID(), 1);
     assertEquals("score niet gelijk", test.getScore(), 5);
     assertEquals("speed niet gelijk", (int)test.getSpeed(), (int)5.0);
     assertEquals("boolean dead niet gelijk", test.getDead(), false);
