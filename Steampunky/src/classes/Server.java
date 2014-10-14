@@ -139,6 +139,7 @@ public class Server
     public boolean joinLobby(Lobby lobby, User user, String password)
     {
         //todo
+        //lobby.addUser(user);
         return false;
     }
     
