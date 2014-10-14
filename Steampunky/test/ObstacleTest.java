@@ -22,7 +22,7 @@ public class ObstacleTest {
     Obstacle ob;
     
     public ObstacleTest() {
-        //empty
+        ob = new Obstacle("Obstacle", false, 10, 11, true, false);
     }
     
 
@@ -35,7 +35,7 @@ public class ObstacleTest {
     @Test
     public void testConstructor() {
         //interfaceID nr, type, broken, posX, posY, active, movable
-        ob = new Obstacle("Obstacle", false, 10, 11, true, false);
+        //ob = new Obstacle("Obstacle", false, 10, 11, true, false);
     }
     
     @Test
