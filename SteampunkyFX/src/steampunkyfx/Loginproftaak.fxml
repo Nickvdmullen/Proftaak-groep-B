@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="300.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<VBox prefHeight="300.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="steampunkyfx.SteampunkFXController">
   <children>
     <MenuBar fx:id="Menubar" VBox.vgrow="NEVER">
       <menus>
@@ -56,8 +56,8 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                    <Button id="Btexit" fx:id="BTExitlogin" layoutX="161.0" layoutY="123.0" mnemonicParsing="false" onAction="#Btloginexit" text="Exit" />
-                    <Button id="Btcreate" fx:id="BTloginuserlogin" layoutX="35.0" layoutY="123.0" mnemonicParsing="false" onAction="#BTloginuser" text="Login user" />
+                    <Button id="Btexit" fx:id="BTExitlogin" layoutX="161.0" layoutY="123.0" mnemonicParsing="false" text="Exit" />
+                    <Button id="Btcreate" fx:id="BTloginuserlogin" layoutX="35.0" layoutY="123.0" mnemonicParsing="false" text="Login user" />
                     <Label id="BtUsername" fx:id="LBUsernamelogin" layoutX="43.0" layoutY="45.0" text="Username" />
                     <Label id="Btwachtwoord" fx:id="LBWachtwoordlogin" layoutX="29.0" layoutY="76.0" text="Wachtwoord" />
                     <TextField id="TFUsername" fx:id="TFWachtwoordlogin" layoutX="115.0" layoutY="73.0" prefWidth="171.0" />
@@ -70,8 +70,8 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                    <Button id="Btexit" fx:id="BTExitcreate" layoutX="181.0" layoutY="145.0" mnemonicParsing="false" onAction="#btcreateexit" text="Exit" />
-                    <Button id="Btcreate" fx:id="BtCreatecreate" layoutX="38.0" layoutY="145.0" mnemonicParsing="false" onAction="#btcreatuser" text="Create user" />
+                    <Button id="Btexit" fx:id="BTExitcreate" layoutX="181.0" layoutY="145.0" mnemonicParsing="false" text="Exit" />
+                    <Button id="Btcreate" fx:id="BtCreatecreate" layoutX="38.0" layoutY="145.0" mnemonicParsing="false" text="Create user" />
                     <Label id="BtUsername" fx:id="LBUsernamecreate" layoutX="39.0" layoutY="39.0" text="Username" />
                     <Label id="Btwachtwoord" fx:id="LBWachtwoordcreate" layoutX="39.0" layoutY="76.0" text="Wachtwoord" />
                     <TextField id="TFUsername" fx:id="TFUsernamecreate" layoutX="116.0" layoutY="39.0" prefWidth="171.0" />
