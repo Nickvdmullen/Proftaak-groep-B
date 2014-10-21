@@ -25,13 +25,6 @@ import javafx.stage.Stage;
  */
 public class SteampunkFXController implements Initializable
 {
-    //MENUs en TABs
-    @FXML MenuBar Menubar;
-    @FXML MenuItem MIfile;
-    @FXML MenuItem MIedit;
-    @FXML Tab loginuser;
-    @FXML Tab Createuser;
-
     //Login user
     @FXML Button BTloginuserlogin;
     @FXML Button BTExitlogin;
@@ -98,7 +91,7 @@ public class SteampunkFXController implements Initializable
            }
            else
            {
-               System.out.println("user aanmaken mislukt");
+               System.out.println("user aanmaken mislukt user bestaat al");
            }
        }
     }
