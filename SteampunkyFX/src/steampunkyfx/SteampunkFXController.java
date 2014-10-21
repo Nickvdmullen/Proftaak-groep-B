@@ -6,6 +6,7 @@
 
 package steampunkyfx;
 
+import classes.Server;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,13 +25,12 @@ import javafx.stage.Stage;
  */
 public class SteampunkFXController implements Initializable
 {
-//MENUs en TABs
+    //MENUs en TABs
     @FXML MenuBar Menubar;
     @FXML MenuItem MIfile;
     @FXML MenuItem MIedit;
     @FXML Tab loginuser;
     @FXML Tab Createuser;
-
 
     //Login user
     @FXML Button BTloginuserlogin;
@@ -48,9 +48,58 @@ public class SteampunkFXController implements Initializable
     @FXML Label LBUsernamecreate;
     @FXML Label LBWachtwoordcreate;
 
+    private Server server;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        
+    public void initialize(URL location, ResourceBundle resources) 
+    {    
+        server = Server.getServer();
+    }
+    
+    @FXML
+    private void BTExitlogin()
+    {
+        Stage stage = (Stage) BTExitlogin.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void Btlogin() 
+    {
+       if(TFUsernamelogin.getText().isEmpty() && TFWachtwoordlogin.getText().isEmpty())
+       {
+           System.out.println("Wachtwoord en usernaam zijn niet correct");
+       }
+       else
+       {
+           if(server.loginUser(TFUsernamelogin.getText(), TFWachtwoordlogin.getText()))
+           {
+               System.out.println("longin succes");
+           }
+           else
+           {
+               System.out.println("login false");
+           }
+       }
+    }
+    
+    @FXML
+    private void BtCreatecreate() 
+    {
+       if(TFUsernamecreate.getText().isEmpty() && TFWachtwoordcreate.getText().isEmpty())
+       {
+           System.out.println("Wachtwoord en usernaam zijn niet correct");
+       }
+       else
+       {
+           if(server.createUser(TFUsernamecreate.getText(), TFWachtwoordcreate.getText()))
+           {
+               System.out.println("user aanmaken geslaagd");
+           }
+           else
+           {
+               System.out.println("user aanmaken mislukt");
+           }
+       }
     }
 }

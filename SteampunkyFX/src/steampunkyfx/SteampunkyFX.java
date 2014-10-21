@@ -24,11 +24,20 @@ public class SteampunkyFX extends Application {
     @Override
     public void start(Stage stage) throws Exception 
     {
-        Parent root = FXMLLoader.load(getClass().getResource("StamboomGUI.fxml"));
-        
+        Class<?> c;
+        c = this.getClass();
+        java.net.URL r = c.getResource("Loginproftaak.fxml");
+        Parent root = FXMLLoader.load(r);
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        
+//        Parent root = FXMLLoader.load(getClass().getResource("StamboomGUI.fxml"));
+//        
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
     }
     //werkt wel maar fxml gui niet?
 //    @Override
