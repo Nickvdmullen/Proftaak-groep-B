@@ -21,9 +21,11 @@ public class Bot
     private int difficulty;
 
     //***********************constructoren***********************************
-    /**
-     * creates a bot with ...
-     */
+/**
+ * Constructor of this class    
+ * @param name          The name of the Bot
+ * @param difficulty    The difficulty of the bot
+ */
     public Bot(String name, int difficulty)
     {
         this.name = name;
@@ -33,21 +35,38 @@ public class Bot
     }
 
     //**********************methoden****************************************
+    
+    /**
+     * The getter of BotID
+     * @return  an int with the botID
+     */
     public int getBotID()
     {
         return this.botID;
     }
     
+    /**
+     * Getter of name
+     * @return a String with the name of the bot
+     */
     public String getName()
     {
         return this.name;
     }
     
+    /**
+     * Getter of the Difficulty of the bot
+     * @return the difficulty of the bot
+     */
     public int getDifficulty()
     {
         return this.difficulty;
     }
     
+    /**
+     * The setter of the difficulty
+     * @param difficulty  an int with the new difficulty
+     */
     public void setDifficulty(int difficulty)
     {
         this.difficulty = difficulty;

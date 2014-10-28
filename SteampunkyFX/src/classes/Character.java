@@ -27,16 +27,24 @@ public class Character extends Object
     private List<PowerUp> powerups;
     private User user;
     
-    //***********************constructoren***********************************
     /**
-     * creates a character with ...
+     * The Constructor of Character
+     * @param score         The Score of the character
+     * @param speed         The speed with which the character can move.
+     * @param dead          A boolean for showing if the player is alive or dead
+     * @param maxBallista   An int of the maximum amount of ballista you can drop
+     * @param torch         An int of the value of visible area
+     * @param positionX     
+     * @param positionY
+     * @param active        A boolean if the character is active or not
+     * @param movable       A boolean if the character can move or not 
+     * @param direction     A Direction to which the character is moving
      */
-
-    public Character(int score, double speed, boolean dead, int maxBalista, int torch,
-             int positionX,int positionY,boolean active,boolean movable,Direction direction)
+    public Character(int score, double speed, boolean dead, int maxBallista, int torch,
+             Position position,boolean active,boolean movable,Direction direction)
     {        
         //todo
-        super(positionX, positionY, active, movable,direction);
+        super(position, active, movable,direction);
         if(dead == true)
         {
             throw new IllegalArgumentException("bij maken een nieuw character mag dead niet true zijn");
@@ -45,7 +53,7 @@ public class Character extends Object
         this.score = score;
         this.speed = speed;
         this.dead = dead;
-        this.maxBallistae = maxBalista;
+        this.maxBallistae = maxBallista;
         this.torchLight = torch;
         this.direction = direction; 
         if (!movable) {
