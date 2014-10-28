@@ -32,10 +32,10 @@ public class Test extends Application
     private Rectangle playfield;
     private TextField text1;
     private TextField text2;
-    private int maxX = 1860;
+    private int maxX = 1700;
     private int widthPixels;
     private int widthCubes;
-    private int maxY = 960;
+    private int maxY = 900;
     private int heightPixels;
     private int heightCubes;
     
@@ -54,52 +54,10 @@ public class Test extends Application
         //Create the scene
         Group root = new Group();
         Scene scene = new Scene(root, maxX, maxY);
-
-        //Indicate Form
-        text1 = new TextField("Width");
-        text1.setLayoutX(10);
-        text1.setLayoutY(10);
-        text1.setText(String.valueOf(widthPixels));
-        root.getChildren().add(text1);
-        
-        text2 = new TextField("Height");
-        text2.setLayoutX(210);
-        text2.setLayoutY(10);
-        text2.setText(String.valueOf(heightPixels));
-        root.getChildren().add(text2);
-        
-        Button but1 = new Button("Draw");
-        but1.setLayoutX(410);
-        but1.setLayoutY(10);
-        but1.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        widthPixels = Integer.parseInt(text1.getText());
-                        heightPixels = Integer.parseInt(text2.getText());
-                    }
-                });
-        root.getChildren().add(but1);
-        
-        /*ScrollBar s1 = new ScrollBar();
-        s1.setOrientation(Orientation.VERTICAL);
-        s1.setLayoutX(maxX - 20);
-        s1.setMax(maxY);
-        root.getChildren().add(s1);
-        
-        ScrollBar s2 = new ScrollBar();
-        s2.setOrientation(Orientation.HORIZONTAL);
-        s2.setLayoutY(maxY - 20);
-        s2.setMax(maxX);
-        root.getChildren().add(s2);*/
-        
-        //Indicate level        
-        
-        //root.getChildren().add(field);
         
         ScrollPane s1 = new ScrollPane();
-        s1.setLayoutX(100);
-        s1.setLayoutY(100);
+        s1.setLayoutX(50);
+        s1.setLayoutY(50);
         s1.setPrefSize(1600, 800);
         
         AnchorPane box = new AnchorPane();
@@ -119,28 +77,18 @@ public class Test extends Application
             box.getChildren().add(r);
         }
         
+        List<Rectangle> listBoxes = game.getBoxes();
+        for (Rectangle b : listBoxes)
+        {
+            box.getChildren().add(b);
+        }
+        
         root.getChildren().add(s1);
 
         // Define title and assign the scene for main window
         primaryStage.setTitle("Game test");
         primaryStage.setScene(scene);
-        primaryStage.show();
-
-        // Start thread to draw each 20 ms
-        threadDraw = new Thread(new DrawRunnable());
-        threadDraw.start();        
-    }
-    
-    private void update()
-    {
-        field.setWidth(widthPixels);
-        field.setHeight(heightPixels);
-    }
-    
-    @Override
-    public void stop()
-    {
-        threadDraw.interrupt();
+        primaryStage.show();        
     }
     
     /**
@@ -149,30 +97,5 @@ public class Test extends Application
     public static void main(String[] args)
     {
         launch(args);
-    }
-    
-    // Update circles each 20 ms
-    private class DrawRunnable implements Runnable
-    {
-        @Override
-        public void run()
-        {
-            try
-            {
-                while (true)
-                {
-                    Thread.sleep(20);
-                    Platform.runLater(new Runnable(){
-                        @Override
-                        public void run() {
-                            update();
-                        }
-                    });
-                }
-            } 
-            catch (InterruptedException ex)
-            {  
-            }
-        }
     }
 }
