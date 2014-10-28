@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +31,9 @@ import javafx.stage.Stage;
 public class SteampunkFXController extends Application implements Initializable
 {
     // Loginproftaak
+    @FXML Tab loginuser;
+    @FXML Tab Createuser;
+    @FXML TabPane Logintabs;
     //Login user
     @FXML Button BTloginuserlogin;
     @FXML Button BTExitlogin;
@@ -79,7 +83,7 @@ public class SteampunkFXController extends Application implements Initializable
     {
        if(TFUsernamelogin.getText().isEmpty() && TFWachtwoordlogin.getText().isEmpty())
        {
-           System.out.println("Wachtwoord en usernaam zijn niet correct");
+           JOptionPane.showMessageDialog(null,"Wachtwoord of usernaam is niet ingevuld");
        }
        else
        {
@@ -98,7 +102,7 @@ public class SteampunkFXController extends Application implements Initializable
            }
            else
            {
-               System.out.println("login false");
+               JOptionPane.showMessageDialog(null,"Wachtwoord of usernaam is niet correct");
            }
        }
     }
@@ -108,17 +112,18 @@ public class SteampunkFXController extends Application implements Initializable
     {
        if(TFUsernamecreate.getText().isEmpty() && TFWachtwoordcreate.getText().isEmpty())
        {
-           System.out.println("Wachtwoord en usernaam zijn niet correct");
+           JOptionPane.showMessageDialog(null,"Geen user of wachtwoord ingevuld");
        }
        else
        {
            if(server.createUser(TFUsernamecreate.getText(), TFWachtwoordcreate.getText()))
            {
-               System.out.println("user aanmaken geslaagd");
+               Logintabs.getSelectionModel().select(loginuser);
+               JOptionPane.showMessageDialog(null,"User is aangemaakt");
            }
            else
            {
-               System.out.println("user aanmaken mislukt user bestaat al");
+               JOptionPane.showMessageDialog(null,"Usernaam bestaat al in de database");
            }
        }
     }

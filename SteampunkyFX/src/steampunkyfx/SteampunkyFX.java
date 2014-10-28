@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -32,37 +33,12 @@ public class SteampunkyFX extends Application {
         Parent root = FXMLLoader.load(r);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("Steampunky");
+        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream( "icon.png" ))); 
         stage.show();
-        
-//        Parent root = FXMLLoader.load(getClass().getResource("StamboomGUI.fxml"));
-//        
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
     }
-    //werkt wel maar fxml gui niet?
-//    @Override
-//    public void start(Stage primaryStage) {
-//        Button btn = new Button();
-//        btn.setText("Say 'Hello World'");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("Hello World!");
-//            }
-//        });
-//        
-//        StackPane root = new StackPane();
-//        root.getChildren().add(btn);
-//        
-//        Scene scene = new Scene(root, 300, 250);
-//        
-//        primaryStage.setTitle("Hello World!");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//    }
 
     /**
      * @param args the command line arguments
