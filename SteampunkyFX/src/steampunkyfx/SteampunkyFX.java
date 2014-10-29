@@ -30,19 +30,19 @@ import javafx.stage.Stage;
 public class SteampunkyFX extends Application {
 
     private Stage stage;
-    private final double MINIMUM_WINDOW_WIDTH = 390.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 500.0;
+    private final double MINIMUM_WINDOW_WIDTH = 300.0;
+    private final double MINIMUM_WINDOW_HEIGHT = 276.0;
 
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            stage = stage;
-            stage.setTitle("SteamPunky");
-            stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
-            stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
+            this.stage = stage;
+            this.stage.setTitle("SteamPunky");
+            this.stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
+            this.stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
             gotologinselect();
 
-            stage.show();
+            this.stage.show();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class SteampunkyFX extends Application {
 
     protected void gotologinselect() {
         try {
-            SteampunkFXController loginselect = (SteampunkFXController) replaceSceneContent("Loginproftaak.fxml");
+            SteampunkFXController loginselect = (SteampunkFXController) replaceSceneContent("loginProftaak2.fxml");
             loginselect.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,7 +68,12 @@ public class SteampunkyFX extends Application {
         } finally {
             in.close();
         }
-        Scene scene = new Scene(page, 800, 600);
+        Scene scene = null;
+        if(fxml.equals("loginProftaak2.fxml"))
+        {
+            scene = new Scene(page, 300, 276); 
+        }
+
         // scene.getStylesheets().add("bank/gui/ING.css");
         stage.setScene(scene);
         stage.sizeToScene();
