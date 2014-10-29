@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package classes;
 
 /**
- *
- * @author Mnesymne
+ <p>
+ @author Mnesymne
  */
-public enum Direction {
-    Up,Down,Right,Left;
-    
+public enum Direction
+{
+    Up, Down, Right, Left;
+
 }

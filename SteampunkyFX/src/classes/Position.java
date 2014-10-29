@@ -9,80 +9,96 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
- * @author Cyril
+ <p>
+ @author Cyril
  */
-public class Position {
+public class Position
+{
     private int x;
     private int y;
     private List<Object> objects;
-    
+
     /**
-     * creates instance of Position with an X and Y coordinate
-     * @param x
-     * @param y 
+     The Constructor of Position
+     <p>
+     @param x An int for this Positions X value.
+     @param y An int for this Positions Y value
      */
-    public Position(int x,int y){
+    public Position(int x , int y)
+    {
         this.x = x;
         this.y = y;
     }
-    
+
     /**
-     * 
-     * @return the X coordinate of this instance
+     The Getter of this Positions X.
+     <p>
+     @return the X coordinate of this instance
      */
-    public int getX(){
+    public int getX()
+    {
         return this.x;
     }
-    
+
     /**
-     * 
-     * @return the Y coordinate of this instance
+     The Getter of this Positions Y
+     <p>
+     @return the Y coordinate of this instance
      */
-    public int getY(){
+    public int getY()
+    {
         return this.y;
     }
-    
+
     /**
-     * 
-     * @return a list of objects in this instance
+     A Method for getting all Objects on this Position.
+     <p>
+     @return a list of objects in this instance
      */
-    public List<Object> getObjects(){
-        return Collections.unmodifiableList(objects);    
+    public List<Object> getObjects()
+    {
+        return Collections.unmodifiableList(objects);
     }
-    
+
     /**
-     * gets an object and removes that from the list of objects in this instance.
-     * @param o
-     * @return true if this object is removed else return false.
+     A Method that gets an object and removes that from the list of objects in this instance.
+     <p>
+     @param o A Object of the Class Object that will get removed.
+     <p>
+     @return true if this object is removed else return false.
      */
-    public boolean removeObject(Object o) {
-        try {
+    public boolean removeObject(Object o)
+    {
+        try
+        {
             this.objects.remove(o);
             return true;
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e)
+        {
             return false;
         }
     }
-    
+
     /**
-     * add an object to the list of objects
-     * @param o
-     * @return the object that has been added.
+     A method that adds an object to the list of objects
+     <p>
+     @param o A Object of the Class Object that will be added.
+     <p>
+     @return the object that has been added.
      */
-    public Object addObject(Object o){
-        if(o == null){
+    public Object addObject(Object o)
+    {
+        if (o == null)
+        {
             return null;
-        }
-        else if (this.objects.contains(o)){
+        } else if (this.objects.contains(o))
+        {
             return o;
-        } else {
+        } else
+        {
             this.objects.add(o);
             return o;
         }
     }
-    
-    
-    
+
 }

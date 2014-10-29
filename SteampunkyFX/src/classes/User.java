@@ -8,11 +8,12 @@ package classes;
 import java.util.*;
 
 /**
- * OK
- *
- * @author Linda
+ OK
+ <p>
+ @author Linda
  */
-public class User {
+public class User
+{
 
     //************************datavelden*************************************
     private int userID;
@@ -27,20 +28,34 @@ public class User {
 
     //***********************constructoren***********************************
     /**
-     * creates an user with ...
+     The Constructor for an existing user.
+     <p>
+     @param userID   An int which is this users ID.
+     @param username A String which is this Users Username.
+     @param password A String which is this Users Password.
      */
-    public User(int userID, String username, String password) {
+    public User(int userID , String username , String password)
+    {
         this.userID = userID;
         this.username = username;
         this.password = password;
     }
 
     /**
-     * creates an user with ...
+     The Constructor for a new user.
+     <p>
+     @param userID   An int which is this users ID.
+     @param username A String which is this Users Username.
+     @param password A String which is this Users Password.
+     @param rating   An int which is this Users Rating.
+     @param wins     An int which is the # of wins this user has.
+     @param losses   An int which is the # of losses this user has.
      */
-    public User(int userID, String username, String password, int rating, int wins, int losses) {
-        if (wins < 0 || losses < 0 || rating < 0) {
-            throw new IllegalArgumentException("geen negatieve wins, losses of rating");
+    public User(int userID , String username , String password , int rating , int wins , int losses)
+    {
+        if (wins < 0 || losses < 0 || rating < 0)
+        {
+            throw new IllegalArgumentException("You can't have a negative win,loss or rating.");
         }
         this.userID = userID;
         this.username = username;
@@ -52,54 +67,119 @@ public class User {
     }
 
     //**********************methoden****************************************
-    public int getRating() {
+    /**
+     The Getter of this Users Rating
+     <p>
+     @return An int which holds the current rating of this User.
+     */
+    public int getRating()
+    {
         return this.rating;
     }
 
-    public boolean checkPassword(String password) {
-        //todo
-        boolean gelukt = false;
-        if (password.equals(this.password)) {
-            gelukt = true;
-        }
-        return gelukt;
-    }
-
-    public String getUsername() {
+    /**
+     The Getter of this Users Username
+     <p>
+     @return A String which is this users Username.
+     */
+    public String getUsername()
+    {
         return this.username;
     }
 
-    public int[] getWinLoss() {
-        //todo
-        int[] winst = new int[]{wins, losses};
+    /**
+     The Getter for this Users Wins & Losses.
+     <p>
+     @return A two dimensional int[].
+     */
+    public int[] getWinLoss()
+    {
+        int[] winst = new int[]
+        {
+            wins , losses
+        };
         return winst;
     }
 
-    public int getUserID() {
+    /**
+     The Getter for this Users UserID.
+     <p>
+     @return An int which is this Users UserID.
+     */
+    public int getUserID()
+    {
         return this.userID;
     }
 
-    public void setRating(int rating) {
+    /**
+     The Setter of this Users Rating.
+     <p>
+     @param rating An int which is the new Rating of this User.
+     */
+    public void setRating(int rating)
+    {
         this.rating = rating;
     }
 
-    public void setPassword(String password) {
+    /**
+     The Setter of this Users Password
+     <p>
+     @param password A String which is the new password of this User.
+     */
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
-    public boolean joinLobby(Lobby lobby) {
-        if (lobby.assignSlot(this)) {
+    /**
+     A Method for Joining a Lobby.
+     <p>
+     @param lobby An Object of the Class Lobby, which is the lobby you want to join.
+     <p>
+     @return A boolean to show if joining this Lobby was succesfull or not.
+     */
+    public boolean joinLobby(Lobby lobby)
+    {
+        if (lobby.assignSlot(this))
+        {
             this.currentLobby = lobby;
             return true;
         }
         return false;
     }
 
-    public boolean leaveLobby(Lobby lobby) {
-        if (lobby.removeUser(this) == 1) {
+    /**
+     A Method for Leaving a Lobby.
+     <p>
+     @param lobby An Object of the Class Lobby, which is the lobby you want to leave.
+     <p>
+     @return A boolean to show if leaving this Lobby was succesfull or not.
+     */
+    public boolean leaveLobby(Lobby lobby)
+    {
+        if (lobby.removeUser(this) == 1)
+        {
             this.currentLobby = null;
             return true;
         }
         return false;
-    }    
+    }
+
+    /**
+     A Method for checking if entered password is this Users password
+     <p>
+     @param password A String which is the password that has been entered.
+     <p>
+     @return A boolean which shows if the entered password is this Users password.
+     */
+    public boolean checkPassword(String password)
+    {
+        boolean correct = false;
+        if (password.equals(this.password))
+        {
+            correct = true;
+        }
+        return correct;
+    }
+
 }

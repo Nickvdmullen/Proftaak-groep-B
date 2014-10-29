@@ -3,127 +3,197 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package classes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
- * @author Melanie
+ <p>
+ @author Melanie
  */
 public abstract class Object
 {
     //************************datavelden*************************************
 
     private int interfaceID = 0;
-    private int positionX;
-    private int positionY;
+    private Position position;
     private boolean active;
     private boolean movable;
     private Direction direction;
-    
+
     //***********************constructoren***********************************
     /**
-     * creates an abstract class object with ...
-     * @param X
-     * @param Y
-     * @param Active
-     * @param Movable
+     Constructor of the SuperClass Object
+     creates an abstract class object with ...
+     <p>
+     @param position  An object of the Class Position which holds a coordinate.
+     @param Active    A Boolean which holds the current state of this Object.
+     @param Movable   A boolean which holds the current state of this Object
+     @param direction A Object of the Class Direction which holds the direction in which this Object is moving.
      */
-
-    public Object(int X, int Y, boolean Active, boolean Movable, Direction direction) 
+    public Object(Position position , boolean Active , boolean Movable , Direction direction)
     {
-        //todo (vraag)
-        this.positionX = X;
-        this.positionY = Y;
+        this.position = position;
         this.active = Active;
         this.movable = Movable;
-        
+
         this.direction = direction;
-        
-        if (!movable) {
+
+        if (!movable)
+        {
             this.direction = null;
         }
-        
+
         this.interfaceID++;
     }
 
-
     //**********************methoden****************************************
+    /**
+     The Getter of this Objects InterfaceID.
+     <p>
+     @return An int which is this objects InterfaceID.
+     */
     public int getInterfaceID()
     {
         return this.interfaceID;
     }
-    
+
+    /**
+     The Getter of this Objects PositionX.
+     <p>
+     @return An int with the current X position of this Object
+     */
     public int getPositionX()
     {
-        return this.positionX;
+        return this.position.getX();
     }
-    
+
+    /**
+     The Getter of this Objects PositionY.
+     <p>
+     @return An int with the current Y position of this Object
+     */
     public int getPositionY()
     {
-        return this.positionY;
+        return this.position.getY();
     }
-    
+
+    /**
+     The Getter of this Objects Position.
+     <p>
+     @return An Object of the Class Position which holds this Objects Position.
+     */
+    public Position getPosition()
+    {
+        return this.position;
+    }
+
+    /**
+     The Getter of this objects Active.
+     <p>
+     @return A boolean which holds the current state of this Object.
+     */
     public boolean getActive()
     {
         return active;
     }
-    
-    public void setPositionX(int PositionX) {
-        this.positionX = PositionX;
+
+    /**
+     The Setter of this Objects Position.
+     <p>
+     @param position A Object of the Class Position which holds the new position of this Object.
+     */
+    public void setPosition(Position position)
+    {
+        this.position = position;
     }
-    
-    public void setPositionY(int PositionY) {
-        this.positionY = PositionY;
-    }
-    
-    public void setActive(Boolean active) {
+
+    /**
+     The Setter of this Objects Active
+     <p>
+     @param active A boolean which holds the new state of this Object.
+     */
+    public void setActive(Boolean active)
+    {
         this.active = active;
     }
-    
-    public void move(Direction direction) {
-        if (movable) {
-            if(direction == direction.Right)
+
+    /**
+     A Method for moving this Object
+     <p>
+     @param direction A Object of the Class Direction which holds the direction in which direction this Object is moving.
+     */
+    public void move(Direction direction)
+    {
+        if (movable)
+        {
+
+            Position newPosition;
+            if (direction == direction.Right)
             {
-                positionX++;
-            }
-            else if(direction == direction.Left)
+                newPosition = new Position((this.position.getX() + 1) , this.position.getY());
+                this.position = newPosition;
+            } else if (direction == direction.Left)
             {
-                positionX--;
-            }
-            else if(direction == direction.Up)
+                newPosition = new Position((this.position.getX() - 1) , this.position.getY());
+                this.position = newPosition;
+            } else if (direction == direction.Up)
             {
-                positionY++;
-            }
-            else
+                newPosition = new Position(this.position.getX() , (this.position.getY() + 1));
+                this.position = newPosition;
+            } else
             {
-                positionY--;
+                newPosition = new Position(this.position.getX() , (this.position.getY() - 1));
+                this.position = newPosition;
             }
-        }
-        else {
+        } else
+        {
             System.out.println("Kan unmovable object niet bewegen");
         }
     }
-    
-    public Object checkCollision(ArrayList<Object> objects) {
+
+    /**
+     An method to check if the next Position of this projectile will collide with another object.
+     <p>
+     @param objects An list of all object currently in the game.
+     <p>
+     @return Returns an object if the next position of this projectile collides with the object
+     else it returns null.
+     */
+    public Object checkCollision(List<Object> objects)
+    {
         int tempPositionX = this.getPositionX();
         int tempPositionY = this.getPositionY();
         Object hitObject = null;
-                
-        for(Object nxtObject : objects)
+
+        if (direction == direction.Right)
+        {
+            tempPositionX++;
+        } else if (direction == direction.Left)
+        {
+            tempPositionX--;
+        } else if (direction == direction.Up)
+        {
+            tempPositionY++;
+        } else
+        {
+            tempPositionY--;
+        }
+
+        for (Object nxtObject : objects)
         {
             int oPositionX = nxtObject.getPositionX();
             int oPositionY = nxtObject.getPositionY();
-            
-            if((tempPositionX == oPositionX) && (tempPositionY == oPositionY))
+
+            if ((tempPositionX == oPositionX) && (tempPositionY == oPositionY))
             {
                 hitObject = nxtObject;
                 break;
             }
-            
+
         }
         return hitObject;
     }
+
 }
