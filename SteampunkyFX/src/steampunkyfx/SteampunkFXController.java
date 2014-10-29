@@ -64,15 +64,14 @@ public class SteampunkFXController extends Application implements Initializable
     
     
     private Server server;
-    private Stage stage;
     private SteampunkyFX main;
 
-    
-    public void setapplication(Stage stage)
+    public void setApp(SteampunkyFX application)
     {
-        stage = new Stage();
-        this.stage = stage;
+        this.main = application;
     }
+    
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
@@ -99,11 +98,10 @@ public class SteampunkFXController extends Application implements Initializable
        {
            if(server.loginUser(TFUsernamelogin.getText(), TFWachtwoordlogin.getText()))
            {
-               System.out.println("longin succes");
-               this.stage = main.getstage();
+               System.out.println("longin succes"); 
                try
                {        
-                  this.start(stage);
+            
                }
                catch(Exception ex)
                {
