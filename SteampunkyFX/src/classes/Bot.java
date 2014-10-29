@@ -89,8 +89,10 @@ public class Bot
     public void AI(){
         int X = this.character.getPosition().getX();
         int Y = this.character.getPosition().getY();
-        //List<Position> grid = this.game.getGrid();
-        //List<Position> usableGrid = getMovableGrid(X,Y,grid);
+        
+        List<Position> grid = this.game.getGrid();
+        List<Position> movableGrid = new ArrayList<>();
+        getMovableGrid(X,Y,grid,movableGrid);
         if (this.difficulty ==1){
             Random rand = new Random();
             int randomNum = rand.nextInt(4)+1;
@@ -133,11 +135,12 @@ public class Bot
         int y = this.character.getPosition().getY();
         int t = this.character.getTorchRange();
         //if X=x and Y is within torch range return true
-        if(X-x == 0){
-            if(y-Y==0){return true;} else if((Y >= y && Y <= (y+t)) ||(Y <= y && Y >= (y-t))) {return true;}
+        if(X==x){
+            if(y==Y){return true;} else if((Y >= y && Y <= (y+t)) ||(Y <= y && Y >= (y-t))) {return true;}
             //if X>x or X<x but within torch range
         } else if ((X > x && X <= (x+t))||(X<x && X>=(x-t))){
-           
+            //if Y==y =true
+           if(Y==y){return true;}
             if(X>x){
                  //if Y is within range return true
                 if((Y>y && Y-y <= t-(X-x))||(Y<y && y-Y <= t-(X-x))){
@@ -155,17 +158,51 @@ public class Bot
         }
         return false;
     }
-    public List<Position> getMovableGrid(int X, int Y, List<Position> grid){
-        List<Position> templist = new ArrayList<>();
-        if(X+1 <= this.character.getPositionX()+this.character.getTorchRange()){
-        }
+    public void getMovableGrid(int X, int Y, List<Position> grid, List<Position> tempList){
+        int x = this.character.getPosition().getX();
+        int y = this.character.getPosition().getY();
+        int t = this.character.getTorchRange();
+
         for(Position P : grid){
-            if(P.getX()==X || P.getY()==Y) {
+            if(P.getX()==x && P.getY()==Y && !tempList.contains(P)){tempList.add(P);}
+                if(P.getX()==X && P.getY()==Y+1){
+                    if(this.isVisible(X, Y+1)){
+                        for(Object O: P.getObjects()){
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)){                         
+                                this.getMovableGrid(X,Y+1, grid, tempList);
+                            }
+                        }
+                    }
+                }
+                if(P.getX()==X+1 && P.getY()==Y){
+                    if(this.isVisible(X+1, Y)){
+                        for(Object O: P.getObjects()){
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)){                         
+                                this.getMovableGrid(X+1,Y, grid, tempList);
+                            }
+                        }
+                    }
+                }
+                if(P.getX()==X && P.getY()==Y-1){
+                    if(this.isVisible(X, Y-1)){
+                        for(Object O: P.getObjects()){
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)){                         
+                                this.getMovableGrid(X,Y-1, grid, tempList);
+                            }
+                        }
+                    }
+                }
+                if(P.getX()==X-1 && P.getY()==Y){
+                    if(this.isVisible(X-1, Y)){
+                        for(Object O: P.getObjects()){
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)){                         
+                                this.getMovableGrid(X-1,Y, grid, tempList);
+                            }
+                        }
+                    }
+                }
             }
-        
-            }
-             return templist;
-        }
+    }        
 }
     
 
