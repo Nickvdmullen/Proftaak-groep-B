@@ -154,15 +154,6 @@ public class Game
             row ++;
         }
         
-        /*Random rX = new Random(fieldWidth);
-        int posX = rX.nextInt();
-        
-        Random rY = new Random(fieldHeight);
-        int posY = rY.nextInt();
-        
-        Rectangle rec = new Rectangle((posX*100), (posY*100), 100, 100);
-        boxes.add(rec);*/
-        
         for (Rectangle a : boxes)
         {
             a.setFill(Color.BROWN);
