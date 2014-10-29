@@ -27,7 +27,7 @@ public class Ballista extends Object
      Depending on the direction give it depends which direction is made first.
      <p>
      @param type            The type thats give so the ballista knows what type of Projectiles is must make.
-     @param shots           The number of shots a ballista can fire.
+     @param shots           The number of shots a ballista can fire, must be a multitude of 4.
      @param projectileSpeed The speed of the Projectiles the ballista makes.
      @param position        An attribute of Object that holds the Position of this Ballista.
      @param active          An attribute of Object that sets if an Object is active or not.

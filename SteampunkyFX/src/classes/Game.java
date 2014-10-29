@@ -293,7 +293,7 @@ public class Game
             while (col < this.heightCubes)
             {
                 Position p = getPosition(col, row);
-                Object ob = new Obstacle("cube", false, p, true, false);
+                Object ob = new Obstacle("cube", false, p, true, false,this);
                 cubes.add(ob);
                 col += 2;
             }
@@ -316,31 +316,31 @@ public class Game
         
         //first boxes around player
         Position p = getPosition(3, 1);
-        Object ob = new Obstacle("box", false, p, true, false);
+        Object ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         p = getPosition(1, 3);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         
         p = getPosition(this.widthCubes - 2, 1);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         p = getPosition(this.widthCubes, 3);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         
         p = getPosition(1, this.heightCubes - 2);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         p = getPosition(3, this.heightCubes);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         
         p = getPosition(this.widthCubes - 2, this.heightCubes);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         p = getPosition(this.widthCubes, this.heightCubes - 2);
-        ob = new Obstacle("box", false, p, true, false);
+        ob = new Obstacle("box", false, p, true, false,this);
         boxes.add(ob);
         
         while (row <= this.widthCubes)
@@ -363,7 +363,7 @@ public class Game
                     if (getRandomBool(0.4))
                     {
                         p = getPosition(col, row);
-                        ob = new Obstacle("box", false, p, true, false);
+                        ob = new Obstacle("box", false, p, true, false,this);
                         boxes.add(ob);
                     }
                 }
@@ -401,7 +401,7 @@ public class Game
                     ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
             {
                 //place boxes random
-                Object ob = new Obstacle("powerup", false, p, true, false);
+                Object ob = new Obstacle("powerup", false, p, true, false,this);
                 this.objects.add(ob);
                 setObjectInGrid(ob);
                 return true;
@@ -572,7 +572,7 @@ public class Game
         //Add character to player
         for (User p : this.players)
         {
-            Character c = new Character(1, false, 1, 3, positions[i], true, true, directions[i], colors[i]);
+            Character c = new Character(1, false, 1, 3, positions[i], true, true, directions[i], colors[i],this);
             p.setCharacter(c);
             this.objects.add(c);
             i++;
@@ -588,7 +588,7 @@ public class Game
                 Bot b = new Bot(namen[k], this.botDifficulty, this);
                 this.bots.add(b);
                 
-                Character c = new Character(1, false, 1, 3, positions[k], true, true, directions[k], colors[k]);
+                Character c = new Character(1, false, 1, 3, positions[k], true, true, directions[k], colors[k],this);
                 b.setCharacter(c);
                 this.objects.add(c);
             }

@@ -44,10 +44,10 @@ public class Character extends Object
      @param direction   A Direction to which the character is moving
      */
     public Character(double speed , boolean dead , int maxBallista , int torch ,
-            Position position , boolean active , boolean movable , Direction direction, Color color)
+            Position position , boolean active , boolean movable , Direction direction, Color color,Game game)
     {
         //todo
-        super(position , active , movable , direction);
+        super(position , active , movable , direction,game);
 
         //Checks if the value dead is false, since a Character can't be dead when starting.
         if (dead == true)
@@ -197,7 +197,7 @@ public class Character extends Object
         boolean active = this.getActive();
 
         //Create new Ballista
-        ballistas.add(new Ballista("" , shots , projectileSpeed , ballistaPosition , active , false , direction));
+        ballistas.add(new Ballista("" , shots , projectileSpeed , ballistaPosition , active , direction,super.getGame()));
     }
 
 }
