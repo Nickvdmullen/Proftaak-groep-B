@@ -110,6 +110,16 @@ public class User
     {
         return this.userID;
     }
+    
+    public Character getCharacter()
+    {
+        return this.character;
+    }
+    
+    public void setCharacter(Character c)
+    {
+        this.character = c;
+    }
 
     /**
      The Setter of this Users Rating.
