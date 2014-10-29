@@ -50,7 +50,7 @@ public class SteampunkyFX extends Application {
     protected void gotoLoginselect() {
         try {
             SteampunkFXController loginselect = (SteampunkFXController) replaceSceneContent("LoginProftaak2.fxml");
-            loginselect.setApp(this);
+            loginselect.setApp(this); 
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }
