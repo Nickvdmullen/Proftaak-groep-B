@@ -45,6 +45,12 @@ public class SteampunkFXControllerlobby extends Application implements Initializ
     
     
 
+    private SteampunkyFX main;
+
+    public void setApp(SteampunkyFX application)
+    {
+        this.main = application;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
@@ -53,17 +59,7 @@ public class SteampunkFXControllerlobby extends Application implements Initializ
     
     
     @Override
-    public void start(Stage stage) throws Exception {
-//        Class<?> c;
-//        c = this.getClass();
-//        java.net.URL r = c.getResource("Loginproftaak.fxml");
-//        Parent root = FXMLLoader.load(r);
-//
-//        Scene scene = new Scene(root);
-//        scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
-//        stage.setScene(scene);
-//        stage.setTitle("Steampunky");
-//        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream( "icon.png" ))); 
-//        stage.show();
+    public void start(Stage stage) throws Exception 
+    {
     }   
 }

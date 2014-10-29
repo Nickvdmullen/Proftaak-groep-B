@@ -56,6 +56,15 @@ public class SteampunkyFX extends Application {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    protected void gotolobbyselect() {
+        try {
+            SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("lobby2.fxml");
+            lobbyselect.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private Initializable replaceSceneContent(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -73,6 +82,10 @@ public class SteampunkyFX extends Application {
         {
             scene = new Scene(page, 300, 276); 
         }
+        if(fxml.equals("lobby2.fxml"))
+        {
+            scene = new Scene(page, 300, 276); 
+        }
 
         // scene.getStylesheets().add("bank/gui/ING.css");
         stage.setScene(scene);
@@ -80,18 +93,6 @@ public class SteampunkyFX extends Application {
         return (Initializable) loader.getController();
     }
 
-//        Class<?> c;
-//        c = this.getClass();
-//        java.net.URL r = c.getResource("Loginproftaak.fxml");
-//        Parent root = FXMLLoader.load(r);
-//
-//        Scene scene = new Scene(root);
-//        scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
-//        stage.setScene(scene);
-//        stage.setTitle("Steampunky");
-//        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream("icon.png"))); 
-//        stage.show();
-//        this.stage = stage;
     /**
      * @param args the command line arguments
      */
