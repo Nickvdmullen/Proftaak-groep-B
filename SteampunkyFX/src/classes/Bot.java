@@ -90,7 +90,7 @@ public class Bot
         int X = this.character.getPosition().getX();
         int Y = this.character.getPosition().getY();
         //List<Position> grid = this.game.getGrid();
-        //List<Position> usableGrid = getUsableGrid(X,Y,grid);
+        //List<Position> usableGrid = getMovableGrid(X,Y,grid);
         if (this.difficulty ==1){
             Random rand = new Random();
             int randomNum = rand.nextInt(4)+1;
@@ -128,4 +128,44 @@ public class Bot
     return tempList;
     }
     
+    public boolean isVisible(int X, int Y){
+        int x = this.character.getPosition().getX();
+        int y = this.character.getPosition().getY();
+        int t = this.character.getTorchRange();
+        //if X=x and Y is within torch range return true
+        if(X-x == 0){
+            if(y-Y==0){return true;} else if((Y >= y && Y <= (y+t)) ||(Y <= y && Y >= (y-t))) {return true;}
+            //if X>x or X<x but within torch range
+        } else if ((X > x && X <= (x+t))||(X<x && X>=(x-t))){
+           
+            if(X>x){
+                 //if Y is within range return true
+                if((Y>y && Y-y <= t-(X-x))||(Y<y && y-Y <= t-(X-x))){
+                    return true;
+                } else if ((Y>y && Y-y <= t-(X-x))|| Y>y &&Y-y <= t-(X-x)){
+                    return true;
+                }
+            } else {
+                if((Y>y && Y-y <= t-(x-X))||(Y<y && y-Y <= t-(x-X))){
+                    return true;
+                } else if ((Y>y && Y-y <= t-(x-X))|| Y>y &&Y-y <= t-(x-X)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public List<Position> getMovableGrid(int X, int Y, List<Position> grid){
+        List<Position> templist = new ArrayList<>();
+        if(X+1 <= this.character.getPositionX()+this.character.getTorchRange()){
+        }
+        for(Position P : grid){
+            if(P.getX()==X || P.getY()==Y) {
+            }
+        
+            }
+             return templist;
+        }
 }
+    
+
