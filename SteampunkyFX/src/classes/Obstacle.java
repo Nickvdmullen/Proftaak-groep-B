@@ -28,19 +28,19 @@ public class Obstacle extends Object
 
     ArrayList<Integer> obstacleIDs = new ArrayList<>();
 
-    //***********************constructoren***********************************
-    /**
-     The constructor of the Class Obstacle
-     <p>
-     @param type     A string which holds the type of the Obstacle.
-     @param broken   A boolean which holds if this obstacle can be destroyed or not.
-     @param position An Object of the Class Position, which holds the position of this Obstacle.
-     @param active   A boolean which holds the state of this Obstacle.
-     @param movable  A boolean which holds the state of this Obstacle.
-     */
+    //***********************constructoren***********************************     
+     /**
+      * The constructor of the Class Obstacle
+      * @param type A string which holds the type of the Obstacle.
+      * @param broken A boolean which holds if this obstacle can be destroyed or not.
+      * @param position An Object of the Class Position, which holds the position of this Obstacle.
+      * @param active A boolean which holds the state of this Obstacle.
+      * @param movable A boolean which holds the state of this Obstacle.
+      * @param game Game in which obstacle is used
+      */
     public Obstacle(String type , boolean broken , Position position , boolean active , boolean movable, Game game)
     {
-        super(position , active , movable , null,game);
+        super(position , active , movable , null, game);
 
         interfaceID = super.getInterfaceID();
         if (interfaceID == 0)
