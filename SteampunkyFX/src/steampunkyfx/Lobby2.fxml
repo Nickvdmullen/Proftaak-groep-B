@@ -14,7 +14,7 @@
       <children>
         <SplitPane dividerPositions="0.5477386934673367" focusTraversable="true" layoutX="0.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="640.0">
           <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane id="AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
               <children>
                 <Label layoutX="21.0" layoutY="14.0" text="Create lobby">
                   <font>
@@ -27,7 +27,7 @@
                 <ListView id="Lblobby" editable="false" layoutX="254.0" layoutY="25.0" prefHeight="166.0" prefWidth="361.0" />
               </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <AnchorPane id="AnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
               <children>
                 <ComboBox id="Cbjoinlobby" layoutX="416.0" layoutY="71.0" prefHeight="21.0" prefWidth="137.0">
                   <items>
