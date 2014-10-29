@@ -89,6 +89,7 @@ public class Bot {
         List<Position> grid = this.game.getGrid();
         List<Position> movableGrid = new ArrayList<>();
         getMovableGrid(X, Y, grid, movableGrid);
+        
         if (this.difficulty == 1) {
             Random rand = new Random();
             int randomNum = rand.nextInt(4) + 1;
@@ -150,18 +151,15 @@ public class Bot {
                 return true;
             }
             if (X > x) {
-                //if Y is within range return true
+                //if X > x,Y is within range return true
                 if ((Y > y && Y - y <= t - (X - x)) || (Y < y && y - Y <= t - (X - x))) {
                     return true;
-                } else if ((Y > y && Y - y <= t - (X - x)) || Y > y && Y - y <= t - (X - x)) {
-                    return true;
                 }
+                //if X < x, Y is within range return true   
             } else {
                 if ((Y > y && Y - y <= t - (x - X)) || (Y < y && y - Y <= t - (x - X))) {
                     return true;
-                } else if ((Y > y && Y - y <= t - (x - X)) || Y > y && Y - y <= t - (x - X)) {
-                    return true;
-                }
+                } 
             }
         }
         return false;
