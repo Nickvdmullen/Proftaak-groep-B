@@ -68,7 +68,7 @@ public class Lobby
                 //todo
         if(timelimit != 0 && botDifficulty != 0 && level != null && rounds != 0)
         {
-        games.add(game = new Game(timelimit,botDifficulty,rounds));
+        games.add(game = new Game(9,9,timelimit,botDifficulty,rounds));
         return true;
         }
       

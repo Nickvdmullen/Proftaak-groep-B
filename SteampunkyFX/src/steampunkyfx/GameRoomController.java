@@ -52,6 +52,12 @@ public class GameRoomController implements Initializable {
     
     
     private Server server;
+    private SteampunkyFX main;
+
+    public void setApp(SteampunkyFX application)
+    {
+        this.main = application;
+    }
 
     /**
      * Initializes the controller class.
