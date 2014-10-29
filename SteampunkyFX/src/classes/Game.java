@@ -26,10 +26,14 @@ public class Game
     private TimerTask task;
     private double currentTime;
     private double totalTime; //in seconds
+    
     private int totalRounds;
     private int round;    
     private boolean gameEnd;
     private Level currentLevel;
+    
+    private double boxStartTime;
+    private boolean fillUp;
     
     private List<Position> grid;
     private List<Level> levels;
@@ -62,6 +66,8 @@ public class Game
             this.currentTime = 0;
             this.totalRounds = rounds;
             this.round = 1;
+            this.boxStartTime = 0;
+            this.fillUp = false;
             
             this.grid = new ArrayList<>();
             int row = 1;
@@ -377,6 +383,80 @@ public class Game
         return boxes;
     }
     
+    public boolean placeFillupBoxes()
+    {
+        int round;
+        int maxRounds = 0;        
+        int x = 1;
+        int minWidth = 1;
+        int maxWidth = this.widthCubes;
+        int y = 1;
+        int minHeight = 1;
+        int maxHeight = this.widthCubes;
+        
+        if (maxWidth > maxHeight)
+        {
+            maxRounds = (maxHeight + 1)/2;
+        }
+        else
+        {
+            maxRounds = (maxWidth + 1)/2;
+        }
+        
+        //place box every five seconds
+        if ((this.getCurrentTime() - this.boxStartTime)%5 == 0)
+        {
+            for (round = 1; round < maxRounds; round++)
+            {
+                while (x <= maxWidth)
+                {
+                    Position p = getPosition(x, y);
+                    Object ob = new Obstacle("cube", false, p, true, false);
+                    this.objects.add(ob);
+                    x++;
+                }
+                
+                minHeight++;
+                
+                while (y <= maxHeight)
+                {
+                    Position p = getPosition(x, y);
+                    Object ob = new Obstacle("cube", false, p, true, false);
+                    this.objects.add(ob);
+                    y++;
+                }
+                
+                maxWidth--;
+                
+                while (x >= minWidth)
+                {
+                    Position p = getPosition(x, y);
+                    Object ob = new Obstacle("cube", false, p, true, false);
+                    this.objects.add(ob);
+                    x--;
+                }
+                
+                maxHeight--;
+                
+                while (y >= minHeight)
+                {
+                    Position p = getPosition(x, y);
+                    Object ob = new Obstacle("cube", false, p, true, false);
+                    this.objects.add(ob);
+                    y--;
+                }
+                
+                minWidth--;
+                
+                return true;
+            }
+        }
+        
+        //When field is full of boxes, set game end
+        this.setGameEnd();
+        return false;
+    }
+    
     /**
      * Place powerup on random position
      * @return if powerup is placed
@@ -506,18 +586,45 @@ public class Game
      * Update method of the game
      */
     public void updateGame()
-    {        
+    {   
+        int dead = 0;
+        
+        //Check if characters are dead
+        for (Character c : this.characters)
+        {
+            if (c.getDead())
+            {
+                dead++;
+            }
+        }
+        
+        //Stop game if all characters are dead
+        if (dead == 4)
+        {
+            setGameEnd();
+        }
+        
+        int count = 0;
+        
+        if (this.fillUp)
+        {
+            //Start methode placeFillupBoxes() one time
+            if (count == 0)
+            {                
+                placeFillupBoxes();
+                count++;
+            }
+        }
+        
         boolean ended = getGameEnd();
         
         if (!ended)
         {
             if (this.currentTime >= this.totalTime)
             {                
-                //add boxes in circle in level
-                
-                
-                //if players cant move
-                //setGameEnd()
+                //Add boxes in circle in level
+                this.fillUp = true;
+                this.boxStartTime = getCurrentTime();
             }
         }
         else
@@ -530,7 +637,7 @@ public class Game
             }
             else
             {
-                //einde van game; socre weergeven?!
+                //einde van game
             }
         }
     }
