@@ -118,7 +118,26 @@ public class Bot {
         // </editor-fold>
         
         if (this.difficulty == 2) {
-            
+            List<Position> threat = new ArrayList<>();
+            for (Position P: movableGrid){
+                if(P.getX()== X || P.getY()==Y){
+                    for(Object O: P.getObjects()){
+                        if (O instanceof Projectile){
+                            Projectile projectile = (Projectile) O;
+                            if(X>P.getX() && projectile.getDirection() == Direction.Left){
+                                threat.add(P);
+                            }else if (X<P.getX() && projectile.getDirection() == Direction.Right){
+                            threat.add(P);
+                            }
+                            else if (Y<P.getY() && projectile.getDirection() == Direction.Down){
+                                threat.add(P);
+                            }else if (Y>P.getY() && projectile.getDirection() == Direction.Up){
+                                threat.add(P);
+                            }
+                        }
+                    }
+               }
+            }
         }
     }
 
