@@ -22,7 +22,9 @@ public class Game
     
     private List<Position> grid;
     private int botDifficulty;
-    private double timer;
+    private Timer timer;
+    private TimerTask task;
+    private double currentTime;
     private double totalTime; //in seconds
     private int totalRounds;
     private int round;
@@ -34,11 +36,11 @@ public class Game
     //***********************constructoren***********************************
     /**
      * Constructor of Game
-     * @param height uneven number of cubes, minimum of 9
-     * @param width uneven number of cubes, minimum of 9
-     * @param timelimit          The max amount of time a game can last.
-     * @param botDifficulty      The difficulty of the bots.
-     * @param rounds             The number of rounds that can be played.
+     * @param height            Uneven number of cubes, minimum of 9
+     * @param width             Uneven number of cubes, minimum of 9
+     * @param timelimit         The max amount of time a game can last.
+     * @param botDifficulty     The difficulty of the bots.
+     * @param rounds            The number of rounds that can be played.
      */
     public Game(int height, int width, double timelimit, int botDifficulty, int rounds)
     {
@@ -52,7 +54,7 @@ public class Game
             
             this.botDifficulty = botDifficulty;
             this.totalTime = timelimit;
-            this.timer = 0;
+            this.currentTime = 0;
             this.totalRounds = rounds;
             this.round = 1;
             
@@ -76,6 +78,18 @@ public class Game
 
             this.levels = new ArrayList<>();
             this.objects = new ArrayList<>();
+            
+            timer = new Timer();
+            task = new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+                    setCurrentTime();
+                }
+            };
+
+            timer.scheduleAtFixedRate(task, 0, 1000);
         }
         else
         {
@@ -102,6 +116,11 @@ public class Game
         }
         
         return null;
+    }
+    
+    public List<Position> getGrid()
+    {
+        return this.grid;
     }
     
     /**
@@ -142,11 +161,11 @@ public class Game
     
     /**
      * Getter of CurrentTime
-     * @return   a double with the value of the remaining time left
+     * @return   a double with the value of the current time
      */
     public double getCurrentTime()
     {
-        return this.timer;
+        return this.currentTime;
     }
     
     /**
@@ -294,6 +313,33 @@ public class Game
         return boxes;
     }
     
+    public void placeRandomBox()
+    {
+        Random rX = new Random(this.widthCubes);
+        int col = rX.nextInt();
+        Random rY = new Random(this.heightCubes);
+        int row = rY.nextInt();
+        Position p = new Position(col, row);
+        
+        if (p.getObjects() == null)
+        {
+            if (((row == 1 && col > 3 && col < (this.heightCubes -2)) ||
+                    (row == 2 && col > 2 && col < (this.heightCubes -1)) ||
+                    (row == 3 && col > 1 && col < this.heightCubes) ||
+                    (row == (this.widthCubes - 2) && col > 1 && col < this.heightCubes) ||
+                    (row == (this.widthCubes - 1) && col > 2 && col < (this.heightCubes -1)) ||
+                    (row == this.widthCubes && col > 3 && col < (this.heightCubes -2)) || 
+                    (row > 3 && row < (this.widthCubes -2))) &&
+                    ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
+            {
+                //place boxes random
+                Object ob = new Obstacle("box", false, p, true, false);
+                this.objects.add(ob);
+                setObjectInGrid(ob);
+            }
+        }       
+    }
+    
     public boolean getRandomBool(double perc)
     {
         Random r = new Random();
@@ -324,6 +370,11 @@ public class Game
         }
     }
     
+    public void setCurrentTime()
+    {
+        this.currentTime++;
+    }
+    
     public void setGameEnd(boolean isEnded)
     {
         if (isEnded)
@@ -350,6 +401,22 @@ public class Game
         }
         
         setupLevel();
+    }
+    
+    public void updateGame()
+    {
+        if (!gameEnd)
+        {
+            if (this.currentTime >= this.totalTime)
+            {
+                //voeg blokjes toe
+                //setGameEnd(true);
+            }
+        }
+        else
+        {
+            startRound();
+        }
     }
     
     public void setupLevel()
