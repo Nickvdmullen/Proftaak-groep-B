@@ -27,14 +27,14 @@ public class GameLevelTest
     public void setUp()
     {
         level1 = new Level(1100, 1100, "C://level1.jpg", "Level 1");
-        game1 = new Game(300, 1, 2);
-    }
+        game1 = new Game(9, 9, 300, 1, 2);
+    } 
     
     @Test
     public void testAddGame()
     {
         //Test if constructor works properly
-        game2 = new Game(120, 1, 1);
+        game2 = new Game(19, 19, 120, 1, 1);
         assertEquals("aantal rondes niet gelijk aan 120", game2.getTotalRounds(), 120);
         assertEquals("botdifficulty niet gelijk aan 1", game2.getBotDifficulty(), 1);
         assertEquals("totaal aantal rondes niet gelijk aan 2", game2.getTotalRounds(), 2);
