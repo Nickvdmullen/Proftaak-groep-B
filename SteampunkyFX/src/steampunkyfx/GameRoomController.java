@@ -67,11 +67,21 @@ public class GameRoomController implements Initializable {
         server = (Server) getServer();
     }
     
-    public void becomeSpectator() {
+    @FXML
+    public void becomeSpectator() 
+    {
         
     }
     
-    public void ReturnToMenu() {
-        
-    }     
+    @FXML
+    public void ReturnToMenu() 
+    {    
+    }   
+    
+    @FXML
+    public void Gameready()
+    {
+        System.out.print("Add game code here");
+        ///Teken code hier aan toevoegen
+    }
 }

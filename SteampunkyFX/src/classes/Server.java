@@ -57,6 +57,14 @@ public class Server extends Observable{
             System.out.println("Geen verbinding met database mogelijk: " + ex);
         }
     }
+    
+    public void Userlogedin(User tempuser)
+    {
+        if(tempuser != null)
+        {
+        users.add(tempuser);
+        }
+    }
 
     //**********************methoden****************************************
     public boolean createUser(String username, String password) {

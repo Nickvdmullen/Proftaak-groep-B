@@ -69,8 +69,6 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
         lobbyName = new ArrayList();
         this.server = (Server) getServer();
         server.addObserver(this);
-        //Lblobby.setItems(server.getLobbies());
-        //CBjoinlobby.setItems(server.getLobbies());
     }
 
     
@@ -83,7 +81,7 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
             try {
                 server.createLobby(TfCreatename.getText(), Tfvreatepassword.getText(), null);
                 JOptionPane.showMessageDialog(null,"Lobby has been created");
-                        System.out.println("Hallo");
+                main.gotoGameRoomselect();
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Lobby creation has failed" + ex.getMessage());

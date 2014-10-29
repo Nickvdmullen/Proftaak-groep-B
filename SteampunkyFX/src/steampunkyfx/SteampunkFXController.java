@@ -7,6 +7,7 @@
 package steampunkyfx;
 
 import classes.Server;
+import classes.User;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -98,7 +99,8 @@ public class SteampunkFXController implements Initializable
            {
                System.out.println("longin succes"); 
                try
-               {        
+               {     
+                  server.Userlogedin(new User(1,TFUsernamelogin.getText(), TFWachtwoordlogin.getText()));
                   main.gotoLobbyselect();
                }
                catch(Exception ex)
