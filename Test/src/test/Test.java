@@ -88,9 +88,40 @@ public class Test extends Application
         // Define title and assign the scene for main window
         primaryStage.setTitle("Game test");
         primaryStage.setScene(scene);
-        primaryStage.show();        
+        primaryStage.show();
+        
+        scene.setOnKeyPressed((KeyEvent keyEvent) -> {
+            if(keyEvent.getCode().toString().equals("W"))
+            {
+                // move character up. Calls playerCharacter.Move(Direction.UP)
+            }
+            
+            if(keyEvent.getCode().toString().equals("A"))
+            {
+                // move character left Calls playerCharacter.Move(Direction.LEFT)
+            }
+            
+            if(keyEvent.getCode().toString().equals("S"))
+            {
+                // move character down Calls playerCharacter.Move(Direction.DOWN)
+            }
+            
+            if(keyEvent.getCode().toString().equals("D"))
+            {
+                // move character right Calls playerCharacter.Move(Direction.RIGHT)
+            }
+            
+            if(keyEvent.getCode().toString().equals("Q"))
+            {
+                // put ballista down and shoots left/right first Calls playerCharacter.createBallista(Direction.UP,4,1)
+            }
+            
+            if(keyEvent.getCode().toString().equals("E"))
+            {
+                // put ballista down and shoots up/down first.Calls playerCharacter.createBallista(Direction.RIGHT,4,1)
+            }
+        });
     }
-    
     /**
      * @param args the command line arguments
      */
