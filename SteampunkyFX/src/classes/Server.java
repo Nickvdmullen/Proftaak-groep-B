@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
+import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableList;
+import javafx.collections.ObservableList;
 
 /**
  * OK
@@ -20,8 +23,13 @@ import java.util.*;
 public class Server {
 
     //************************datavelden*************************************
-    private List<User> users;
-    private List<Lobby> lobbies;
+    
+    private ArrayList<Lobby> lobbies;
+    private ArrayList<User> users;
+    private transient ObservableList<User> observableUsers;    
+    private transient ObservableList<Lobby> observableLobbies;
+
+    
     private Connection con;
     private static Server server = null;
 
@@ -31,8 +39,16 @@ public class Server {
      *
      */
     private Server() {
-        this.users = new ArrayList<>();
-        this.lobbies = new ArrayList<>();
+        this.lobbies = new ArrayList();
+        this.users = new ArrayList();
+        
+        observableUsers = observableList(users);
+        observableLobbies = observableList(lobbies);
+        
+    }
+    
+    public ObservableList<Lobby> getLobbies() {
+        return (ObservableList<Lobby>) FXCollections.unmodifiableObservableList(observableLobbies);
     }
 
     public void Connectionstring() {
@@ -58,10 +74,13 @@ public class Server {
                     System.out.println("Dubbele gebruiker gevonden");
                 }
             }
-        } catch (Exception ex) {
+             con.close();
+        } 
+        catch (Exception ex) {
             System.out.println("Dubbele gebruiker gevonden" + ex);
             return false;
         }
+ 
 
         if (adduser == true) {
             try {
@@ -72,6 +91,7 @@ public class Server {
                 stat2.setString(2, password);
                 stat2.execute();
                 System.out.println("Aanmaken van de user is gelukt: ");
+                con.close();
                 return true;
             } catch (Exception ex) {
                 System.out.println("Aanmaken van de user is milsukt: " + ex);
@@ -94,6 +114,7 @@ public class Server {
                     return true;
                 }
             }
+             con.close();
         } catch (Exception ex) {
             System.out.println("Gebruiker niet gevonden" + ex);
             return false;
@@ -104,7 +125,7 @@ public class Server {
 
     public boolean createLobby(String lobbyName, String password, User admin) {
         if (lobbyName != null && admin != null) {
-            this.lobbies.add(new Lobby(lobbyName, admin, password));
+            this.observableLobbies.add(new Lobby(lobbyName, admin, password));
             return true;
         } else {
             return false;
@@ -126,7 +147,7 @@ public class Server {
         }
         else if(lobby.removeUser(user) == -1)
         {
-            this.lobbies.remove(lobby);
+            this.observableLobbies.remove(lobby);
             return true;
         }
 
@@ -135,13 +156,13 @@ public class Server {
 
     public boolean deleteLobby(Lobby lobby) {
         Lobby templobby = null;
-        for (Lobby lobbylist : lobbies) {
+        for (Lobby lobbylist : observableLobbies) {
             if (lobbylist == lobby) {
                 templobby = lobbylist;
             }
         }
         if (templobby != null) {
-            lobbies.remove(templobby);
+            observableLobbies.remove(templobby);
             return true;
         } else {
             return false;

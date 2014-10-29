@@ -5,7 +5,9 @@
  */
 package steampunkyfx;
 
+import classes.Lobby;
 import classes.Server;
+import static classes.Server.getServer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +32,7 @@ import javax.swing.JOptionPane;
  *
  * @author Bart
  */
-public class SteampunkFXControllerlobby extends Application implements Initializable 
+public class SteampunkFXControllerlobby  implements Initializable 
 {
     //Lobby
     @FXML Label Creatlobbynamelb;
@@ -46,6 +48,11 @@ public class SteampunkFXControllerlobby extends Application implements Initializ
     
 
     private SteampunkyFX main;
+    private Server server;
+    
+    public SteampunkFXControllerlobby() {
+        //enpty
+    }
 
     public void setApp(SteampunkyFX application)
     {
@@ -55,11 +62,27 @@ public class SteampunkFXControllerlobby extends Application implements Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {    
+        this.server = (Server) getServer();
+        Lblobby.setItems(server.getLobbies());
+        CBjoinlobby.setItems(server.getLobbies());
     }
+
     
-    
-    @Override
-    public void start(Stage stage) throws Exception 
-    {
-    }   
+    @FXML
+    public void AddLobby() {
+        if (TfCreatename.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"Please enter a valid name.");
+        }
+        else {
+            try {
+                server.createLobby(TfCreatename.getText(), Tfvreatepassword.getText(), null);
+                JOptionPane.showMessageDialog(null,"Lobby has been created");
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Lobby creation has failed" + ex.getMessage());
+            }
+        }
+        Lblobby.setItems(server.getLobbies());
+        CBjoinlobby.setItems(server.getLobbies());
+    }
 }

@@ -8,20 +8,20 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="steampunkyfx.SteampunkFXControllerlobby">
   <children>
     <Label layoutX="13.0" layoutY="11.0" text="Create lobby">
       <font>
         <Font name="System Bold" size="16.0" fx:id="x1" />
       </font>
     </Label>
-    <Label id="Creatlobbynamelb" layoutX="13.0" layoutY="46.0" text="Lobby Name" />
-    <TextField id="TfCreatename" layoutX="97.0" layoutY="46.0" prefWidth="114.0" />
-    <TextField id="Tfvreatepassword" layoutX="97.0" layoutY="84.0" prefWidth="114.0" />
-    <ListView id="Lblobby" editable="false" layoutX="225.0" layoutY="20.0" prefHeight="166.0" prefWidth="361.0" />
-    <Label id="Creatlobbypasswordlb" layoutX="13.0" layoutY="87.0" text="Password" />
-    <Button id="Btcreatelobby" layoutX="13.0" layoutY="158.0" mnemonicParsing="false" text="Create lobby" />
-    <ComboBox id="Cbjoinlobby" layoutX="414.0" layoutY="278.0" prefHeight="21.0" prefWidth="137.0">
+    <Label fx:id="Creatlobbynamelb" layoutX="13.0" layoutY="46.0" text="Lobby Name" />
+    <TextField fx:id="TfCreatename" layoutX="97.0" layoutY="46.0" prefWidth="114.0" />
+    <TextField fx:id="Tfvreatepassword" layoutX="97.0" layoutY="81.0" prefWidth="114.0" />
+    <ListView fx:id="Lblobby" editable="false" layoutX="225.0" layoutY="20.0" prefHeight="166.0" prefWidth="361.0" />
+    <Label fx:id="Creatlobbypasswordlb" layoutX="13.0" layoutY="87.0" text="Password" />
+    <Button fx:id="Btcreatelobby" layoutX="13.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#AddLobby" text="Create lobby" />
+    <ComboBox id="Cbjoinlobby" fx:id="CBjoinlobby" layoutX="414.0" layoutY="279.0" prefHeight="21.0" prefWidth="137.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -30,8 +30,8 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <Label font="$x1" layoutX="414.0" layoutY="240.0" text="Join Lobby" />
-    <Button id="btjoinlobby" layoutX="414.0" layoutY="317.0" mnemonicParsing="false" text="Join lobby" />
+    <Label fx:id="joinlobbynamelb" font="$x1" layoutX="414.0" layoutY="240.0" text="Join Lobby" />
+    <Button fx:id="btjoinlobby" layoutX="414.0" layoutY="317.0" mnemonicParsing="false" text="Join lobby" />
     <Label id="joinlobbynamelb" layoutX="330.0" layoutY="281.0" text="Lobby Name" />
   </children>
 </AnchorPane>

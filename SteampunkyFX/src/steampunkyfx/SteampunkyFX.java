@@ -31,8 +31,6 @@ public class SteampunkyFX extends Application {
 
     private Stage stage;
 
-
-
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -63,6 +61,7 @@ public class SteampunkyFX extends Application {
             SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("Lobby3.fxml");
             lobbyselect.setApp(this);
         } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -70,7 +69,7 @@ public class SteampunkyFX extends Application {
     protected void gotoGameRoomselect() {
         try {
             GameRoomController GameRoomselect = (GameRoomController) replaceSceneContent("GameRoom.fxml");
-            GameRoomselect.setApp(this);
+           GameRoomselect.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,24 +94,30 @@ public class SteampunkyFX extends Application {
             this.stage.setMinHeight(268);
             scene = new Scene(page, 300, 268); 
         }
-        if(fxml.equals("Lobby3.fxml"))
+        else if(fxml.equals("Lobby3.fxml"))
         {
             this.stage.setMinWidth(630);
             this.stage.setMinHeight(400);
             scene = new Scene(page, 630, 400); 
-        }
-        
-        if(fxml.equals("GameRoom.fxml"))
+        }        
+        else if(fxml.equals("GameRoom.fxml"))
         {
             this.stage.setMinWidth(600);
             this.stage.setMinHeight(400);
             scene = new Scene(page, 600, 400); 
         }
+        else {
+            System.out.println("FATAL GUI ERROR");
+        }
         
-        scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
-        stage.setScene(scene);
+        if (scene != null) {
+            scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
         stage.setTitle("Steampunky");
         stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream("icon.png"))); 
+        stage.setScene(scene);
+        } else {
+            System.out.println("You done fucked up now");
+        }
         
         
         //stage.sizeToScene();
