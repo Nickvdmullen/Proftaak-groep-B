@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -61,8 +62,17 @@ public class SteampunkFXController extends Application implements Initializable
     @FXML ComboBox CBjoinlobby; 
 
     
-    private Server server;
     
+    private Server server;
+    private Stage stage;
+    private SteampunkyFX main;
+
+    
+    public void setapplication(Stage stage)
+    {
+        stage = new Stage();
+        this.stage = stage;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
@@ -90,9 +100,10 @@ public class SteampunkFXController extends Application implements Initializable
            if(server.loginUser(TFUsernamelogin.getText(), TFWachtwoordlogin.getText()))
            {
                System.out.println("longin succes");
+               this.stage = main.getstage();
                try
                {        
-                   
+                  this.start(stage);
                }
                catch(Exception ex)
                {
@@ -136,7 +147,10 @@ public class SteampunkFXController extends Application implements Initializable
         Parent root = FXMLLoader.load(r);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("Steampunky");
+        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream( "icon.png" ))); 
         stage.show();
     }
 

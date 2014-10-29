@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  */
 public class SteampunkyFX extends Application {
     
-    
+    Stage stage;
     @Override
     public void start(Stage stage) throws Exception 
     {
@@ -36,8 +36,9 @@ public class SteampunkyFX extends Application {
         scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Steampunky");
-        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream( "icon.png" ))); 
+        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream("icon.png"))); 
         stage.show();
+        this.stage = stage;
     }
 
     /**
@@ -45,6 +46,11 @@ public class SteampunkyFX extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public Stage getstage()
+    {
+        return this.stage;
     }
     
 }
