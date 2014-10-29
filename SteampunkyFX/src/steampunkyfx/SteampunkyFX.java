@@ -30,17 +30,17 @@ import javafx.stage.Stage;
 public class SteampunkyFX extends Application {
 
     private Stage stage;
-    private final double MINIMUM_WINDOW_WIDTH = 300.0;
-    private final double MINIMUM_WINDOW_HEIGHT = 276.0;
+
 
     @Override
     public void start(Stage stage) throws Exception {
         try {
             this.stage = stage;
             this.stage.setTitle("SteamPunky");
-            this.stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
-            this.stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
-            gotologinselect();
+            this.stage.setMinWidth(100);
+            this.stage.setMinHeight(100);
+            gotoLobbyselect();
+            
 
             this.stage.show();
         } catch (Exception ex) {
@@ -48,7 +48,7 @@ public class SteampunkyFX extends Application {
         }
     }
 
-    protected void gotologinselect() {
+    protected void gotoLoginselect() {
         try {
             SteampunkFXController loginselect = (SteampunkFXController) replaceSceneContent("loginProftaak2.fxml");
             loginselect.setApp(this);
@@ -57,10 +57,19 @@ public class SteampunkyFX extends Application {
         }
     }
     
-    protected void gotolobbyselect() {
+    protected void gotoLobbyselect() {
         try {
-            SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("lobby2.fxml");
+            SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("Lobby2.fxml");
             lobbyselect.setApp(this);
+        } catch (Exception ex) {
+            Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    protected void gotoGameRoomselect() {
+        try {
+            GameRoomController GameRoomselect = (GameRoomController) replaceSceneContent("GameRoom.fxml");
+            GameRoomselect.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,19 +86,32 @@ public class SteampunkyFX extends Application {
         } finally {
             in.close();
         }
+        
         Scene scene = null;
         if(fxml.equals("loginProftaak2.fxml"))
         {
-            scene = new Scene(page, 300, 276); 
+            this.stage.setMinWidth(300);
+            this.stage.setMinHeight(268);
+            scene = new Scene(page, 300, 268); 
         }
-        if(fxml.equals("lobby2.fxml"))
+        if(fxml.equals("Lobby2.fxml"))
         {
-            scene = new Scene(page, 300, 276); 
+            this.stage.setMinWidth(630);
+            this.stage.setMinHeight(400);
+            scene = new Scene(page, 630, 400); 
         }
-
-        // scene.getStylesheets().add("bank/gui/ING.css");
+        
+        if(fxml.equals("GameRoom.fxml"))
+        {
+            this.stage.setMinWidth(600);
+            this.stage.setMinHeight(400);
+            scene = new Scene(page, 600, 400); 
+        }
+        
+        scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
         stage.setScene(scene);
-        stage.sizeToScene();
+        
+        //stage.sizeToScene();
         return (Initializable) loader.getController();
     }
 
