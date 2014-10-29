@@ -7,6 +7,7 @@
 package classes;
 
 import java.util.*;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -19,19 +20,23 @@ public class Game
     private int heightCubes;
     private int widthPixels;
     private int widthCubes;
-    
-    private List<Position> grid;
+        
     private int botDifficulty;
     private Timer timer;
     private TimerTask task;
     private double currentTime;
     private double totalTime; //in seconds
     private int totalRounds;
-    private int round;
-    private List<Level> levels;
-    private List<Object> objects;
+    private int round;    
     private boolean gameEnd;
     private Level currentLevel;
+    
+    private List<Position> grid;
+    private List<Level> levels;
+    private List<Object> objects;
+    private List<User> players;
+    private List<Bot> bots;
+    private List<Character> characters;
 
     //***********************constructoren***********************************
     /**
@@ -78,6 +83,9 @@ public class Game
 
             this.levels = new ArrayList<>();
             this.objects = new ArrayList<>();
+            this.players = new ArrayList<>();
+            this.bots = new ArrayList<>();
+            this.characters = new ArrayList<>();
             
             timer = new Timer();
             task = new TimerTask()
@@ -112,6 +120,19 @@ public class Game
             if(p.getX() == x && p.getY() == y)
             {
                 return p.getObjects();
+            }
+        }
+        
+        return null;
+    }
+    
+    public Position getPosition(int x, int y)
+    {
+        for (Position p : grid)
+        {
+            if(p.getX() == x && p.getY() == y)
+            {
+                return p;
             }
         }
         
@@ -214,6 +235,11 @@ public class Game
         this.levels.add(level);
     }
     
+    public void addPlayer(User player)
+    {
+        this.players.add(player);
+    }
+    
     public void addObject(Object object)
     {
         this.objects.add(object);
@@ -232,7 +258,7 @@ public class Game
             
             while (col < this.heightCubes)
             {
-                Position p = new Position(col, row);
+                Position p = getPosition(col, row);
                 Object ob = new Obstacle("cube", false, p, true, false);
                 cubes.add(ob);
                 col += 2;
@@ -251,31 +277,31 @@ public class Game
         int col = 1;
         
         //first boxes around player
-        Position p = new Position(3, 1);
+        Position p = getPosition(3, 1);
         Object ob = new Obstacle("box", false, p, true, false);
         boxes.add(ob);
-        p = new Position(1, 3);
+        p = getPosition(1, 3);
         ob = new Obstacle("box", false, p, true, false);
         boxes.add(ob);
         
-        p = new Position(this.widthCubes - 2, 1);
+        p = getPosition(this.widthCubes - 2, 1);
         ob = new Obstacle("box", false, p, true, false);
         boxes.add(ob);
-        p = new Position(this.widthCubes, 3);
-        ob = new Obstacle("box", false, p, true, false);
-        boxes.add(ob);
-        
-        p = new Position(1, this.heightCubes - 2);
-        ob = new Obstacle("box", false, p, true, false);
-        boxes.add(ob);
-        p = new Position(3, this.heightCubes);
+        p = getPosition(this.widthCubes, 3);
         ob = new Obstacle("box", false, p, true, false);
         boxes.add(ob);
         
-        p = new Position(this.widthCubes - 2, this.heightCubes);
+        p = getPosition(1, this.heightCubes - 2);
         ob = new Obstacle("box", false, p, true, false);
         boxes.add(ob);
-        p = new Position(this.widthCubes, this.heightCubes - 2);
+        p = getPosition(3, this.heightCubes);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        
+        p = getPosition(this.widthCubes - 2, this.heightCubes);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        p = getPosition(this.widthCubes, this.heightCubes - 2);
         ob = new Obstacle("box", false, p, true, false);
         boxes.add(ob);
         
@@ -298,7 +324,7 @@ public class Game
                     //place boxes random
                     if (getRandomBool(0.4))
                     {
-                        p = new Position(col, row);
+                        p = getPosition(col, row);
                         ob = new Obstacle("box", false, p, true, false);
                         boxes.add(ob);
                     }
@@ -313,13 +339,13 @@ public class Game
         return boxes;
     }
     
-    public void placeRandomBox()
+    public boolean placeRandomPowerup()
     {
         Random rX = new Random(this.widthCubes);
         int col = rX.nextInt();
         Random rY = new Random(this.heightCubes);
         int row = rY.nextInt();
-        Position p = new Position(col, row);
+        Position p = getPosition(col, row);
         
         if (p.getObjects() == null)
         {
@@ -333,11 +359,14 @@ public class Game
                     ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
             {
                 //place boxes random
-                Object ob = new Obstacle("box", false, p, true, false);
+                Object ob = new Obstacle("powerup", false, p, true, false);
                 this.objects.add(ob);
                 setObjectInGrid(ob);
+                return true;
             }
-        }       
+        }
+        
+        return false;
     }
     
     public boolean getRandomBool(double perc)
@@ -375,21 +404,27 @@ public class Game
         this.currentTime++;
     }
     
-    public void setGameEnd(boolean isEnded)
+    /**
+     * Set end of level and checks if there are more levels
+     * @return If total game is ended, so when there are no more rounds
+     */
+    public boolean setGameEnd()
     {
-        if (isEnded)
-        {
-            this.gameEnd = true;
-            
-            //Ga naar de volgende ronde mits die er is
-            if (this.round < this.totalRounds)
-            {               
-                this.round++;
-                startRound();
-            }
+        this.gameEnd = true;
+        
+        //Ga naar de volgende ronde mits die er is
+        if (this.round < this.totalRounds)
+        {               
+            this.round++;
+            return false;
         }
+        
+        return true;
     }
     
+    /**
+     * Strart round of game
+     */
     public void startRound()
     {
         /**
@@ -400,30 +435,134 @@ public class Game
             p.clearAllObjects();
         }
         
-        setupLevel();
+        if (getCurrentRound() == 1)
+        {
+           setupGame(); 
+        }
+        else
+        {
+            setupLevel();
+        }
     }
     
     public void updateGame()
-    {
-        if (!gameEnd)
+    {        
+        boolean ended = getGameEnd();
+        
+        if (!ended)
         {
             if (this.currentTime >= this.totalTime)
-            {
-                //voeg blokjes toe
-                //setGameEnd(true);
+            {                
+                //add boxes in circle in level
+                
+                
+                //if players cant move
+                //setGameEnd()
             }
         }
         else
         {
-            startRound();
+            boolean lastLevel = setGameEnd();
+            
+            if (!lastLevel)
+            {
+                startRound();
+            }
+            else
+            {
+                //einde van game; socre weergeven?!
+            }
         }
+    }
+    
+    public void setupGame()
+    {
+        String[] namen = new String[2];
+        namen[0] = "Hans";
+        namen[1] = "Marcel";
+        namen[2] = "Andre";
+        namen[3] = "Nico";
+        
+        Color[] colors = new Color[3];
+        colors[0] = Color.RED;
+        colors[1] = Color.LIMEGREEN;
+        colors[2] = Color.ROYALBLUE;
+        colors[3] = Color.YELLOW;
+        
+        Position[] positions = new Position[3];
+        positions[0] = getPosition(1, this.heightCubes);
+        positions[1] = getPosition(1, 1);
+        positions[2] = getPosition(this.widthCubes, 1);
+        positions[3] = getPosition(this.widthCubes, this.heightCubes);
+        
+        Direction[] directions = new Direction[3];
+        directions[0] = Direction.Right;
+        directions[1] = Direction.Down;
+        directions[2] = Direction.Left;
+        directions[3] = Direction.Up;
+        
+        this.objects.addAll(this.getBoxes());
+        this.objects.addAll(this.getCubes());
+        
+        int i = 0;
+        
+        //Add character to player
+        for (User p : this.players)
+        {
+            Character c = new Character(1, false, 1, 3, positions[i], true, true, directions[i], colors[i]);
+            p.setCharacter(c);
+            this.objects.add(c);
+            i++;
+        }
+        
+        int count = this.players.size();
+        
+        //Add bots for missing players
+        for (int k=i; k<4; k++)
+        {            
+            if (k >= count)
+            {
+                Bot b = new Bot(namen[k], this.botDifficulty, this);
+                this.bots.add(b);
+                
+                Character c = new Character(1, false, 1, 3, positions[k], true, true, directions[k], colors[k]);
+                b.setCharacter(c);
+                this.objects.add(c);
+            }
+        }        
     }
     
     public void setupLevel()
     {
+        this.objects.clear();
+        
+        Position[] positions = new Position[3];
+        positions[0] = getPosition(1, this.heightCubes);
+        positions[1] = getPosition(1, 1);
+        positions[2] = getPosition(this.widthCubes, 1);
+        positions[3] = getPosition(this.widthCubes, this.heightCubes);
+        
+        Direction[] directions = new Direction[3];
+        directions[0] = Direction.Right;
+        directions[1] = Direction.Down;
+        directions[2] = Direction.Left;
+        directions[3] = Direction.Up;
+        
+        int i = 0;
+        
+        //reset position of characters
+        for (Character c : this.characters)
+        {            
+            c.setPosition(positions[i]);
+            c.setDirection(directions[i]);
+            i++;
+        }
+        
+        this.objects.addAll(this.characters);
         this.objects.addAll(this.getBoxes());
         this.objects.addAll(this.getCubes());
         
+        //Add all objects to grid
         for (Object o : this.objects)
         {
             this.setObjectInGrid(o);

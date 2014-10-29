@@ -6,6 +6,9 @@
 package classes;
 
 import java.util.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 
 /**
  OK
@@ -25,12 +28,12 @@ public class Character extends Object
     //relaties
     private List<Ballista> ballistas;
     private List<PowerUp> powerups;
-    private User user;
+    
+    private Shape shape;
 
     /**
      The Constructor of Character
      <p>
-     @param score       The Score of the character
      @param speed       The speed with which the character can move.
      @param dead        A boolean for showing if the player is alive or dead
      @param maxBallista An int of the maximum amount of ballista you can drop
@@ -40,8 +43,8 @@ public class Character extends Object
      @param movable     A boolean if the character can move or not
      @param direction   A Direction to which the character is moving
      */
-    public Character(int score , double speed , boolean dead , int maxBallista , int torch ,
-            Position position , boolean active , boolean movable , Direction direction)
+    public Character(double speed , boolean dead , int maxBallista , int torch ,
+            Position position , boolean active , boolean movable , Direction direction, Color color)
     {
         //todo
         super(position , active , movable , direction);
@@ -52,7 +55,7 @@ public class Character extends Object
             throw new IllegalArgumentException("You can't have a Character that starts dead");
         }
         this.characterID = super.getInterfaceID();
-        this.score = score;
+        this.score = 0;
         this.speed = speed;
         this.dead = dead;
         this.maxBallistas = maxBallista;
@@ -64,6 +67,9 @@ public class Character extends Object
         }
         ballistas = new ArrayList<>();
         powerups = new ArrayList<>();
+        
+        this.shape = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
+        this.shape.setFill(color);
     }
 
     //**********************methoden****************************************

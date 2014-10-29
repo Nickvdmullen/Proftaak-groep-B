@@ -7,6 +7,7 @@ package classes;
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -59,15 +60,20 @@ public class Obstacle extends Object
         
         if (this.type.equals("box"))
         {
-            this.shape = new Rectangle((position.getX()*100), (position.getY()*100), 100, 100);
-            this.shape.setFill(Color.BROWN);
-            this.shape.setStroke(Color.RED);
+            this.shape = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+            this.shape.setFill(Color.BLANCHEDALMOND);
+            this.shape.setStroke(Color.BURLYWOOD);
             this.shape.setStrokeWidth(2);
         }
         else if (this.type.equals("cube"))
         {
-            this.shape = new Rectangle((position.getX()*100), (position.getY()*100), 100, 100);
+            this.shape = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
             this.shape.setFill(Color.BLACK);
+        }
+        else if (this.type.equals("powerup"))
+        {
+            this.shape = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
+            this.shape.setFill(Color.LIGHTBLUE);
         }
         
         this.broken = broken;
