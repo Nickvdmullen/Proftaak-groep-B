@@ -85,7 +85,6 @@ public class Bot {
     public void AI() {
         int X = this.character.getPosition().getX();
         int Y = this.character.getPosition().getY();
-
         List<Position> grid = this.game.getGrid();
         List<Position> movableGrid = new ArrayList<>();
         getMovableGrid(X, Y, grid, movableGrid);
@@ -123,33 +122,7 @@ public class Bot {
         }
     }
 
-    public List<Position> getUsableGrid(int X, int Y, List<Position> grid) {
-        List<Position> tempList = new ArrayList<>();
-        for (int x = X + this.character.getTorchRange(); x == X - this.character.getTorchRange() || x == 0; x--) {
-            if (this.game.getObjectsFromGrid(x, Y).isEmpty()) {
-                for (Position P : grid) {
-                    if (P.getX() == x && P.getY() == Y) {
-                        tempList.add(P);
-                    }
-                }
-            }
-        }
-
-        for (int y = Y + this.character.getTorchRange(); y == Y - this.character.getTorchRange() || y == 0; y--) {
-            if (this.game.getObjectsFromGrid(X, y).isEmpty()) {
-                for (Position P : grid) {
-                    if (P.getX() == X && P.getY() == y) {
-                        tempList.add(P);
-                    }
-                }
-            }
-
-        }
-
-        return tempList;
-    }
-
-    public boolean isVisible(int X, int Y) {
+   public boolean isVisible(int X, int Y) {
         int x = this.character.getPosition().getX();
         int y = this.character.getPosition().getY();
         int t = this.character.getTorchRange();
@@ -181,20 +154,20 @@ public class Bot {
         return false;
     }
 
-    public void getMovableGrid(int X, int Y, List<Position> grid, List<Position> tempList) {
+    public void getMovableGrid(int X, int Y, List<Position> grid, List<Position> MovableList) {
         int x = this.character.getPosition().getX();
         int y = this.character.getPosition().getY();
         int t = this.character.getTorchRange();
 
         for (Position P : grid) {
-            if (P.getX() == X && P.getY() == Y && !tempList.contains(P)) {
-                tempList.add(P);
+            if (P.getX() == X && P.getY() == Y && !MovableList.contains(P)) {
+                MovableList.add(P);
             }
             if (P.getX() == X && P.getY() == Y + 1) {
                 if (this.isVisible(X, Y + 1)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X, Y + 1, grid, tempList, Direction.Up);
+                            this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Up);
                         }
                     }
                 }
@@ -203,7 +176,7 @@ public class Bot {
                 if (this.isVisible(X + 1, Y)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X + 1, Y, grid, tempList,Direction.Right);
+                            this.getMovableGrid(X + 1, Y, grid, MovableList,Direction.Right);
                         }
                     }
                 }
@@ -212,7 +185,7 @@ public class Bot {
                 if (this.isVisible(X, Y - 1)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X, Y - 1, grid, tempList,Direction.Down);
+                            this.getMovableGrid(X, Y - 1, grid, MovableList,Direction.Down);
                         }
                     }
                 }
@@ -221,27 +194,27 @@ public class Bot {
                 if (this.isVisible(X - 1, Y)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X - 1, Y, grid, tempList,Direction.Left);
+                            this.getMovableGrid(X - 1, Y, grid, MovableList,Direction.Left);
                         }
                     }
                 }
             }
         }
     }
-    public void getMovableGrid(int X, int Y, List<Position> grid, List<Position> tempList, Direction D) {
+    public void getMovableGrid(int X, int Y, List<Position> grid, List<Position> MovableList, Direction D) {
         int x = this.character.getPosition().getX();
         int y = this.character.getPosition().getY();
         int t = this.character.getTorchRange();
 
         for (Position P : grid) {
-            if (P.getX() == X && P.getY() == Y && !tempList.contains(P)) {
-                tempList.add(P);
+            if (P.getX() == X && P.getY() == Y && !MovableList.contains(P)) {
+                MovableList.add(P);
             }
             if (P.getX() == X && P.getY() == Y + 1 && D == Direction.Up) {
                 if (this.isVisible(X, Y + 1)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X, Y + 1, grid, tempList,Direction.Up);
+                            this.getMovableGrid(X, Y + 1, grid, MovableList,Direction.Up);
                         }
                     }
                 }
@@ -250,7 +223,7 @@ public class Bot {
                 if (this.isVisible(X + 1, Y)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X + 1, Y, grid, tempList,Direction.Right);
+                            this.getMovableGrid(X + 1, Y, grid, MovableList,Direction.Right);
                         }
                     }
                 }
@@ -259,7 +232,7 @@ public class Bot {
                 if (this.isVisible(X, Y - 1)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X, Y - 1, grid, tempList,Direction.Down);
+                            this.getMovableGrid(X, Y - 1, grid, MovableList,Direction.Down);
                         }
                     }
                 }
@@ -268,7 +241,7 @@ public class Bot {
                 if (this.isVisible(X - 1, Y)) {
                     for (Object O : P.getObjects()) {
                         if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X - 1, Y, grid, tempList,Direction.Left);
+                            this.getMovableGrid(X - 1, Y, grid, MovableList,Direction.Left);
                         }
                     }
                 }
