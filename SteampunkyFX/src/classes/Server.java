@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  *
  * @author Bart
  */
-public class Server {
+public class Server extends Observable{
 
     //************************datavelden*************************************
     
@@ -28,7 +28,6 @@ public class Server {
     private ArrayList<User> users;
     private transient ObservableList<User> observableUsers;    
     private transient ObservableList<Lobby> observableLobbies;
-
     
     private Connection con;
     private static Server server = null;
@@ -124,8 +123,11 @@ public class Server {
     }
 
     public boolean createLobby(String lobbyName, String password, User admin) {
-        if (lobbyName != null && admin != null) {
-            this.observableLobbies.add(new Lobby(lobbyName, admin, password));
+        if (lobbyName != null && admin == null) { //moet naar niet null
+            Lobby lobby;
+            this.observableLobbies.add(lobby = new Lobby(lobbyName, admin, password));
+            this.setChanged();
+            this.notifyObservers(lobby);
             return true;
         } else {
             return false;

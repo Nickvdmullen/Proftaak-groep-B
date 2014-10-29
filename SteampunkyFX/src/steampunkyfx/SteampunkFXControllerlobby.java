@@ -10,8 +10,12 @@ import classes.Server;
 import static classes.Server.getServer;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,7 +36,7 @@ import javax.swing.JOptionPane;
  *
  * @author Bart
  */
-public class SteampunkFXControllerlobby  implements Initializable 
+public class SteampunkFXControllerlobby implements Observer, Initializable
 {
     //Lobby
     @FXML Label Creatlobbynamelb;
@@ -45,13 +49,12 @@ public class SteampunkFXControllerlobby  implements Initializable
     @FXML Button btjoinlobby;
     @FXML ListView Lblobby;
     
-    
+    ArrayList<String> lobbyName;
 
     private SteampunkyFX main;
     private Server server;
     
     public SteampunkFXControllerlobby() {
-        //enpty
     }
 
     public void setApp(SteampunkyFX application)
@@ -61,10 +64,13 @@ public class SteampunkFXControllerlobby  implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
-    {    
+    {   
+        Clear();
+        lobbyName = new ArrayList();
         this.server = (Server) getServer();
-        Lblobby.setItems(server.getLobbies());
-        CBjoinlobby.setItems(server.getLobbies());
+        server.addObserver(this);
+        //Lblobby.setItems(server.getLobbies());
+        //CBjoinlobby.setItems(server.getLobbies());
     }
 
     
@@ -77,12 +83,31 @@ public class SteampunkFXControllerlobby  implements Initializable
             try {
                 server.createLobby(TfCreatename.getText(), Tfvreatepassword.getText(), null);
                 JOptionPane.showMessageDialog(null,"Lobby has been created");
+                        System.out.println("Hallo");
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Lobby creation has failed" + ex.getMessage());
+                        System.out.println("Failed");
             }
         }
-        Lblobby.setItems(server.getLobbies());
-        CBjoinlobby.setItems(server.getLobbies());
+    }
+
+    @Override
+    public void update(Observable o, Object o1) {
+        try {
+            Lobby lobby = (Lobby) o1;
+            lobbyName.add(lobby.ToString());
+        } catch(Exception ex) {
+            System.out.println("Not an lobby");
+        }
+        Clear();
+        
+        Lblobby.setItems(FXCollections.observableList(lobbyName));
+        CBjoinlobby.setItems(FXCollections.observableList(lobbyName));
+    }
+    
+    public void Clear() {
+        Lblobby.getItems().clear();
+        CBjoinlobby.getItems().clear();
     }
 }

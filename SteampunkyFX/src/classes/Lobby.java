@@ -132,4 +132,9 @@ public class Lobby
         }
         return false;
     }   
+    
+    public String ToString()
+    {
+       return this.lobbyName; 
+    }
 }
