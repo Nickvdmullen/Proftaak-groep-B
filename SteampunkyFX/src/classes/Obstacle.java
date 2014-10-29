@@ -20,9 +20,6 @@ public class Obstacle extends Object
     //************************datavelden*************************************
     private int interfaceID;
     private int obstacleID = 1;
-    private boolean active;
-    private boolean movable; 
-
     private final String type;
     private boolean broken;
     
@@ -40,9 +37,9 @@ public class Obstacle extends Object
      @param active   A boolean which holds the state of this Obstacle.
      @param movable  A boolean which holds the state of this Obstacle.
      */
-    public Obstacle(String type , boolean broken , Position position , boolean active , boolean movable)
+    public Obstacle(String type , boolean broken , Position position , boolean active , boolean movable, Game game)
     {
-        super(position , active , movable , null);
+        super(position , active , movable , null,game);
 
         interfaceID = super.getInterfaceID();
         if (interfaceID == 0)
@@ -69,7 +66,6 @@ public class Obstacle extends Object
             this.shape = new Rectangle((position.getX()*100), (position.getY()*100), 100, 100);
             this.shape.setFill(Color.BLACK);
         }
-        
         this.broken = broken;
 
         this.obstacleID = interfaceID;
@@ -106,5 +102,4 @@ public class Obstacle extends Object
     {
         this.broken = broken;
     }
-
 }

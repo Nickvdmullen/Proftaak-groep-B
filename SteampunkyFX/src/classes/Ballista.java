@@ -31,20 +31,19 @@ public class Ballista extends Object
      @param projectileSpeed The speed of the Projectiles the ballista makes.
      @param position        An attribute of Object that holds the Position of this Ballista.
      @param active          An attribute of Object that sets if an Object is active or not.
-     @param movable         An attribute of Object that sets if an Object is movable or not.
      @param direction       An attribute of Object that is used to decide which way to shoot first.
      *
      */
-    public Ballista(String type , int shots , double projectileSpeed , Position position , boolean active , boolean movable , Direction direction)
+    public Ballista(String type , int shots , double projectileSpeed , Position position , boolean active, Direction direction,Game game)
     {
-        super(position , movable , active , direction);
+        super(position , false , active , direction, game);
 
         if (shots % 4 != 0)
         {
             throw new IllegalArgumentException("A ballista must have a multitude of 4 as # of shots.");
         }
         //Check if values entered are correct.
-        if (!movable && type != null)
+        if (type != null)
         {
             //Check if type isn't empty
             if (!type.isEmpty())
@@ -114,7 +113,7 @@ public class Ballista extends Object
      */
     private void createProjectile(Direction direction)
     {
-        Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , false , direction);
+        Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , false , direction,super.getGame());
     }
 
 }

@@ -21,6 +21,7 @@ public abstract class Object
     private boolean active;
     private boolean movable;
     private Direction direction;
+    private Game myGame;
 
     //***********************constructoren***********************************
     /**
@@ -31,14 +32,15 @@ public abstract class Object
      @param Active    A Boolean which holds the current state of this Object.
      @param Movable   A boolean which holds the current state of this Object
      @param direction A Object of the Class Direction which holds the direction in which this Object is moving.
+     @param game      A Object of the Class Game in which this object is placed.
      */
-    public Object(Position position , boolean Active , boolean Movable , Direction direction)
+    public Object(Position position , boolean Active , boolean Movable , Direction direction, Game game)
     {
         this.position = position;
         this.active = Active;
         this.movable = Movable;
-
         this.direction = direction;
+        this.myGame = game;
 
         if (!movable)
         {
@@ -46,6 +48,7 @@ public abstract class Object
         }
 
         this.interfaceID++;
+        position.addObject(this);
     }
 
     //**********************methoden****************************************
@@ -118,7 +121,17 @@ public abstract class Object
     {
         this.active = active;
     }
-
+    
+    /**
+     * The Getter of Game
+     * 
+     * @return An instance of the game this object is located in.
+     */
+    public Game getGame()
+    {
+        return this.myGame;
+    }
+    
     /**
      A Method for moving this Object
      <p>
@@ -126,30 +139,66 @@ public abstract class Object
      */
     public void move(Direction direction)
     {
+        List<Position> allObject = myGame.getGrid();
+        Position newPosition = null;
         if (movable)
         {
-
-            Position newPosition;
             if (direction == direction.Right)
             {
-                newPosition = new Position((this.position.getX() + 1) , this.position.getY());
-                this.position = newPosition;
-            } else if (direction == direction.Left)
-            {
-                newPosition = new Position((this.position.getX() - 1) , this.position.getY());
-                this.position = newPosition;
-            } else if (direction == direction.Up)
-            {
-                newPosition = new Position(this.position.getX() , (this.position.getY() + 1));
-                this.position = newPosition;
-            } else
-            {
-                newPosition = new Position(this.position.getX() , (this.position.getY() - 1));
-                this.position = newPosition;
+                for(Position position :allObject)
+                {
+                    newPosition = new Position((this.position.getX() + 1) , this.position.getY());
+                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                    {
+                        this.position.removeObject(this);
+                        this.position = position;
+                        this.position.addObject(this);
+                    }
+                }
             }
-        } else
+            else if (direction == direction.Left)
+            {
+                for(Position position :allObject)
+                {
+                    newPosition = new Position((this.position.getX() - 1) , this.position.getY());
+                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                    {
+                        this.position.removeObject(this);
+                        this.position = position;
+                        this.position.addObject(this);
+                    }
+                }
+            }
+            else if (direction == direction.Up)
+            {
+                for(Position position :allObject)
+                {
+                    newPosition = new Position((this.position.getY() + 1) , this.position.getX());
+                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                    {
+                        this.position.removeObject(this);
+                        this.position = position;
+                        this.position.addObject(this);
+                    }
+                }
+            }
+            else
+            {
+                for(Position position :allObject)
+                {               
+                    newPosition = new Position((this.position.getY() - 1) , this.position.getX());
+                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                    {
+                        this.position.removeObject(this);
+                        this.position = position;
+                        this.position.addObject(this);
+                    }
+                }
+            }
+        }
+        else
         {
-            System.out.println("Kan unmovable object niet bewegen");
+            System.out.println("Can't move an immovable object");
         }
     }
 
