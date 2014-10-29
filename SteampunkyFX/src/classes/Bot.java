@@ -89,8 +89,8 @@ public class Bot
     public void AI(){
         int X = this.character.getPosition().getX();
         int Y = this.character.getPosition().getY();
-        List<Position> grid = this.game.getGrid();
-        List<Position> usableGrid = getUsableGrid(X,Y,grid);
+        //List<Position> grid = this.game.getGrid();
+        //List<Position> usableGrid = getUsableGrid(X,Y,grid);
         Random rand = new Random();
         int randomNum = rand.nextInt(4)+1;
         if(randomNum==1){this.character.move(Direction.Up);}
