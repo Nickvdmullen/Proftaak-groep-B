@@ -32,6 +32,7 @@ public class SteampunkyFX extends Application {
     private Stage stage;
 
 
+
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -39,7 +40,7 @@ public class SteampunkyFX extends Application {
             this.stage.setTitle("SteamPunky");
             this.stage.setMinWidth(100);
             this.stage.setMinHeight(100);
-            gotoLobbyselect();
+            gotoLoginselect();
             
 
             this.stage.show();
@@ -59,7 +60,7 @@ public class SteampunkyFX extends Application {
     
     protected void gotoLobbyselect() {
         try {
-            SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("Lobby2.fxml");
+            SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("Lobby3.fxml");
             lobbyselect.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,7 +95,7 @@ public class SteampunkyFX extends Application {
             this.stage.setMinHeight(268);
             scene = new Scene(page, 300, 268); 
         }
-        if(fxml.equals("Lobby2.fxml"))
+        if(fxml.equals("Lobby3.fxml"))
         {
             this.stage.setMinWidth(630);
             this.stage.setMinHeight(400);
@@ -110,6 +111,9 @@ public class SteampunkyFX extends Application {
         
         scene.getStylesheets().add(SteampunkyFX.class.getResource("style.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("Steampunky");
+        stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream("icon.png"))); 
+        
         
         //stage.sizeToScene();
         return (Initializable) loader.getController();

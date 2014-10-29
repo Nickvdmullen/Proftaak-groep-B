@@ -65,20 +65,18 @@ public class SteampunkFXController implements Initializable
     
     private Server server;
     private SteampunkyFX main;
+    
 
     public void setApp(SteampunkyFX application)
     {
         this.main = application;
     }
-    
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {    
         server = Server.getServer();
     }
-    
     
     @FXML
     private void BTExitlogin()
@@ -101,7 +99,7 @@ public class SteampunkFXController implements Initializable
                System.out.println("longin succes"); 
                try
                {        
-            
+                  main.gotoLobbyselect();
                }
                catch(Exception ex)
                {
