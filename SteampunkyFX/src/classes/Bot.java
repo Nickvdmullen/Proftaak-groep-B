@@ -99,19 +99,8 @@ public class Bot
             else if (randomNum==3 && this.game.getObjectsFromGrid(X, Y-1).isEmpty()){this.character.move(Direction.Down);}
             else if (randomNum==4 && this.game.getObjectsFromGrid(X-1, Y).isEmpty()){this.character.move(Direction.Left);}
         }
-        if(this.difficulty == 2){
-            
-        }
-                
-
-        Random rand = new Random();
-        int randomNum = rand.nextInt(4)+1;
-        if(randomNum==1){this.character.move(Direction.Up);}
-        else if (randomNum==2){this.character.move(Direction.Right);}
-        else if (randomNum==3){this.character.move(Direction.Down);}
-        else if (randomNum==4){this.character.move(Direction.Left);}
-
-        
+        if(this.difficulty == 2){     
+        }        
     }
         
     
