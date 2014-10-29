@@ -101,4 +101,8 @@ public class Position
         }
     }
 
+    public void clearAllObjects()
+    {
+        this.objects.clear();
+    }
 }

@@ -6,6 +6,9 @@
 package classes;
 
 import java.util.ArrayList;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
  OK
@@ -18,10 +21,12 @@ public class Obstacle extends Object
     private int interfaceID;
     private int obstacleID = 1;
     private boolean active;
-    private boolean movable;
+    private boolean movable; 
 
     private final String type;
     private boolean broken;
+    
+    private Shape shape;
 
     ArrayList<Integer> obstacleIDs = new ArrayList<>();
 
@@ -51,6 +56,20 @@ public class Obstacle extends Object
         }
 
         this.type = type;
+        
+        if (this.type.equals("box"))
+        {
+            this.shape = new Rectangle((position.getX()*100), (position.getY()*100), 100, 100);
+            this.shape.setFill(Color.BROWN);
+            this.shape.setStroke(Color.RED);
+            this.shape.setStrokeWidth(2);
+        }
+        else if (this.type.equals("cube"))
+        {
+            this.shape = new Rectangle((position.getX()*100), (position.getY()*100), 100, 100);
+            this.shape.setFill(Color.BLACK);
+        }
+        
         this.broken = broken;
 
         this.obstacleID = interfaceID;

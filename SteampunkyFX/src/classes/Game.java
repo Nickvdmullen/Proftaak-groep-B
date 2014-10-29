@@ -15,6 +15,11 @@ import java.util.*;
 public class Game
 {
     //************************datavelden*************************************
+    private int heightPixels;
+    private int heightCubes;
+    private int widthPixels;
+    private int widthCubes;
+    
     private List<Position> grid;
     private int botDifficulty;
     private double timer;
@@ -29,20 +34,53 @@ public class Game
     //***********************constructoren***********************************
     /**
      * Constructor of Game
+     * @param height uneven number of cubes, minimum of 9
+     * @param width uneven number of cubes, minimum of 9
      * @param timelimit          The max amount of time a game can last.
      * @param botDifficulty      The difficulty of the bots.
      * @param rounds             The number of rounds that can be played.
      */
-    public Game(double timelimit, int botDifficulty, int rounds)
+    public Game(int height, int width, double timelimit, int botDifficulty, int rounds)
     {
-        this.botDifficulty = botDifficulty;
-        this.totalTime = timelimit;
-        this.timer = 0;
-        this.totalRounds = rounds;
-        this.round = 1;        
-        
-        this.levels = new ArrayList<>();
-        this.objects = new ArrayList<>(); 
+        if ((height%2 == 1 && width%2 == 1) && (height >= 9 && width >= 9))
+        {
+            this.heightCubes = height;
+            this.heightPixels = (height * 100) + 200;
+            this.widthCubes = width;
+            this.widthPixels = (width * 100) + 200;
+            this.objects = new ArrayList<>();
+            
+            this.botDifficulty = botDifficulty;
+            this.totalTime = timelimit;
+            this.timer = 0;
+            this.totalRounds = rounds;
+            this.round = 1;
+            
+            this.grid = new ArrayList<>();
+            int row = 1;
+            int col = 1;
+            
+            while (row <= this.widthCubes)
+            {            
+                col = 1;
+
+                while (col <= this.heightCubes)
+                {
+                    Position p = new Position(col, row);
+                    this.grid.add(p);
+                    col ++;
+                }
+
+                row ++;
+            }
+
+            this.levels = new ArrayList<>();
+            this.objects = new ArrayList<>();
+        }
+        else
+        {
+            throw new IllegalArgumentException();
+        }
     }
 
     //**********************methoden****************************************
@@ -55,7 +93,6 @@ public class Game
      */
     public List<Object> getObjectsFromGrid(int x, int y)
     {
-        //todo???
         for (Position p : grid)
         {
             if(p.getX() == x && p.getY() == y)
@@ -63,6 +100,7 @@ public class Game
                 return p.getObjects();
             }
         }
+        
         return null;
     }
     
@@ -128,9 +166,12 @@ public class Game
     {
         return this.levels;
     }
-    public Level getCurrentLevel(){
+    
+    public Level getCurrentLevel()
+    {
         return this.currentLevel;
     }
+    
     public boolean getGameEnd()
     {
         return this.gameEnd;
@@ -147,8 +188,7 @@ public class Game
         
         //Check if this botDifficulty isn't to low or to high???
         return false;
-    }
-    
+    }    
 
     public void addLevel(Level level)
     {
@@ -160,13 +200,128 @@ public class Game
         this.objects.add(object);
     }
     
+    public List<Object> getCubes()
+    {
+        //field op positie 200x200 pixels
+        List<Object> cubes = new ArrayList<>();
+        int row = 2;
+        int col = 2;
+        
+        while (row < this.widthCubes)
+        {
+            col = 2;
+            
+            while (col < this.heightCubes)
+            {
+                Position p = new Position(col, row);
+                Object ob = new Obstacle("cube", false, p, true, false);
+                cubes.add(ob);
+                col += 2;
+            }
+            
+            row += 2;
+        }
+        
+        return cubes;    
+    }
+    
+    public List<Object> getBoxes()
+    {
+        List<Object> boxes = new ArrayList<>();
+        int row = 1;
+        int col = 1;
+        
+        //first boxes around player
+        Position p = new Position(3, 1);
+        Object ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        p = new Position(1, 3);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        
+        p = new Position(this.widthCubes - 2, 1);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        p = new Position(this.widthCubes, 3);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        
+        p = new Position(1, this.heightCubes - 2);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        p = new Position(3, this.heightCubes);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        
+        p = new Position(this.widthCubes - 2, this.heightCubes);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        p = new Position(this.widthCubes, this.heightCubes - 2);
+        ob = new Obstacle("box", false, p, true, false);
+        boxes.add(ob);
+        
+        while (row <= this.widthCubes)
+        {            
+            col = 1;
+            
+            while (col <= this.heightCubes)
+            {
+                //can't place in the corners
+                if (((row == 1 && col > 3 && col < (this.heightCubes -2)) ||
+                        (row == 2 && col > 2 && col < (this.heightCubes -1)) ||
+                        (row == 3 && col > 1 && col < this.heightCubes) ||
+                        (row == (this.widthCubes - 2) && col > 1 && col < this.heightCubes) ||
+                        (row == (this.widthCubes - 1) && col > 2 && col < (this.heightCubes -1)) ||
+                        (row == this.widthCubes && col > 3 && col < (this.heightCubes -2)) || 
+                        (row > 3 && row < (this.widthCubes -2))) &&
+                        ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
+                {
+                    //place boxes random
+                    if (getRandomBool(0.4))
+                    {
+                        p = new Position(col, row);
+                        ob = new Obstacle("box", false, p, true, false);
+                        boxes.add(ob);
+                    }
+                }
+                
+                col ++;
+            }
+            
+            row ++;
+        }
+        
+        return boxes;
+    }
+    
+    public boolean getRandomBool(double perc)
+    {
+        Random r = new Random();
+        double b = r.nextDouble();
+        
+        if (b <= perc)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     /**
      * Method to set and object into the grid
      * @param object    object to be put into the grid
      */
     public void setObjectInGrid(Object object)
     {
-        //todo
+        for (Position p : this.grid)
+        {
+            if (p.getX() == object.getPositionX() && p.getY() == object.getPositionY())
+            {
+                p.addObject(object);
+            }
+        }
     }
     
     public void setGameEnd(boolean isEnded)
@@ -177,22 +332,34 @@ public class Game
             
             //Ga naar de volgende ronde mits die er is
             if (this.round < this.totalRounds)
-            {
+            {               
                 this.round++;
+                startRound();
             }
         }
     }
     
-    public void startRound(){
+    public void startRound()
+    {
         /**
          * this creates positions and puts them in the grid.
          */
-        for(int y=1; y < this.getCurrentLevel().getHeight()+1; y++){
-            for(int x=1; x < this.getCurrentLevel().getWidth()+1; x++){
-                grid.add(new Position(x,y));
-            }
+        for (Position p : this.grid)
+        {
+            p.clearAllObjects();
         }
         
-    }    
-            
+        setupLevel();
+    }
+    
+    public void setupLevel()
+    {
+        this.objects.addAll(this.getBoxes());
+        this.objects.addAll(this.getCubes());
+        
+        for (Object o : this.objects)
+        {
+            this.setObjectInGrid(o);
+        }
+    }
 }
