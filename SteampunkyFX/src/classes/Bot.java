@@ -89,25 +89,34 @@ public class Bot
     public void AI(){
         int X = this.character.getPosition().getX();
         int Y = this.character.getPosition().getY();
-        List<Position> grid = this.game.getGrid();
-        List<Position> usableGrid = getUsableGrid(X,Y,grid);
-        Random rand = new Random();
-        int randomNum = rand.nextInt(4)+1;
-        if(randomNum==1){this.character.move(Direction.Up);}
-        else if (randomNum==2){this.character.move(Direction.Right);}
-        else if (randomNum==3){this.character.move(Direction.Down);}
-        else if (randomNum==4){this.character.move(Direction.Left);}
+        //List<Position> grid = this.game.getGrid();
+        //List<Position> usableGrid = getUsableGrid(X,Y,grid);
+        if (this.difficulty ==1){
+            Random rand = new Random();
+            int randomNum = rand.nextInt(4)+1;
+            if(randomNum==1 && this.game.getObjectsFromGrid(X, Y+1).isEmpty()){this.character.move(Direction.Up);}
+            else if (randomNum==2 && this.game.getObjectsFromGrid(X+1, Y).isEmpty()){this.character.move(Direction.Right);}
+            else if (randomNum==3 && this.game.getObjectsFromGrid(X, Y-1).isEmpty()){this.character.move(Direction.Down);}
+            else if (randomNum==4 && this.game.getObjectsFromGrid(X-1, Y).isEmpty()){this.character.move(Direction.Left);}
+        }
+        if(this.difficulty == 2){
+            
+        }
+                
         
     }
+        
     
-     public List<Position> getUsableGrid(int X, int Y,List<Position> grid){
-        List<Position> tempList = new ArrayList<Position>();
-    for(int x=X+this.character.getTorchRange(); x==X-this.character.getTorchRange()|| x==0;x--){
-        if (this.game.getObjectsFromGrid(x,Y).isEmpty())
-        {
-            for(Position P: grid){
-                if (P.getX()==x && P.getY()==Y){ tempList.add(P);}
-                    }
+    
+    public List<Position> getUsableGrid(int X, int Y,List<Position> grid){
+        List<Position> tempList = new ArrayList<>();
+        for(int x=X+this.character.getTorchRange(); x==X-this.character.getTorchRange()|| x==0;x--){
+            if (this.game.getObjectsFromGrid(x,Y).isEmpty()){
+                for(Position P: grid){
+                    if (P.getX()==x && P.getY()==Y){ tempList.add(P);}
+                }
+                }
+        }
         
         for(int y=Y+this.character.getTorchRange(); y==Y-this.character.getTorchRange()|| y==0;y--){
             if (this.game.getObjectsFromGrid(X,y).isEmpty())
@@ -119,8 +128,7 @@ public class Bot
         
         }
     
-        }
-    }
     return tempList;
     }
+    
 }
