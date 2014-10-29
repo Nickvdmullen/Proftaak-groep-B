@@ -108,7 +108,7 @@ public class Game
     //**********************methoden****************************************
     
     /**
-     * gets a list of objects on the position with coordinates (x,y).
+     * Getter of objects on the position with coordinates (x,y).
      * @param x the x coordinate of the position.
      * @param y the y coordinate of the position.
      * @return the list of objects on the position(x,y), if there are no objects returns null.
@@ -126,6 +126,12 @@ public class Game
         return null;
     }
     
+    /**
+     * Getter of position from grid with coordinates
+     * @param x the x coordinate of the position.
+     * @param y the y coordinate of the position.
+     * @return position with coordinates
+     */
     public Position getPosition(int x, int y)
     {
         for (Position p : grid)
@@ -139,6 +145,10 @@ public class Game
         return null;
     }
     
+    /**
+     * Getter of grid
+     * @return grid; list of positions
+     */
     public List<Position> getGrid()
     {
         return this.grid;
@@ -207,11 +217,19 @@ public class Game
         return this.levels;
     }
     
+    /**
+     * Getter of current level
+     * @return current level
+     */
     public Level getCurrentLevel()
     {
         return this.currentLevel;
     }
     
+    /**
+     * Getter of boolean game end
+     * @return if game ended
+     */
     public boolean getGameEnd()
     {
         return this.gameEnd;
@@ -230,21 +248,37 @@ public class Game
         return false;
     }    
 
+    /**
+     * Add level to game
+     * @param level 
+     */
     public void addLevel(Level level)
     {
         this.levels.add(level);
     }
     
+    /**
+     * Add player to game
+     * @param player 
+     */
     public void addPlayer(User player)
     {
         this.players.add(player);
     }
     
+    /**
+     * Add object to game
+     * @param object 
+     */
     public void addObject(Object object)
     {
         this.objects.add(object);
     }
     
+    /**
+     * Generates middle cubes which can't be destroyed
+     * @return list of cubes
+     */
     public List<Object> getCubes()
     {
         //field op positie 200x200 pixels
@@ -270,6 +304,10 @@ public class Game
         return cubes;    
     }
     
+    /**
+     * Generates boxes which ca be destroyed by players
+     * @return list of boxes
+     */
     public List<Object> getBoxes()
     {
         List<Object> boxes = new ArrayList<>();
@@ -339,6 +377,10 @@ public class Game
         return boxes;
     }
     
+    /**
+     * Place powerup on random position
+     * @return if powerup is placed
+     */
     public boolean placeRandomPowerup()
     {
         Random rX = new Random(this.widthCubes);
@@ -369,24 +411,36 @@ public class Game
         return false;
     }
     
+    /**
+     * Getter of random boolean
+     * @param perc 0 < perc < 1
+     * @return random boolean
+     */
     public boolean getRandomBool(double perc)
     {
-        Random r = new Random();
-        double b = r.nextDouble();
-        
-        if (b <= perc)
+        if (perc > 0 && perc < 1)
         {
-            return true;
+            Random r = new Random();
+            double b = r.nextDouble();
+
+            if (b <= perc)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return false;
+            throw new IllegalArgumentException();
         }
     }
     
     /**
-     * Method to set and object into the grid
-     * @param object    object to be put into the grid
+     * Set object into the grid
+     * @param object object to be put into the grid
      */
     public void setObjectInGrid(Object object)
     {
@@ -399,6 +453,9 @@ public class Game
         }
     }
     
+    /**
+     * Setter of current time in seconds
+     */
     public void setCurrentTime()
     {
         this.currentTime++;
@@ -423,7 +480,7 @@ public class Game
     }
     
     /**
-     * Strart round of game
+     * Start round of game
      */
     public void startRound()
     {
@@ -445,6 +502,9 @@ public class Game
         }
     }
     
+    /**
+     * Update method of the game
+     */
     public void updateGame()
     {        
         boolean ended = getGameEnd();
@@ -475,6 +535,9 @@ public class Game
         }
     }
     
+    /**
+     * Setup at begin of the game
+     */
     public void setupGame()
     {
         String[] namen = new String[2];
@@ -532,6 +595,9 @@ public class Game
         }        
     }
     
+    /**
+     * Setup at begin of new level
+     */
     public void setupLevel()
     {
         this.objects.clear();
