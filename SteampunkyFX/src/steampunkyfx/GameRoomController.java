@@ -5,18 +5,16 @@
  */
 package steampunkyfx;
 
-import classes.Game;
 import classes.Lobby;
 import classes.Server;
 import static classes.Server.getServer;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 
 /**
@@ -27,30 +25,23 @@ import javafx.scene.text.Font;
 public class GameRoomController implements Initializable {
     @FXML
     private Font x1;
-    @FXML
     private Button BTSpectator;
-    @FXML
     private Button BTPlayer;
-    @FXML
     private Button BTReturn;
-    @FXML
     private Label LBLusername;
-    @FXML
     private Label LBLRemaining;
-    @FXML
     private Label LBLGameState;
-    @FXML
     private Button BTReady;
-    @FXML
     private Label LBLPlayer1Status;
-    @FXML
     private Label LBLPlayer2Status;
-    @FXML
     private Label LBLPlayer3Status;
-    @FXML
     private Label LBLPlayer4Status;
+    private Label LBLSize;
+    private Label LBLTime;
+    private TextField TextSize;
+    private TextField TextTime;
     
-    
+    private Lobby lobby;
     private Server server;
     private SteampunkyFX main;
 
@@ -65,10 +56,33 @@ public class GameRoomController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         server = (Server) getServer();
+        for(Lobby x: server.getLobbies())
+        {
+            
+        }
+        LBLRemaining.setText("Remaining slots: 0");
+        LBLSize.setVisible(false);
+        LBLTime.setVisible(false);
+        TextSize.setVisible(false);
+        TextTime.setVisible(false);
+        //als speler admin is dan bovenstaande labels en textfields zichtbaar maken
+        if(true)
+        {
+            LBLSize.setVisible(true);
+        LBLTime.setVisible(true);
+        TextSize.setVisible(true);
+        TextTime.setVisible(true);
+        }
     }
     
     @FXML
     public void becomeSpectator() 
+    {
+        
+    }
+    
+    @FXML
+    public void becomePlayer()
     {
         
     }

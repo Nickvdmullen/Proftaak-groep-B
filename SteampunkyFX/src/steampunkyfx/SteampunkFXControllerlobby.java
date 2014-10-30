@@ -15,22 +15,14 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
