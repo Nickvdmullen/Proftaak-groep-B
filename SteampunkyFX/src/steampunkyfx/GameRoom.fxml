@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="steampunkyfx.GameRoomController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="steampunkyfx.GameRoomController">
   <children>
     <ListView layoutX="257.0" layoutY="49.0" prefHeight="200.0" prefWidth="127.0" />
     <ListView layoutX="406.0" layoutY="49.0" prefHeight="200.0" prefWidth="127.0" />
@@ -33,5 +33,9 @@
     <Label id="LblCSS" fx:id="LBLPlayer3Status" layoutX="545.0" layoutY="100.0" text="Ready" />
     <Label id="LblCSS" fx:id="LBLPlayer4Status" layoutX="545.0" layoutY="125.0" text="Ready" />
     <Label id="LblCSS" layoutX="64.0" layoutY="71.0" text="Press ready to begin" />
+    <TextField id="lblSize" fx:id="TextSize" layoutX="193.0" layoutY="208.0" prefWidth="33.0001220703125" />
+    <Label fx:id="LBLSize" layoutX="65.0" layoutY="211.0" text="Size of the game (bloks)" />
+    <Label fx:id="LBLTime" layoutX="65.0" layoutY="233.0" text="Game time (minutes)" />
+    <TextField id="lblTime" fx:id="TextTime" layoutX="193.0" layoutY="230.0" prefWidth="33.0" />
   </children>
 </AnchorPane>

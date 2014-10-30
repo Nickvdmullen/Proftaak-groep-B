@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 
 /**
@@ -27,28 +28,21 @@ import javafx.scene.text.Font;
 public class GameRoomController implements Initializable {
     @FXML
     private Font x1;
-    @FXML
     private Button BTSpectator;
-    @FXML
     private Button BTPlayer;
-    @FXML
     private Button BTReturn;
-    @FXML
     private Label LBLusername;
-    @FXML
     private Label LBLRemaining;
-    @FXML
     private Label LBLGameState;
-    @FXML
     private Button BTReady;
-    @FXML
     private Label LBLPlayer1Status;
-    @FXML
     private Label LBLPlayer2Status;
-    @FXML
     private Label LBLPlayer3Status;
-    @FXML
     private Label LBLPlayer4Status;
+    private Label LBLSize;
+    private Label LBLTime;
+    private TextField TextSize;
+    private TextField TextTime;
     
     
     private Server server;
@@ -65,6 +59,12 @@ public class GameRoomController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         server = (Server) getServer();
+        LBLRemaining.setText("Remaining slots: 0");
+        LBLSize.setVisible(false);
+    LBLTime.setVisible(false);
+    TextSize.setVisible(false);
+    TextTime.setVisible(false);
+        
     }
     
     @FXML
