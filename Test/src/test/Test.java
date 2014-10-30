@@ -42,9 +42,12 @@ public class Test extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {     
+        gotoLobbyselect(primaryStage, new Game(19, 19));
+    }
+    protected void gotoLobbyselect(Stage primaryStage, Game game){
         //Get game
-        //Game game = new Game(9, 9);
-        Game game = new Game(19, 19);
+        //game = new Game(9, 9);
+        game = new Game(19, 19);
         manager = new Manager(game);
         widthPixels = game.getWidthPixels();
         widthCubes = game.getWidthCubes();
@@ -89,6 +92,7 @@ public class Test extends Application
         primaryStage.setTitle("Game test");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
         
         scene.setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
