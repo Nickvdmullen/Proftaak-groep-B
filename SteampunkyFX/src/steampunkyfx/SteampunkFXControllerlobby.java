@@ -8,6 +8,7 @@ package steampunkyfx;
 import classes.Lobby;
 import classes.Server;
 import static classes.Server.getServer;
+import classes.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -54,13 +55,16 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
 
     private SteampunkyFX main;
     private Server server;
+    private User user;
     
     public SteampunkFXControllerlobby() {
     }
 
-    public void setApp(SteampunkyFX application)
+    public void setApp(SteampunkyFX application,User user)
     {
         this.main = application;
+        this.user = user;
+        LBLLobbyWelcome.setText("Welcome: " + user.getUsername());
     }
 
     @Override
@@ -69,7 +73,7 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
         Clear();
         lobbyName = new ArrayList();
         this.server = (Server) getServer();
-        server.addObserver(this);
+        server.addObserver(this);    
     }
 
     
@@ -82,7 +86,7 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
             try {
                 server.createLobby(TfCreatename.getText(), Tfvreatepassword.getText(), null);
                 JOptionPane.showMessageDialog(null,"Lobby has been created");
-                main.gotoGameRoomselect();
+                main.gotoGameRoomselect(User admin);
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Lobby creation has failed" + ex.getMessage());

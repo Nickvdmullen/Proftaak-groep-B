@@ -5,6 +5,7 @@
  */
 package steampunkyfx;
 
+import classes.User;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,20 +57,20 @@ public class SteampunkyFX extends Application {
         }
     }
     
-    protected void gotoLobbyselect() {
+    protected void gotoLobbyselect(User user) {
         try {
             SteampunkFXControllerlobby lobbyselect = (SteampunkFXControllerlobby) replaceSceneContent("Lobby3.fxml");
-            lobbyselect.setApp(this);
+            lobbyselect.setApp(this,user);
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    protected void gotoGameRoomselect() {
+    protected void gotoGameRoomselect(User admin) {
         try {
             GameRoomController GameRoomselect = (GameRoomController) replaceSceneContent("GameRoom.fxml");
-           GameRoomselect.setApp(this);
+           GameRoomselect.setApp(this, admin);
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }

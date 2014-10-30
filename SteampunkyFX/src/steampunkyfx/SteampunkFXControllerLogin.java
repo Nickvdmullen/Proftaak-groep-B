@@ -66,7 +66,7 @@ public class SteampunkFXControllerLogin implements Initializable
     
     private Server server;
     private SteampunkyFX main;
-    
+
 
     public void setApp(SteampunkyFX application)
     {
@@ -99,9 +99,10 @@ public class SteampunkFXControllerLogin implements Initializable
            {
                System.out.println("longin succes"); 
                try
-               {     
-                  server.Userlogedin(new User(TFUsernamelogin.getText(), TFWachtwoordlogin.getText()));
-                  main.gotoLobbyselect();
+               {  
+                  User tempuser = new User(TFUsernamelogin.getText(), TFWachtwoordlogin.getText());
+                  server.Userlogedin(tempuser);
+                  main.gotoLobbyselect(tempuser);
                }
                catch(Exception ex)
                {

@@ -49,6 +49,10 @@ public class Server extends Observable{
     public ObservableList<Lobby> getLobbies() {
         return (ObservableList<Lobby>) FXCollections.unmodifiableObservableList(observableLobbies);
     }
+    
+    public ObservableList<User> getUsers() {
+        return (ObservableList<User>) FXCollections.unmodifiableObservableList(observableUsers);
+    }
 
     public void Connectionstring() {
         try {
@@ -62,7 +66,7 @@ public class Server extends Observable{
     {
         if(tempuser != null)
         {
-        users.add(tempuser);
+            observableUsers.add(tempuser);
         }
     }
 
