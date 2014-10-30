@@ -5,6 +5,7 @@
  */
 package steampunkyfx;
 
+import classes.Lobby;
 import classes.Server;
 import static classes.Server.getServer;
 import java.net.URL;
@@ -40,7 +41,7 @@ public class GameRoomController implements Initializable {
     private TextField TextSize;
     private TextField TextTime;
     
-    
+    private Lobby lobby;
     private Server server;
     private SteampunkyFX main;
 
@@ -55,16 +56,33 @@ public class GameRoomController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         server = (Server) getServer();
+        for(Lobby x: server.getLobbies())
+        {
+            
+        }
         LBLRemaining.setText("Remaining slots: 0");
         LBLSize.setVisible(false);
-    LBLTime.setVisible(false);
-    TextSize.setVisible(false);
-    TextTime.setVisible(false);
-        
+        LBLTime.setVisible(false);
+        TextSize.setVisible(false);
+        TextTime.setVisible(false);
+        //als speler admin is dan bovenstaande labels en textfields zichtbaar maken
+        if(true)
+        {
+            LBLSize.setVisible(true);
+        LBLTime.setVisible(true);
+        TextSize.setVisible(true);
+        TextTime.setVisible(true);
+        }
     }
     
     @FXML
     public void becomeSpectator() 
+    {
+        
+    }
+    
+    @FXML
+    public void becomePlayer()
     {
         
     }
