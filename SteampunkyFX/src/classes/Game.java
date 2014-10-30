@@ -28,7 +28,7 @@ public class Game
     private double totalTime;
     
     private int totalRounds;
-    private int round;    
+    private int currentRound;    
     private boolean gameEnd;
     private Level currentLevel;
     
@@ -65,7 +65,7 @@ public class Game
             this.totalTime = timelimit;
             this.currentTime = 0;
             this.totalRounds = rounds;
-            this.round = 1;
+            this.currentRound = 1;
             this.boxStartTime = 0;
             this.fillUp = false;
             
@@ -113,21 +113,37 @@ public class Game
 
     //**********************methoden****************************************
     
+    /**
+     * Getter of height in pixels
+     * @return height in pixels
+     */
     public int getHeightPixels()
     {
         return this.heightPixels;
     }
     
+    /**
+     * Getter of height in cubes
+     * @return height in cubes
+     */
     public int getHeightCubes()
     {
         return this.heightCubes;
     }
     
+    /**
+     * Getter of width in pixels
+     * @return width in pixels
+     */
     public int getWidthPixels()
     {
         return this.widthPixels;
     }
     
+    /**
+     * Getter of width in cubes
+     * @return width in cubes
+     */
     public int getWidthCubes()
     {
         return this.widthCubes;
@@ -204,7 +220,7 @@ public class Game
      */
     public int getCurrentRound()
     {
-        return this.round;
+        return this.currentRound;
     }
     
     /**
@@ -342,10 +358,11 @@ public class Game
         
         //bigger field means more cubes
         double perc = 0.4;
-            if(this.heightCubes >15 ||this.widthCubes > 15)
-            {
-                perc = 0.5;
-            }
+        
+        if(this.heightCubes > 15 ||this.widthCubes > 15)
+        {
+            perc = 0.5;
+        }
         
         //first boxes around player
         Position p = getPosition(3, 1);
@@ -376,6 +393,7 @@ public class Game
         ob = new Obstacle("box", false, p, true, false, this);
         boxes.add(ob);
         
+        //fill rest of field with random boxes
         while (row <= this.heightCubes)
         {            
             col = 1;
@@ -393,7 +411,7 @@ public class Game
                         ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
                 {
                     
-                    //place boxes random
+                    //place boxes random if random bool returns true
                     if (getRandomBool(perc))
                     {
                         p = getPosition(col, row);
@@ -431,7 +449,7 @@ public class Game
             maxRounds = (maxWidth + 1)/2;
         }
         
-        //place box every five seconds
+        //place box every five seconds around field
         if ((this.getCurrentTime() - this.boxStartTime)%5 == 0)
         {
             for (round = 1; round < maxRounds; round++)
@@ -497,6 +515,7 @@ public class Game
         int row = rY.nextInt();
         Position p = getPosition(col, row);
         
+        //get random type
         Random rType = new Random(3);
         int intType = rType.nextInt();
         String[] types = new String[3];
@@ -587,9 +606,9 @@ public class Game
         this.gameEnd = true;
         
         //Ga naar de volgende ronde mits die er is
-        if (this.round < this.totalRounds)
+        if (this.currentRound < this.totalRounds)
         {               
-            this.round++;
+            this.currentRound++;
             return false;
         }
         
@@ -736,7 +755,19 @@ public class Game
                 b.setCharacter(c);
                 this.objects.add(c);
             }
-        }        
+        }
+        
+        /*int cubes = this.heightCubes*this.widthCubes;
+        int powerups = Math.round((cubes/10)/2);
+        
+        //Add powerups
+        for (int j=0; j<powerups; j++)
+        {
+            while (this.placeRandomPowerup() == false)
+            {
+                placeRandomPowerup();
+            }
+        } */ 
     }
     
     /**
