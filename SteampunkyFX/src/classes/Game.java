@@ -320,6 +320,13 @@ public class Game
         int row = 1;
         int col = 1;
         
+        //bigger field means more cubes
+        double perc = 0.4;
+            if(this.heightCubes >15 ||this.widthCubes > 15)
+            {
+                perc = 0.5;
+            }
+        
         //first boxes around player
         Position p = getPosition(3, 1);
         Object ob = new Obstacle("box", false, p, true, false, this);
@@ -365,8 +372,9 @@ public class Game
                         (row > 3 && row < (this.heightCubes -2))) &&
                         ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
                 {
+                    
                     //place boxes random
-                    if (getRandomBool(0.4))
+                    if (getRandomBool(perc))
                     {
                         p = getPosition(col, row);
                         ob = new Obstacle("box", false, p, true, false, this);

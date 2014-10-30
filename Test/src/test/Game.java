@@ -103,6 +103,13 @@ public class Game
         int row = 1;
         int col = 1;
         
+        //bigger field means more cubes
+        double perc = 0.4;
+            if(this.heightCubes >15 ||this.widthCubes > 15)
+            {
+                perc = 0.5;
+            }
+        
         //first boxes around player
         Rectangle rec = new Rectangle((3*100), (1*100), 100, 100);
         boxes.add(rec);
@@ -141,7 +148,7 @@ public class Game
                         ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
                 {
                     //place boxes random
-                    if (getRandomBool())
+                    if (getRandomBool(perc))
                     {
                         rec = new Rectangle((col*100), (row*100), 100, 100);
                         boxes.add(rec); 
@@ -169,18 +176,25 @@ public class Game
         this.objects.add(object);
     }
     
-    public boolean getRandomBool()
+    public boolean getRandomBool(double perc)
     {
-        Random r = new Random();
-        double b = r.nextDouble();
-        
-        if (b <= 0.4)
+        if(perc>0 && perc <1)
         {
-            return true;
+            Random r = new Random();
+            double b = r.nextDouble();
+        
+            if (b <= perc)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return false;
+            throw new IllegalArgumentException();
         }
     }
 }

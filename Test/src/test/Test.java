@@ -43,8 +43,8 @@ public class Test extends Application
     public void start(Stage primaryStage) throws Exception
     {     
         //Get game
-        Game game = new Game(9, 13);
-        //Game game = new Game(19, 19);
+        //Game game = new Game(9, 9);
+        Game game = new Game(19, 19);
         manager = new Manager(game);
         widthPixels = game.getWidthPixels();
         widthCubes = game.getWidthCubes();
