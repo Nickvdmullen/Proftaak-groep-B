@@ -50,7 +50,7 @@ public abstract class Object
         }
 
         this.interfaceID++;
-        position.addObject(this);
+        //position.addObject(this);
     }
 
     //**********************methoden****************************************

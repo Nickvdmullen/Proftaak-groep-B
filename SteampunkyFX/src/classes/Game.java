@@ -509,23 +509,22 @@ public class Game
      */
     public boolean placeRandomPowerup()
     {
-        Random rX = new Random(this.widthCubes);
-        int col = rX.nextInt();
-        Random rY = new Random(this.heightCubes);
-        int row = rY.nextInt();
+        Random rX = new Random();
+        int col = rX.nextInt(this.widthCubes) + 1;
+        Random rY = new Random();
+        int row = rY.nextInt(this.heightCubes) + 1;
         Position p = getPosition(col, row);
         
         //get random type
-        Random rType = new Random(3);
-        int intType = rType.nextInt();
+        Random rType = new Random();
+        int intType = rType.nextInt(4);
         String[] types = new String[4];
         types[0] = "runspeed";
         types[1] = "torch";
         types[2] = "shield";
-        types[3] = "projectile";
+        types[3] = "projectile";        
         
-        
-        if (p.getObjects() == null)
+        if (p.getObjects().size() <= 0)
         {
             if (((row == 1 && col > 3 && col < (this.heightCubes -2)) ||
                     (row == 2 && col > 2 && col < (this.heightCubes -1)) ||
@@ -539,7 +538,6 @@ public class Game
                 //place boxes random
                 Object ob = new PowerUp("test", types[intType], "test desc", true, p, true, false, Direction.Right, this);
                 this.objects.add(ob);
-                setObjectInGrid(ob);
                 return true;
             }
         }
@@ -757,17 +755,26 @@ public class Game
             }
         }
         
-        /*int cubes = this.heightCubes*this.widthCubes;
+        int cubes = this.heightCubes*this.widthCubes;
         int powerups = Math.round((cubes/10)/2);
+        boolean bool = false;
         
         //Add powerups
         for (int j=0; j<powerups; j++)
         {
-            while (this.placeRandomPowerup() == false)
+            bool = false;
+            
+            while (bool == false)
             {
-                placeRandomPowerup();
+                bool = placeRandomPowerup();
             }
-        } */ 
+        } 
+        
+        //Add all objects to grid
+        for (Object o : this.objects)
+        {
+            this.setObjectInGrid(o);
+        }
     }
     
     /**
