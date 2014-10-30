@@ -135,13 +135,14 @@ public class Server extends Observable{
     }
 
     public boolean createLobby(String lobbyName, String password, User admin) {
-        if (lobbyName != null && admin == null) { //moet naar niet null
+        if (lobbyName != null && admin != null) {
             Lobby lobby;
             this.observableLobbies.add(lobby = new Lobby(lobbyName, admin, password));
             this.setChanged();
             this.notifyObservers(lobby);
             return true;
         } else {
+            System.out.println("Admin of lobbyname is null");
             return false;
         }
     }

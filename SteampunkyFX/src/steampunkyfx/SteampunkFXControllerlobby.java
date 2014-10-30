@@ -76,13 +76,20 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
         }
         else {
             try {
-                server.createLobby(TfCreatename.getText(), Tfvreatepassword.getText(), null);
+                server.createLobby(TfCreatename.getText(), Tfvreatepassword.getText(), user);
                 JOptionPane.showMessageDialog(null,"Lobby has been created");
-                main.gotoGameRoomselect(User admin);
+                
+                
+                for (Lobby L : this.server.getLobbies()) {
+                    if (L.GetLobbyname().equals(TfCreatename.getText())) {
+                        L.addUser(user);
+                        main.gotoGameRoomselect(user, L);
+                    }
+                }
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,"Lobby creation has failed" + ex.getMessage());
-                        System.out.println("Failed");
+                        System.out.println("Failed" + ex.getMessage());
             }
         }
     }
@@ -91,11 +98,11 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
     public void update(Observable o, Object o1) {
         try {
             Lobby lobby = (Lobby) o1;
-            lobbyName.add(lobby.ToString());
+            lobbyName.add(lobby.toString());
         } catch(Exception ex) {
             System.out.println("Not an lobby");
         }
-        Clear();
+        
         
         Lblobby.setItems(FXCollections.observableList(lobbyName));
         CBjoinlobby.setItems(FXCollections.observableList(lobbyName));

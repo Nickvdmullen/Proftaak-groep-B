@@ -7,12 +7,15 @@
 package classes;
 
 import java.util.*;
+import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableList;
+import javafx.collections.ObservableList;
 
 /**
  * OK
  * @author Bart
  */
-public class Lobby
+public class Lobby extends Observable
 {
     //************************datavelden*************************************
     private int lobbyID;
@@ -20,11 +23,14 @@ public class Lobby
     private String lobbyName;
     private String password;
     private String map;
-    private List<String> chatMessages;
+    private ArrayList<String> chatMessages;
+    private transient ObservableList<String> observableChat;
     private User admin;
-    private List<User> spectators;
-    private List<User> players;
-    private List<Game> games;
+    private ArrayList<User> spectators;
+    private transient ObservableList<User> observableSpectators;
+    private ArrayList<User> players;
+    private transient ObservableList<User> observablePlayers;
+    private ArrayList<Game> games;
     private int ratingDifference;
     private Game game;
 
@@ -32,23 +38,39 @@ public class Lobby
     /**
      * creates a lobby with ...
      */
-    public Lobby(String lobbyname, User addedByUser,String password)
+    public Lobby(String lobbyname, User addedByUser, String password)
     {        
         this.lobbyName = lobbyname;
         this.admin = addedByUser;
         this.lobbyID = this.nextLobbyID;
         this.nextLobbyID++;
         this.password = password;
-        this.chatMessages = new ArrayList<>();
         this.admin = addedByUser;
-        this.spectators = new ArrayList<>();
-        this.players = new ArrayList<>();
+        
         this.games = new ArrayList<>();
+        this.spectators = new ArrayList<>();
+        observableSpectators = observableList(spectators);
+        this.players = new ArrayList<>();
+        observablePlayers = observableList(players);
+        this.chatMessages = new ArrayList<>();
+        observableChat = observableList(chatMessages);
     }
 
     public String GetLobbyname(){
-       return this.lobbyName;
-  }
+       return this.lobbyName;       
+    }
+    
+    public ObservableList<User> getSpectators() {
+        return (ObservableList<User>) FXCollections.unmodifiableObservableList(observableSpectators);
+    }
+    
+    public ObservableList<User> getPlayers() {
+        return (ObservableList<User>) FXCollections.unmodifiableObservableList(observablePlayers);
+    }
+    
+    public ObservableList<String> getChat() {
+        return (ObservableList<String>) FXCollections.unmodifiableObservableList(observableChat);
+    }
     
     //**********************methoden****************************************
     public boolean checkPassword(String password)
@@ -65,11 +87,11 @@ public class Lobby
     
     public boolean createGame(double timelimit, int botDifficulty, String level, int rounds)
     {
-                //todo
+        //todo
         if(timelimit != 0 && botDifficulty != 0 && level != null && rounds != 0)
         {
-        games.add(game = new Game(9,9,timelimit,botDifficulty,rounds));
-        return true;
+            games.add(game = new Game(9,9,timelimit,botDifficulty,rounds));
+            return true;
         }
       
         return false;
@@ -77,9 +99,11 @@ public class Lobby
     
     public boolean addUser(User user)
     {
-        if(user != null && !this.spectators.contains(user))
+        if(user != null && !this.observableSpectators.contains(user))
         {
-            this.spectators.add(user);
+            this.observableSpectators.add(user);
+            this.setChanged();
+            this.notifyObservers(user);
             return true;   
         }
         return false;
@@ -94,15 +118,19 @@ public class Lobby
     {
         int removedUser = 0;
         
-        if(this.spectators.contains(user)){
-            this.spectators.remove(user);
+        if(this.observableSpectators.contains(user)){
+            this.observableSpectators.remove(user);
+            this.setChanged();
+            this.notifyObservers(user);
             removedUser = 1;
-        }else if (this.players.contains(user)){
-            this.players.remove(user);
+        }else if (this.observablePlayers.contains(user)){
+            this.observablePlayers.remove(user);
+            this.setChanged();
+            this.notifyObservers(user);
             removedUser = 1;
         }
-        if (this.admin == user && this.spectators.iterator().hasNext()){
-            this.admin = this.spectators.iterator().next();            
+        if (this.admin == user && this.observableSpectators.iterator().hasNext()){
+            this.admin = this.observableSpectators.iterator().next();            
         } else if (this.admin == user){
             removedUser = -1;
         }
@@ -113,10 +141,12 @@ public class Lobby
     
     public boolean assignSlot(User user)
     {
-        if(this.spectators.contains(user) && !this.players.contains(user))
+        if(this.observableSpectators.contains(user) && !this.observablePlayers.contains(user))
         {
-            this.players.add(user);
-            this.spectators.remove(user);
+            this.observablePlayers.add(user);
+            this.setChanged();
+            this.notifyObservers(user);
+            this.observableSpectators.remove(user);
             return true;
         }
         return false;
@@ -124,16 +154,19 @@ public class Lobby
     
     public boolean clearSlot(User user)
     {
-        if(!this.spectators.contains(user) && this.players.contains(user))
+        if(!this.observableSpectators.contains(user) && this.observablePlayers.contains(user))
         {
-            this.spectators.add(user);
-            this.players.remove(user);
+            this.observableSpectators.add(user);
+            this.observablePlayers.remove(user);
+            this.setChanged();
+            this.notifyObservers(user);
             return true;
         }
         return false;
     }   
     
-    public String ToString()
+    @Override
+    public String toString()
     {
        return this.lobbyName; 
     }

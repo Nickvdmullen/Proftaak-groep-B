@@ -191,5 +191,9 @@ public class User
         }
         return correct;
     }
-
+    
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }
