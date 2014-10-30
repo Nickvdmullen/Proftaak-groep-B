@@ -11,6 +11,6 @@ package classes;
  */
 public enum Direction
 {
-    Up, Down, Right, Left;
+    Up, Down, Right, Left, UP;
 
 }

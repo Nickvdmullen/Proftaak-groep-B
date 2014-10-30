@@ -25,7 +25,7 @@ public class Game
     private Timer timer;
     private TimerTask task;
     private double currentTime;
-    private double totalTime; //in seconds
+    private double totalTime;
     
     private int totalRounds;
     private int round;    
@@ -47,7 +47,7 @@ public class Game
      * Constructor of Game
      * @param height            Uneven number of cubes, minimum of 9
      * @param width             Uneven number of cubes, minimum of 9
-     * @param timelimit         The max amount of time a game can last.
+     * @param timelimit         The max amount of time a game can last in seconds.
      * @param botDifficulty     The difficulty of the bots.
      * @param rounds            The number of rounds that can be played.
      */
@@ -112,6 +112,26 @@ public class Game
     }
 
     //**********************methoden****************************************
+    
+    public int getHeightPixels()
+    {
+        return this.heightPixels;
+    }
+    
+    public int getHeightCubes()
+    {
+        return this.heightCubes;
+    }
+    
+    public int getWidthPixels()
+    {
+        return this.widthPixels;
+    }
+    
+    public int getWidthCubes()
+    {
+        return this.widthCubes;
+    }
     
     /**
      * Getter of objects on the position with coordinates (x,y).
@@ -477,6 +497,15 @@ public class Game
         int row = rY.nextInt();
         Position p = getPosition(col, row);
         
+        Random rType = new Random(3);
+        int intType = rType.nextInt();
+        String[] types = new String[3];
+        types[0] = "runspeed";
+        types[1] = "torch";
+        types[2] = "shield";
+        types[3] = "projectile";
+        
+        
         if (p.getObjects() == null)
         {
             if (((row == 1 && col > 3 && col < (this.heightCubes -2)) ||
@@ -489,7 +518,7 @@ public class Game
                     ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
             {
                 //place boxes random
-                Object ob = new Obstacle("powerup", false, p, true, false, this);
+                Object ob = new PowerUp("test", types[intType], "test desc", true, p, true, false, Direction.Right, this);
                 this.objects.add(ob);
                 setObjectInGrid(ob);
                 return true;
