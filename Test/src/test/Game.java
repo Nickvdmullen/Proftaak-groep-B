@@ -79,11 +79,11 @@ public class Game
         int row = 2;
         int col = 2;
         
-        while (row < this.widthCubes)
+        while (row < this.heightCubes)
         {
             col = 2;
             
-            while (col < this.heightCubes)
+            while (col < this.widthCubes)
             {
                 Rectangle rec = new Rectangle((col*100), (row*100), 100, 100);
                 rec.setFill(Color.BLACK);
@@ -124,20 +124,20 @@ public class Game
         rec = new Rectangle((this.widthCubes*100), ((this.heightCubes - 2)*100), 100, 100);
         boxes.add(rec);
         
-        while (row <= this.widthCubes)
+        while (row <= this.heightCubes)
         {            
             col = 1;
             
-            while (col <= this.heightCubes)
+            while (col <= this.widthCubes)
             {
                 //can't place in the corners
-                if (((row == 1 && col > 3 && col < (this.heightCubes -2)) ||
-                        (row == 2 && col > 2 && col < (this.heightCubes -1)) ||
-                        (row == 3 && col > 1 && col < this.heightCubes) ||
-                        (row == (this.widthCubes - 2) && col > 1 && col < this.heightCubes) ||
-                        (row == (this.widthCubes - 1) && col > 2 && col < (this.heightCubes -1)) ||
-                        (row == this.widthCubes && col > 3 && col < (this.heightCubes -2)) || 
-                        (row > 3 && row < (this.widthCubes -2))) &&
+                if (((row == 1 && col > 3 && col < (this.widthCubes -2)) ||
+                        (row == 2 && col > 2 && col < (this.widthCubes -1)) ||
+                        (row == 3 && col > 1 && col < this.widthCubes) ||
+                        (row == (this.heightCubes - 2) && col > 1 && col < this.widthCubes) ||
+                        (row == (this.heightCubes - 1) && col > 2 && col < (this.widthCubes -1)) ||
+                        (row == this.heightCubes && col > 3 && col < (this.widthCubes -2)) || 
+                        (row > 3 && row < (this.heightCubes -2))) &&
                         ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
                 {
                     //place boxes random
