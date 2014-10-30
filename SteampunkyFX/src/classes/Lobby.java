@@ -144,9 +144,9 @@ public class Lobby extends Observable
         if(this.observableSpectators.contains(user) && !this.observablePlayers.contains(user))
         {
             this.observablePlayers.add(user);
+            this.observableSpectators.remove(user);
             this.setChanged();
             this.notifyObservers(user);
-            this.observableSpectators.remove(user);
             return true;
         }
         return false;

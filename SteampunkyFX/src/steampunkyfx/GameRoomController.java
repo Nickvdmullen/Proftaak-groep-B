@@ -72,6 +72,7 @@ public class GameRoomController implements Initializable, Observer {
     private SteampunkyFX main;
     private User admin;
     private Stage stage;
+    private int slotsleft = 4;
     
     private Game game;
     private int widthPixels;
@@ -95,7 +96,9 @@ public class GameRoomController implements Initializable, Observer {
         this.game = null;
   
         LBLusername.setText("Welcome: " + admin.getUsername());
-        
+        LBLRemaining.setText("Remaining slots: " + this.slotsleft);
+        BTReady.setDisable(true);
+        BTSpectator.setDisable(true);
         LBLSize.setVisible(false);
         LBLWidth.setVisible(false);
         LBLHeight.setVisible(false);
@@ -105,6 +108,8 @@ public class GameRoomController implements Initializable, Observer {
         TextHeight.setVisible(false);
         TextTime.setVisible(false);
         TextRounds.setVisible(false);
+        
+        InitCombos();
         
         for (User u : lobby.getSpectators()) {
             if (u == admin) {
@@ -130,24 +135,34 @@ public class GameRoomController implements Initializable, Observer {
         server = (Server) getServer();
         SpectatorNames = new ArrayList<>();
         PlayerNames = new ArrayList<>();
-        //InitCombos();
     }
     
     @FXML
     public void becomeSpectator() 
     {
-        
+        lobby.clearSlot(admin);
+        slotsleft++;
+        LBLRemaining.setText("Remaining slots: " + slotsleft);
+        BTReady.setDisable(true);
+        this.BTPlayer.setDisable(false);
+        BTSpectator.setDisable(true);
     }
     
     @FXML
     public void becomePlayer()
-    {
-        
+    {     
+        lobby.assignSlot(admin);
+        slotsleft--;
+        BTReady.setDisable(false);
+        this.BTPlayer.setDisable(true);
+        BTSpectator.setDisable(false);
+        LBLRemaining.setText("Remaining slots: " + slotsleft); 
     }
     
     @FXML
     public void ReturnToMenu() 
     {    
+        main.gotoLobbyselect(admin);
     }   
     
     @FXML
@@ -216,17 +231,14 @@ public class GameRoomController implements Initializable, Observer {
      * @param o1
      */
     @Override
-    public void update(Observable o, java.lang.Object o1) {
-//        try {
-//            User user = (User) o1;
-//            SpectatorNames.add(user.toString());
-//        } catch(Exception ex) {
-//            System.out.println("fout" + ex);
-//        }    
+    public void update(Observable o, java.lang.Object o1) {  
           InitCombos();
     }
     
     public void InitCombos() {
+        this.LBSpectators.getItems().clear();
+        this.LBPlayers.getItems().clear();
+        
         for (User u : this.lobby.getPlayers()) {
             this.PlayerNames.add(u.toString());
         }

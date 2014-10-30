@@ -98,7 +98,9 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
     public void update(Observable o, Object o1) {
         try {
             Lobby lobby = (Lobby) o1;
-            lobbyName.add(lobby.toString());
+            for (Lobby l : server.getLobbies()) {
+                lobbyName.add(l.toString());
+            }
         } catch(Exception ex) {
             System.out.println("Not an lobby");
         }
