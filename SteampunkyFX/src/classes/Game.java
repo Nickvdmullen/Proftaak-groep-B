@@ -25,7 +25,7 @@ public class Game
     private Timer timer;
     private TimerTask task;
     private double currentTime;
-    private double totalTime; //in seconds
+    private double totalTime;
     
     private int totalRounds;
     private int round;    
@@ -47,7 +47,7 @@ public class Game
      * Constructor of Game
      * @param height            Uneven number of cubes, minimum of 9
      * @param width             Uneven number of cubes, minimum of 9
-     * @param timelimit         The max amount of time a game can last.
+     * @param timelimit         The max amount of time a game can last in seconds.
      * @param botDifficulty     The difficulty of the bots.
      * @param rounds            The number of rounds that can be played.
      */
@@ -112,6 +112,26 @@ public class Game
     }
 
     //**********************methoden****************************************
+    
+    public int getHeightPixels()
+    {
+        return this.heightPixels;
+    }
+    
+    public int getHeightCubes()
+    {
+        return this.heightCubes;
+    }
+    
+    public int getWidthPixels()
+    {
+        return this.widthPixels;
+    }
+    
+    public int getWidthCubes()
+    {
+        return this.widthCubes;
+    }
     
     /**
      * Getter of objects on the position with coordinates (x,y).

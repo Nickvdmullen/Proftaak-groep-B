@@ -26,12 +26,9 @@ import javafx.stage.*;
  */
 public class Test extends Application
 {
-    private Thread threadDraw;
     private Manager manager;
     private Rectangle field;
     private Rectangle playfield;
-    private TextField text1;
-    private TextField text2;
     private int maxX = 1700;
     private int widthPixels;
     private int widthCubes;
@@ -44,6 +41,7 @@ public class Test extends Application
     {     
         gotoLobbyselect(primaryStage, new Game(19, 19));
     }
+    
     protected void gotoLobbyselect(Stage primaryStage, Game game){
         //Get game
         //game = new Game(9, 9);
