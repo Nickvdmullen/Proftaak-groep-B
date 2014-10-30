@@ -65,7 +65,7 @@ public class SteampunkyFX extends Application {
     protected void gotoGameRoomselect(User admin, Lobby lobby) {
         try {
             GameRoomController GameRoomselect = (GameRoomController) replaceSceneContent("GameRoom.fxml");
-            GameRoomselect.setApp(this, admin, lobby);
+            GameRoomselect.setApp(this, admin, lobby,stage);
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
         }

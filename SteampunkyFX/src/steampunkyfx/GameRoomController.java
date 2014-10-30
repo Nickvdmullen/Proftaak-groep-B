@@ -17,11 +17,15 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -53,12 +57,14 @@ public class GameRoomController implements Initializable, Observer {
     private Server server;
     private SteampunkyFX main;
     private User admin;
+    private Stage stage;
     
     private ArrayList<String> SpectatorNames;
     private ArrayList<String> PlayerNames;
 
-    public void setApp(SteampunkyFX application, User admin, Lobby lobby)
+    public void setApp(SteampunkyFX application, User admin, Lobby lobby,Stage stage)
     {
+        this.stage = stage;
         this.main = application;
         this.admin = admin;
         this.lobby = lobby;
@@ -89,6 +95,7 @@ public class GameRoomController implements Initializable, Observer {
         server = (Server) getServer();
         SpectatorNames = new ArrayList<>();
         PlayerNames = new ArrayList<>();
+        InitCombos();
     }
     
     @FXML
@@ -109,10 +116,14 @@ public class GameRoomController implements Initializable, Observer {
     }   
     
     @FXML
-    public void Gameready()
+    public void Gameready() //eddit
     {
         System.out.print("Add game code here");
-        ///Teken code hier aan toevoegen
+        Pane root =  new Pane();
+        Scene game = new Scene(root,500,500);
+        this.stage.setMinHeight(1000);
+        this.stage.setMinWidth(1000);
+        stage.setScene(game);  
     }
 
     /**
@@ -128,8 +139,10 @@ public class GameRoomController implements Initializable, Observer {
 //        } catch(Exception ex) {
 //            System.out.println("fout" + ex);
 //        }    
-            
-        
+          InitCombos();
+    }
+    
+    public void InitCombos() {
         for (User u : this.lobby.getPlayers()) {
             this.PlayerNames.add(u.toString());
         }
