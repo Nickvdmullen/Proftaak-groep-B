@@ -6,6 +6,9 @@
 package classes;
 
 import java.util.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
  OK
@@ -38,6 +41,10 @@ public class Projectile extends Object
         this.type = type;
         this.speed = speed;
         this.direction = direction;
+        
+        Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+        s.setFill(Color.LIME);
+        super.setShape(s);
     }
 
     //**********************methoden****************************************
@@ -75,5 +82,4 @@ public class Projectile extends Object
     {
         return this.projectileID;
     }
-
 }

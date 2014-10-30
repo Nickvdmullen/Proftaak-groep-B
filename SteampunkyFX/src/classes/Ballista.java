@@ -5,6 +5,10 @@
  */
 package classes;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+
 /**
  OK
  <p>
@@ -19,7 +23,6 @@ public class Ballista extends Object
     private int shots;
     private int shotsShot;
     private double projectileSpeed;
-    /////
 
     /**
      The constructor of the Object Ballista,
@@ -42,6 +45,11 @@ public class Ballista extends Object
         {
             throw new IllegalArgumentException("A ballista must have a multitude of 4 as # of shots.");
         }
+        
+        Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+        s.setFill(Color.DARKGOLDENROD);
+        super.setShape(s);
+        
         //Check if values entered are correct.
         if (type != null)
         {
@@ -115,5 +123,4 @@ public class Ballista extends Object
     {
         Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , false , direction,super.getGame());
     }
-
 }

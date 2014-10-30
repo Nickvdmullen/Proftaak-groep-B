@@ -23,8 +23,6 @@ public class Obstacle extends Object
     private int obstacleID = 1;
     private final String type;
     private boolean broken;
-    
-    private Shape shape;
 
     ArrayList<Integer> obstacleIDs = new ArrayList<>();
 
@@ -57,21 +55,19 @@ public class Obstacle extends Object
         
         if (this.type.equals("box"))
         {
-            this.shape = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-            this.shape.setFill(Color.BLANCHEDALMOND);
-            this.shape.setStroke(Color.BURLYWOOD);
-            this.shape.setStrokeWidth(2);
+            Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+            s.setFill(Color.BLANCHEDALMOND);
+            s.setStroke(Color.BURLYWOOD);
+            s.setStrokeWidth(2);
+            super.setShape(s);
         }
         else if (this.type.equals("cube"))
         {
-            this.shape = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-            this.shape.setFill(Color.BLACK);
+            Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+            s.setFill(Color.BLACK);
+            super.setShape(s);
         }
-        else if (this.type.equals("powerup"))
-        {
-            this.shape = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
-            this.shape.setFill(Color.LIGHTBLUE);
-        }
+        
         this.broken = broken;
 
         this.obstacleID = interfaceID;

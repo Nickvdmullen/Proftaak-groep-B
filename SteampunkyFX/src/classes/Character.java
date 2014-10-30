@@ -8,6 +8,7 @@ package classes;
 import java.util.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 /**
@@ -28,8 +29,6 @@ public class Character extends Object
     //relaties
     private List<Ballista> ballistas;
     private List<PowerUp> powerups;
-    
-    private Shape shape;
 
     /**
      The Constructor of Character
@@ -68,8 +67,10 @@ public class Character extends Object
         ballistas = new ArrayList<>();
         powerups = new ArrayList<>();
         
-        this.shape = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
-        this.shape.setFill(color);
+        //Shape s = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
+        Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+        s.setFill(color);
+        super.setShape(s);
     }
 
     //**********************methoden****************************************

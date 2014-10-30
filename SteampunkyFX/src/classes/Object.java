@@ -7,6 +7,7 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.shape.Shape;
 
 /**
  <p>
@@ -22,6 +23,7 @@ public abstract class Object
     private boolean movable;
     private Direction direction;
     private Game myGame;
+    private Shape shape;
 
     //***********************constructoren***********************************
     /**
@@ -110,6 +112,10 @@ public abstract class Object
     public void setPosition(Position position)
     {
         this.position = position;
+        
+        //check if shape is cirlce or rectangle
+        this.shape.setLayoutX(position.getX()*100);
+        this.shape.setLayoutY(position.getY()*100);
     }
 
     /**
@@ -133,6 +139,25 @@ public abstract class Object
     }
     
     /**
+     * The Getter of the shape of the object
+     * 
+     * @return 
+     */
+    public Shape getShape()
+    {
+        return this.shape;
+    }
+    
+    /**
+     * The Setter of the shape of the object
+     * @param shape of the object
+     */
+    public void setShape(Shape shape)
+    {
+        this.shape = shape;
+    }
+    
+    /**
      A Method for moving this Object
      <p>
      @param direction A Object of the Class Direction which holds the direction in which direction this Object is moving.
@@ -153,6 +178,8 @@ public abstract class Object
                         this.position.removeObject(this);
                         this.position = position;
                         this.position.addObject(this);
+                        this.shape.setLayoutX(position.getX()*100);
+                        this.shape.setLayoutY(position.getY()*100);
                     }
                 }
             }
@@ -166,6 +193,8 @@ public abstract class Object
                         this.position.removeObject(this);
                         this.position = position;
                         this.position.addObject(this);
+                        this.shape.setLayoutX(position.getX()*100);
+                        this.shape.setLayoutY(position.getY()*100);
                     }
                 }
             }
@@ -179,6 +208,8 @@ public abstract class Object
                         this.position.removeObject(this);
                         this.position = position;
                         this.position.addObject(this);
+                        this.shape.setLayoutX(position.getX()*100);
+                        this.shape.setLayoutY(position.getY()*100);
                     }
                 }
             }
@@ -192,6 +223,8 @@ public abstract class Object
                         this.position.removeObject(this);
                         this.position = position;
                         this.position.addObject(this);
+                        this.shape.setLayoutX(position.getX()*100);
+                        this.shape.setLayoutY(position.getY()*100);
                     }
                 }
             }

@@ -6,6 +6,10 @@
 package classes;
 
 import java.util.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
  <p>
@@ -47,6 +51,11 @@ public class PowerUp extends Object
                 this.name = name;
                 this.type = type;
                 this.description = description;
+                
+                //Shape s = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
+                Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
+                s.setFill(Color.LIGHTBLUE);
+                super.setShape(s);
 
                 switch (type)
                 {
