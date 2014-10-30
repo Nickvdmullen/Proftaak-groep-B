@@ -92,7 +92,7 @@ public class GameRoomController implements Initializable, Observer {
         this.lobby = lobby;
         this.lobby.addObserver(this);
         
-        //this.game = null;
+        this.game = null;
   
         LBLusername.setText("Welcome: " + admin.getUsername());
         

@@ -518,7 +518,7 @@ public class Game
         //get random type
         Random rType = new Random(3);
         int intType = rType.nextInt();
-        String[] types = new String[3];
+        String[] types = new String[4];
         types[0] = "runspeed";
         types[1] = "torch";
         types[2] = "shield";
@@ -703,25 +703,25 @@ public class Game
      */
     public void setupGame()
     {
-        String[] namen = new String[2];
+        String[] namen = new String[4];
         namen[0] = "Hans";
         namen[1] = "Marcel";
         namen[2] = "Andre";
         namen[3] = "Nico";
         
-        Color[] colors = new Color[3];
+        Color[] colors = new Color[4];
         colors[0] = Color.RED;
         colors[1] = Color.LIMEGREEN;
         colors[2] = Color.ROYALBLUE;
         colors[3] = Color.YELLOW;
         
-        Position[] positions = new Position[3];
+        Position[] positions = new Position[4];
         positions[0] = getPosition(1, this.heightCubes);
         positions[1] = getPosition(1, 1);
         positions[2] = getPosition(this.widthCubes, 1);
         positions[3] = getPosition(this.widthCubes, this.heightCubes);
         
-        Direction[] directions = new Direction[3];
+        Direction[] directions = new Direction[4];
         directions[0] = Direction.Right;
         directions[1] = Direction.Down;
         directions[2] = Direction.Left;
@@ -777,13 +777,13 @@ public class Game
     {
         this.objects.clear();
         
-        Position[] positions = new Position[3];
+        Position[] positions = new Position[4];
         positions[0] = getPosition(1, this.heightCubes);
         positions[1] = getPosition(1, 1);
         positions[2] = getPosition(this.widthCubes, 1);
         positions[3] = getPosition(this.widthCubes, this.heightCubes);
         
-        Direction[] directions = new Direction[3];
+        Direction[] directions = new Direction[4];
         directions[0] = Direction.Right;
         directions[1] = Direction.Down;
         directions[2] = Direction.Left;

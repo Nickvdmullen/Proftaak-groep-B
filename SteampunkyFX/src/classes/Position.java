@@ -5,6 +5,7 @@
  */
 package classes;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Position
     {
         this.x = x;
         this.y = y;
+        this.objects = new ArrayList<>();
     }
 
     /**
@@ -103,6 +105,6 @@ public class Position
 
     public void clearAllObjects()
     {
-        this.objects.clear();
+        this.objects = null;   
     }
 }
