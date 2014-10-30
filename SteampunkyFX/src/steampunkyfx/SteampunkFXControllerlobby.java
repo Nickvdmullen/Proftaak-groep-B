@@ -42,6 +42,7 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
     @FXML Label Creatlobbynamelb;
     @FXML Label Creatlobbypasswordlb;
     @FXML Label joinlobbynamelb;
+    @FXML Label LBLLobbyWelcome;
     @FXML ComboBox CBjoinlobby;
     @FXML TextField TfCreatename;
     @FXML TextField Tfvreatepassword;
