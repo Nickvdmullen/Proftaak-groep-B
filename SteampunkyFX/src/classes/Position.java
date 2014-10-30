@@ -105,6 +105,13 @@ public class Position
 
     public void clearAllObjects()
     {
-        this.objects = null;   
+        ArrayList<Object> templist = new ArrayList<>();
+        for (Object o : objects) {
+            templist.add(o);
+        }
+        
+        for (Object o : templist) {
+            objects.remove(o);
+        }
     }
 }
