@@ -100,7 +100,7 @@ public class SteampunkFXController implements Initializable
                System.out.println("longin succes"); 
                try
                {     
-                  server.Userlogedin(new User(1,TFUsernamelogin.getText(), TFWachtwoordlogin.getText()));
+                  server.Userlogedin(new User(TFUsernamelogin.getText(), TFWachtwoordlogin.getText()));
                   main.gotoLobbyselect();
                }
                catch(Exception ex)

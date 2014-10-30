@@ -16,7 +16,7 @@ public class User
 {
 
     //************************datavelden*************************************
-    private int userID;
+    private int userID = 0;
     private String username;
     private String password;
     private int rating;
@@ -34,9 +34,9 @@ public class User
      @param username A String which is this Users Username.
      @param password A String which is this Users Password.
      */
-    public User(int userID , String username , String password)
+    public User(String username , String password)
     {
-        this.userID = userID;
+        this.userID++;
         this.username = username;
         this.password = password;
     }
@@ -51,13 +51,13 @@ public class User
      @param wins     An int which is the # of wins this user has.
      @param losses   An int which is the # of losses this user has.
      */
-    public User(int userID , String username , String password , int rating , int wins , int losses)
+    public User(String username , String password , int rating , int wins , int losses)
     {
         if (wins < 0 || losses < 0 || rating < 0)
         {
             throw new IllegalArgumentException("You can't have a negative win,loss or rating.");
         }
-        this.userID = userID;
+        this.userID++;
         this.username = username;
         this.password = password;
         this.rating = rating;

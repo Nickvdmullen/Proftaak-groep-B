@@ -32,7 +32,7 @@ public class UserTest {
     
     @Before
     public void setUp() {
-        test = new User(1, "lotje", "lotje", 10, 0, 9);
+        test = new User("lotje", "lotje", 10, 0, 9);
     }
     
     @After
