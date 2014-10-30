@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 import classes.Direction;
+import classes.Game;
+import classes.Position;
 import classes.PowerUp;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -23,8 +25,10 @@ public class PowerUpTest {
     
     @Before
     public void setUp() {
-        this.Powerup = new PowerUp("Fast","runspeed","run faster",true,10,10,true,false,Direction.Left);
-        this.Powerup2 = new PowerUp(null,null,null,true,19,18,true,false,Direction.Left);
+        Position position = new Position(1,1);
+        Game game = new Game(9,9,4.00, 1, 3);
+        this.Powerup = new PowerUp("Fast","runspeed","run faster",true,position,true,false,Direction.Left, game);
+        this.Powerup2 = new PowerUp(null,null,null,true,position,true,false,Direction.Left, game);
     }
     
     @Test

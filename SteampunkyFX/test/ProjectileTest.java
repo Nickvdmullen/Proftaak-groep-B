@@ -4,15 +4,17 @@
  * and open the template in the editor.
  */
 import classes.Direction;
+import classes.Game;
+import classes.Position;
 import classes.Projectile;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -28,9 +30,12 @@ public class ProjectileTest {
     public void setUp() 
     {
         //Setup for testing, making objects,making lists, adding objects to the list
-        firstProjectile = new Projectile("normal",1,19,19,true,true,Direction.Left);
-        secondProjectile = new Projectile("normal",1,19,19,true,true,Direction.Left);
-        thirdProjectile = new Projectile(null,1,19,19,true,true,Direction.Left);
+        //String type , double speed , Position position , boolean active , boolean movable , Direction direction , Game game)
+        Position position = new Position(1,1);
+        Game game = new Game(9,9,4.00, 1, 3);
+        firstProjectile = new Projectile("normal",1,position,true,true,Direction.Left, game);
+        secondProjectile = new Projectile("normal",1,position,true,true,Direction.Left, game);
+        thirdProjectile = new Projectile(null,1,position,true,true,Direction.Left, game);
         myObjects = new ArrayList();
         myObjects.add(firstProjectile);
         myObjects.add(secondProjectile);

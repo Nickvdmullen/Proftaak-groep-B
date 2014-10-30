@@ -5,7 +5,9 @@
  */
 
 import classes.Direction;
+import classes.Game;
 import classes.Obstacle;
+import classes.Position;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -22,8 +24,9 @@ public class ObstacleTest {
     Obstacle ob;
     
     public ObstacleTest() {
-        //interfaceID nr, type, broken, posX, posY, active, movable
-        ob = new Obstacle("Obstacle", false, 10, 11, true, false);
+        Position position = new Position(1,1);
+        Game game = new Game(9,9,4.00, 1, 3);
+        ob = new Obstacle("Obstacle", false, position, true, false, game);
     }
     
 

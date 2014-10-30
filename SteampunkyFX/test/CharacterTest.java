@@ -6,6 +6,9 @@
 
 import classes.Character;
 import classes.Direction;
+import classes.Game;
+import classes.Position;
+import javafx.scene.paint.Color;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -32,7 +35,9 @@ public class CharacterTest {
     
     @Before
     public void setUp() {
-        test = new Character(5, 5.0 , false, 1, 1, 1, 1, true, true, Direction.Down);
+        Position position = new Position(1,1);
+        Game game = new Game(9,9,4.00, 1, 3);
+        test = new Character(5.0,  false, 1, 1, position, true, true, Direction.Down, Color.RED, game);
     }
     
     @After
@@ -45,7 +50,7 @@ public class CharacterTest {
     @Test
     public void TestGetters() 
     {
-    assertEquals("score niet gelijk", test.getScore(), 5);
+    assertEquals("score niet gelijk", test.getScore(), 0);
     assertEquals("speed niet gelijk", (int)test.getSpeed(), (int)5.0);
     assertEquals("boolean dead niet gelijk", test.getDead(), false);
     assertEquals("torch niet gelijk", test.getTorchRange(), 1);
@@ -77,6 +82,8 @@ public class CharacterTest {
     @Test  (expected = IllegalArgumentException.class)
     public void TestFoutiveInvoer()
     {
-        Character nieuw = new Character(5, 5.0 , true, 1, 1, 1, 1, true, true, Direction.Down);
+        Position position = new Position(1,1);
+        Game game = new Game(9,9,4.00, 1, 3);
+        Character nieuw = new Character(5.0,  true, 1, 1, position, true, true, Direction.Down, Color.RED, game);
     }
 }
