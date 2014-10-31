@@ -169,13 +169,13 @@ public abstract class Object
         
         if(this instanceof Character)
             {
-              this.active = false;
+              
             }
         if (movable)
         {
             if (direction == Direction.Right)
             {
-                newPosition = new Position((this.position.getX() + 1) , this.position.getY());
+                newPosition = myGame.getPosition(this.position.getX() +1,this.position.getY());
                 for(Position p :allObject)
                 {                    
                     if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
@@ -190,7 +190,7 @@ public abstract class Object
             }
             else if (direction == Direction.Left)
             {
-                newPosition = new Position((this.position.getX() - 1) , this.position.getY());
+                newPosition = myGame.getPosition(this.position.getX() -1,this.position.getY());
                 for(Position p :allObject)
                 {                    
                     if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
@@ -205,9 +205,10 @@ public abstract class Object
             }
             else if (direction == Direction.Up)
             {
-                newPosition = new Position(this.position.getX() , this.position.getY() - 1);
+                newPosition = myGame.getPosition(this.position.getX(),this.position.getY()-1);
+                
                 for(Position p :allObject)
-                {                    
+                {      
                     if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                     {
                         this.position.removeObject(this);
@@ -220,9 +221,9 @@ public abstract class Object
             }
             else if(direction == Direction.Down)
             {
-                newPosition = new Position(this.position.getX() , this.position.getY()+1);
+                newPosition = myGame.getPosition(this.position.getX(),this.position.getY()+1);
                 for(Position p :allObject)
-                {                                   
+                {         
                     if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                     {
                         this.position.removeObject(this);
