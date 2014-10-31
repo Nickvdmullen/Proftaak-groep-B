@@ -9,7 +9,6 @@ import classes.Lobby;
 import classes.Server;
 import static classes.Server.getServer;
 import classes.User;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -43,14 +42,14 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
     @FXML Button btjoinlobby;
     @FXML ListView Lblobby;
     
+    //list voor de gemaakte lobby's te laten zien
     ArrayList<String> lobbyName;
 
+    //JAVAFX referenties / mee gegeven objecten van andere forums
     private SteampunkyFX main;
     private Server server;
     private User user;
     
-    public SteampunkFXControllerlobby() {
-    }
 
     public void setApp(SteampunkyFX application,User user)
     {
@@ -69,6 +68,7 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
     }
 
     
+    //Maakt een lobby 
     @FXML
     public void AddLobby() {
         if (TfCreatename.getText().equals("")) {
@@ -94,6 +94,7 @@ public class SteampunkFXControllerlobby implements Observer, Initializable
         }
     }
 
+    //update de rooms die worden aangemaakt in de listview
     @Override
     public void update(Observable o, Object o1) {
         try {

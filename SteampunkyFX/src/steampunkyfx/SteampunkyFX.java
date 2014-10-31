@@ -113,7 +113,7 @@ public class SteampunkyFX extends Application {
         stage.getIcons().add(new Image(SteampunkyFX.class.getResourceAsStream("icon.png"))); 
         stage.setScene(scene);
         } else {
-            System.out.println("You done fucked up now");
+            System.out.println("Create of scene in steampinkfx faild");
         }
         
         

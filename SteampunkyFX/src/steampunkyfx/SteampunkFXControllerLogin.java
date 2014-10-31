@@ -8,21 +8,12 @@ package steampunkyfx;
 
 import classes.Server;
 import classes.User;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Calendar;
 import java.util.ResourceBundle;
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -86,12 +77,13 @@ public class SteampunkFXControllerLogin implements Initializable
         stage.close();
     }
     
+    //Kijk of de user kan inloggen met het opgeven wachtwoord en username
     @FXML
     private void Btlogin() throws IOException 
     {
        if(TFUsernamelogin.getText().isEmpty() && TFWachtwoordlogin.getText().isEmpty())
        {
-           JOptionPane.showMessageDialog(null,"Wachtwoord of usernaam is niet ingevuld");
+           JOptionPane.showMessageDialog(null,"Password or username is empty");
        }
        else
        {
@@ -106,34 +98,35 @@ public class SteampunkFXControllerLogin implements Initializable
                }
                catch(Exception ex)
                {
-                    System.out.println("Fout bij starten lobby : " + ex);
+                    System.out.println("Error at starting lobby : " + ex);
                }
                
            }
            else
            {
-               JOptionPane.showMessageDialog(null,"Wachtwoord of usernaam is niet correct");
+               JOptionPane.showMessageDialog(null,"Password or username are incorrect");
            }
        }
     }
     
+    //Maakt een user aan in de database
     @FXML
     private void BtCreatecreate() 
     {
        if(TFUsernamecreate.getText().isEmpty() && TFWachtwoordcreate.getText().isEmpty())
        {
-           JOptionPane.showMessageDialog(null,"Geen user of wachtwoord ingevuld");
+           JOptionPane.showMessageDialog(null,"No username or password was filled in");
        }
        else
        {
            if(server.createUser(TFUsernamecreate.getText(), TFWachtwoordcreate.getText()))
            {
                Logintabs.getSelectionModel().select(loginuser);
-               JOptionPane.showMessageDialog(null,"User is aangemaakt");
+               JOptionPane.showMessageDialog(null,"User created");
            }
            else
            {
-               JOptionPane.showMessageDialog(null,"Usernaam bestaat al in de database");
+               JOptionPane.showMessageDialog(null,"User already registerd");
            }
        }
     }

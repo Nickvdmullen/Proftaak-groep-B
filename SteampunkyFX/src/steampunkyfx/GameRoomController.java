@@ -21,7 +21,6 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
@@ -34,10 +33,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -47,18 +44,20 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Willem
+ * @author Bart
  */
 public class GameRoomController implements Initializable, Observer {
 
+    //JAVAFX CONTROLS
     @FXML private Font x1;
     @FXML private Button BTSpectator;
     @FXML private Button BTPlayer;
     @FXML private Button BTReturn;
+    @FXML private Button BTstop;
+    @FXML private Button BTReady;
     @FXML private Label LBLusername;
     @FXML private Label LBLRemaining;
     @FXML private Label LBLGameState;
-    @FXML private Button BTReady;
     @FXML private Label LBLPlayer1Status;
     @FXML private Label LBLPlayer2Status;
     @FXML private Label LBLPlayer3Status;
@@ -75,13 +74,14 @@ public class GameRoomController implements Initializable, Observer {
     @FXML private ComboBox CBMinutes;
     @FXML private ComboBox CBrounds;
 
+    //JAVAFX referenties / mee gegeven objecten van andere forums
     private Lobby lobby;
     private Server server;
     private SteampunkyFX main;
     private User admin;
     private Stage stage;
-    private int slotsleft = 4;
-
+    
+    //Game refereantie met game eigenschappen
     private Game game;
     private int widthPixels;
     private int widthCubes;
@@ -90,6 +90,7 @@ public class GameRoomController implements Initializable, Observer {
     private Rectangle field;
     private Rectangle playfield;
 
+    //Listen die nodig zijn voor de gui te updaten
     private ArrayList<String> SpectatorNames;
     private ArrayList<String> PlayerNames;
     private ArrayList<String> Roomsizewidth;
@@ -100,9 +101,12 @@ public class GameRoomController implements Initializable, Observer {
     private transient ObservableList<String> observableTime;
     private transient ObservableList<String> observableRoomsizewidth;
     private transient ObservableList<String> observableRoomsizeheight;
+    
+    //Classe variable plus timer instantie
     private Timer timer;
     private int timercount = 6;
     private int countdown = 6;
+    private int slotsleft = 4;
 
     public void setApp(SteampunkyFX application, User admin, Lobby lobby, Stage stage) {
         this.stage = stage;
@@ -112,20 +116,21 @@ public class GameRoomController implements Initializable, Observer {
         this.lobby.addObserver(this);
         this.game = null;
 
-        LBLusername.setText("Welcome: " + admin.getUsername());
-        LBLRemaining.setText("Remaining slots: " + this.slotsleft);
-        BTReady.setDisable(true);
-        BTSpectator.setDisable(true);
+        this.LBLusername.setText("Welcome: " + admin.getUsername());
+        this.LBLRemaining.setText("Remaining slots: " + this.slotsleft);
+        this.BTReady.setDisable(true);
+        this.BTSpectator.setDisable(true);
 
-        LBLsize.setDisable(true);
-        LBLHeight.setDisable(true);
-        LBLWidth.setDisable(true);
-        LBLTime.setDisable(true);
-        LBLRound.setDisable(true);
-        CBlevelsizeHeight.setDisable(true);
-        CBlevelsizeWidth.setDisable(true);
-        CBMinutes.setDisable(true);
-        CBrounds.setDisable(true);
+        this.LBLsize.setDisable(true);
+        this.LBLHeight.setDisable(true);
+        this.LBLWidth.setDisable(true);
+        this.LBLTime.setDisable(true);
+        this.LBLRound.setDisable(true);
+        this.CBlevelsizeHeight.setDisable(true);
+        this.CBlevelsizeWidth.setDisable(true);
+        this.CBMinutes.setDisable(true);
+        this.CBrounds.setDisable(true);
+        this.BTstop.setDisable(true);
 
         //add level size 
         observableRounds = observableList(this.Rounds);
@@ -133,12 +138,14 @@ public class GameRoomController implements Initializable, Observer {
         observableRoomsizewidth = observableList(this.Roomsizewidth);
         observableRoomsizeheight = observableList(this.Roomsizeheight);
 
+        //vult de ronde en game comboboxen
         for (int TimeRound = 1; TimeRound < 5; TimeRound++) {
             String temp = "" + TimeRound;
             observableRounds.add(temp);
             observableTime.add(temp);
         }
 
+        // vult de hoogte en breedte lijst van het speelveld in de combobox
         for (int widthheight = 9; widthheight < 20; widthheight++) {
             if (widthheight % 2 != 0) {
                 String temp = "" + widthheight;
@@ -147,30 +154,29 @@ public class GameRoomController implements Initializable, Observer {
             }
         }
 
+        //Vult de comboboxen bij load en standaard waarde instellen
         InitCombos();
         this.CBMinutes.getSelectionModel().select(0);
         this.CBrounds.getSelectionModel().select(0);
         this.CBlevelsizeWidth.getSelectionModel().select(0);
         this.CBlevelsizeHeight.getSelectionModel().select(0);
 
+        //Kijkt of de ingelogde speler een admin is
         for (User u : lobby.getSpectators()) {
             if (u == admin) {
-                LBLsize.setDisable(false);
-                LBLHeight.setDisable(false);
-                LBLWidth.setDisable(false);
-                LBLTime.setDisable(false);
-                LBLRound.setDisable(false);
-                CBlevelsizeHeight.setDisable(false);
-                CBlevelsizeWidth.setDisable(false);
-                CBMinutes.setDisable(false);
-                CBrounds.setDisable(false);
+                this.LBLsize.setDisable(false);
+                this.LBLHeight.setDisable(false);
+                this.LBLWidth.setDisable(false);
+                this.LBLTime.setDisable(false);
+                this.LBLRound.setDisable(false);
+                this.CBlevelsizeHeight.setDisable(false);
+                this.CBlevelsizeWidth.setDisable(false);
+                this.CBMinutes.setDisable(false);
+                this.CBrounds.setDisable(false);
             }
         }
     }
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         server = (Server) getServer();
@@ -182,41 +188,54 @@ public class GameRoomController implements Initializable, Observer {
         Time = new ArrayList<>();
     }
 
+    //Methode die er voor zorgt dat een speler een spectator wordt
     @FXML
     public void becomeSpectator() {
-        lobby.clearSlot(admin);
-        slotsleft++;
-        LBLRemaining.setText("Remaining slots: " + slotsleft);
-        BTReady.setDisable(true);
+        this.lobby.clearSlot(this.admin);
+        this.slotsleft++;
+        this.LBLRemaining.setText("Remaining slots: " + this.slotsleft);
+        this.BTReady.setDisable(true);
         this.BTPlayer.setDisable(false);
-        BTSpectator.setDisable(true);
+        this.BTSpectator.setDisable(true);
     }
 
+    //Methode die er voor zorgt dat een speler een player wordt
     @FXML
     public void becomePlayer() {
-        lobby.assignSlot(admin);
-        slotsleft--;
-        BTReady.setDisable(false);
+        lobby.assignSlot(this.admin);
+        this.slotsleft--;
+        this.BTReady.setDisable(false);
         this.BTPlayer.setDisable(true);
-        BTSpectator.setDisable(false);
-        LBLRemaining.setText("Remaining slots: " + slotsleft);
+        this.BTSpectator.setDisable(false);
+        this.LBLRemaining.setText("Remaining slots: " + this.slotsleft);
     }
 
+    //Methode die de van de gameroom terug gaat naar de lobby
     @FXML
     public void ReturnToMenu() {
-        main.gotoLobbyselect(admin);
+        this.main.gotoLobbyselect(admin);
+    }
+    
+    //Stopt het starten van de game als op readt is geklikt
+    @FXML
+    public void StopGame() {
+        this.timer.cancel(); 
+        this.timercount = 6;
+        this.countdown = 6;
+        this.LBLGameState.setText("Waiting for players");
+        this.BTstop.setDisable(true);
+        this.BTReady.setDisable(false);
     }
 
+    //Start de game als de teller op 0 komt wordt het speel veld geladen
     public void Countdown() {
-        countdown--;
-        System.out.println(countdown);
-        String number = "Game wil start in: " + countdown;
+        this.countdown--;
+        String number = "Game wil start in: " + this.countdown;
         this.LBLGameState.setText(number);
 
-        if (countdown == 0) 
+        if (this.countdown == 0) 
         {
-            //Teken code hier aan toevoegen
-        
+        //Teken code hier aan toevoegen
         //Moeten groter zijn dan 9; melding?!
         int width = Integer.parseInt(this.CBlevelsizeWidth.getValue().toString());
         int height = Integer.parseInt(this.CBlevelsizeHeight.getValue().toString());
@@ -226,10 +245,10 @@ public class GameRoomController implements Initializable, Observer {
         int rounds = Integer.parseInt(this.CBrounds.getValue().toString());
         
         this.game = new Game(width, height, time, botdif, rounds);
-        widthPixels = this.game.getWidthPixels();
-        widthCubes = this.game.getWidthCubes();
-        heightPixels = this.game.getHeightPixels();
-        heightCubes = this.game.getHeightCubes();
+        this.widthPixels = this.game.getWidthPixels();
+        this.widthCubes = this.game.getWidthCubes();
+        this.heightPixels = this.game.getHeightPixels();
+        this.heightCubes = this.game.getHeightCubes();
         
         Group root = new Group();
         Scene scene = new Scene(root, 1700, 900);
@@ -242,18 +261,18 @@ public class GameRoomController implements Initializable, Observer {
         AnchorPane box = new AnchorPane();
         s1.setContent(box);
         
-        field = new Rectangle(widthPixels, heightPixels);
-        field.setFill(Color.GRAY);
-        box.getChildren().add(field);        
+        this.field = new Rectangle(this.widthPixels, this.heightPixels);
+        this.field.setFill(Color.GRAY);
+        box.getChildren().add(this.field);        
         
-        playfield = new Rectangle(100, 100, (widthCubes*100), (heightCubes*100));
-        playfield.setFill(Color.WHITE);
-        box.getChildren().add(playfield);
+        this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
+        this.playfield.setFill(Color.WHITE);
+        box.getChildren().add(this.playfield);
         
-        game.addPlayer(admin);
-        game.startRound(); // hier gaat het fout met debugen even naar kijken
+        this.game.addPlayer(this.admin);
+        this.game.startRound(); // hier gaat het fout met debugen even naar kijken
         
-        for (Position p : game.getGrid())
+        for (Position p : this.game.getGrid())
         {
             List<Object> objects = p.getObjects();
             
@@ -267,27 +286,27 @@ public class GameRoomController implements Initializable, Observer {
         root.getChildren().add(s1);
         this.stage.setMinHeight(900);
         this.stage.setMinWidth(1700);
-        stage.setScene(scene);  
+        this.stage.setScene(scene);  
         
         scene.setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
             {
-                game.getCharacter().move(Direction.Up);
+                this.game.getCharacter().move(Direction.Up);
             }
             
             if(keyEvent.getCode().toString().equals("A"))
             {
-                game.getCharacter().move(Direction.Left);
+                this.game.getCharacter().move(Direction.Left);
             }
             
             if(keyEvent.getCode().toString().equals("S"))
             {
-                game.getCharacter().move(Direction.Down);
+                this.game.getCharacter().move(Direction.Down);
             }
             
             if(keyEvent.getCode().toString().equals("D"))
             {
-                game.getCharacter().move(Direction.Right);
+                this.game.getCharacter().move(Direction.Right);
             }
             
             if(keyEvent.getCode().toString().equals("Q"))
@@ -307,18 +326,18 @@ public class GameRoomController implements Initializable, Observer {
 }
     
         
-
+    //Zodra er op ready wordt geklikt start de timer die aftelt tot de game start
     @FXML
     public void Gameready() {
-        //System.out.print("Add game code here");
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        this.timer = new Timer();
+        this.BTstop.setDisable(false);
+        this.BTReady.setDisable(true);
+        this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 javafx.application.Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println(timercount--);
                         Countdown();
 
                         if (timercount == 0) {
@@ -331,15 +350,13 @@ public class GameRoomController implements Initializable, Observer {
         }, 0, 1000);
     }
 
-        
-   
-
-
+    //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
     @Override
     public void update(Observable o, java.lang.Object o1) {
         InitCombos();
     }
 
+    //Initialiseert de combo boxen
     public void InitCombos() {
         this.LBSpectators.getItems().clear();
         this.LBPlayers.getItems().clear();
