@@ -5,6 +5,7 @@
  */
 package steampunkyfx;
 
+import classes.Direction;
 import classes.Game;
 import classes.Lobby;
 import classes.Object;
@@ -34,6 +35,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -282,6 +284,41 @@ public class GameRoomController implements Initializable, Observer {
         this.stage.setMinHeight(900);
         this.stage.setMinWidth(1700);
         stage.setScene(scene);  
+        
+        scene.setOnKeyPressed((KeyEvent keyEvent) -> {
+            if(keyEvent.getCode().toString().equals("W"))
+            {
+                game.getCharacter().move(Direction.UP);
+            }
+            
+            if(keyEvent.getCode().toString().equals("A"))
+            {
+                game.getCharacter().move(Direction.Left);
+            }
+            
+            if(keyEvent.getCode().toString().equals("S"))
+            {
+                game.getCharacter().move(Direction.Right);
+            }
+            
+            if(keyEvent.getCode().toString().equals("D"))
+            {
+                game.getCharacter().move(Direction.Down);
+            }
+            
+            if(keyEvent.getCode().toString().equals("Q"))
+            {
+             classes.Character c= (classes.Character) game.getCharacter();
+             c.createBallista(Direction.Right ,4 , 1);
+               
+            }
+            
+            if(keyEvent.getCode().toString().equals("E"))
+            {
+                classes.Character c= (classes.Character) game.getCharacter();
+                c.createBallista(Direction.UP ,4 , 1);
+            }
+        });
    }
 
     /**
