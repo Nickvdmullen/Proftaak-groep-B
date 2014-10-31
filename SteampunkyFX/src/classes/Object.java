@@ -67,7 +67,7 @@ public abstract class Object
     /**
      The Getter of this Objects PositionX.
      <p>
-     @return An int with the current X position of this Object
+     @return An int with the current X p of this Object
      */
     public int getPositionX()
     {
@@ -77,7 +77,7 @@ public abstract class Object
     /**
      The Getter of this Objects PositionY.
      <p>
-     @return An int with the current Y position of this Object
+     @return An int with the current Y p of this Object
      */
     public int getPositionY()
     {
@@ -107,7 +107,7 @@ public abstract class Object
     /**
      The Setter of this Objects Position.
      <p>
-     @param position A Object of the Class Position which holds the new position of this Object.
+     @param position A Object of the Class Position which holds the new p of this Object.
      */
     public void setPosition(Position position)
     {
@@ -166,65 +166,70 @@ public abstract class Object
     {
         List<Position> allObject = myGame.getGrid();
         Position newPosition = null;
+        
+        if(this instanceof Character)
+            {
+              this.active = false;
+            }
         if (movable)
         {
-            if (direction == direction.Right)
+            if (direction == Direction.Right)
             {
-                for(Position position :allObject)
-                {
-                    newPosition = new Position((this.position.getX() + 1) , this.position.getY());
-                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                newPosition = new Position((this.position.getX() + 1) , this.position.getY());
+                for(Position p :allObject)
+                {                    
+                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                     {
                         this.position.removeObject(this);
-                        this.position = position;
+                        this.position = p;
                         this.position.addObject(this);
-                        this.shape.setLayoutX(position.getX()*100);
-                        this.shape.setLayoutY(position.getY()*100);
+                        this.shape.setLayoutX(p.getX()*100);
+                        this.shape.setLayoutY(p.getY()*100);
                     }
                 }
             }
-            else if (direction == direction.Left)
+            else if (direction == Direction.Left)
             {
-                for(Position position :allObject)
-                {
-                    newPosition = new Position((this.position.getX() - 1) , this.position.getY());
-                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                newPosition = new Position((this.position.getX() - 1) , this.position.getY());
+                for(Position p :allObject)
+                {                    
+                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                     {
                         this.position.removeObject(this);
-                        this.position = position;
+                        this.position = p;
                         this.position.addObject(this);
-                        this.shape.setLayoutX(position.getX()*100);
-                        this.shape.setLayoutY(position.getY()*100);
+                        this.shape.setLayoutX(p.getX()*100);
+                        this.shape.setLayoutY(p.getY()*100);
                     }
                 }
             }
-            else if (direction == direction.Up)
+            else if (direction == Direction.Up)
             {
-                for(Position position :allObject)
-                {
-                    newPosition = new Position((this.position.getY() + 1) , this.position.getX());
-                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                newPosition = new Position(this.position.getX() , this.position.getY() - 1);
+                for(Position p :allObject)
+                {                    
+                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                     {
                         this.position.removeObject(this);
-                        this.position = position;
+                        this.position = p;
                         this.position.addObject(this);
-                        this.shape.setLayoutX(position.getX()*100);
-                        this.shape.setLayoutY(position.getY()*100);
+                        this.shape.setLayoutX(p.getX()*100);
+                        this.shape.setLayoutY(p.getY()*100);
                     }
                 }
             }
-            else
+            else if(direction == Direction.Down)
             {
-                for(Position position :allObject)
-                {               
-                    newPosition = new Position((this.position.getY() - 1) , this.position.getX());
-                    if((position.getY() == newPosition.getY()) && (position.getX() == newPosition.getX()))
+                newPosition = new Position(this.position.getX() , this.position.getY()+1);
+                for(Position p :allObject)
+                {                                   
+                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                     {
                         this.position.removeObject(this);
-                        this.position = position;
+                        this.position = p;
                         this.position.addObject(this);
-                        this.shape.setLayoutX(position.getX()*100);
-                        this.shape.setLayoutY(position.getY()*100);
+                        this.shape.setLayoutX(p.getX()*100);
+                        this.shape.setLayoutY(p.getY()*100);
                     }
                 }
             }
@@ -240,7 +245,7 @@ public abstract class Object
      <p>
      @param objects An list of all object currently in the game.
      <p>
-     @return Returns an object if the next position of this projectile collides with the object
+     @return Returns an object if the next p of this projectile collides with the object
      else it returns null.
      */
     public Object checkCollision(List<Object> objects)
@@ -270,8 +275,15 @@ public abstract class Object
 
             if ((tempPositionX == oPositionX) && (tempPositionY == oPositionY))
             {
-                hitObject = nxtObject;
-                break;
+                if(nxtObject instanceof Character)
+                {
+                    hitObject = null;
+                }
+                else
+                {
+                    hitObject = nxtObject;
+                    break;
+                }
             }
 
         }

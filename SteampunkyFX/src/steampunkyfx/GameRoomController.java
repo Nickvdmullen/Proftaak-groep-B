@@ -267,6 +267,7 @@ public class GameRoomController implements Initializable, Observer {
         playfield.setFill(Color.WHITE);
         box.getChildren().add(playfield);
         
+        game.addPlayer(admin);
         game.startRound(); // hier gaat het fout met debugen even naar kijken
         
         for (Position p : game.getGrid())
@@ -288,7 +289,7 @@ public class GameRoomController implements Initializable, Observer {
         scene.setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
             {
-                game.getCharacter().move(Direction.UP);
+                game.getCharacter().move(Direction.Up);
             }
             
             if(keyEvent.getCode().toString().equals("A"))
@@ -298,12 +299,12 @@ public class GameRoomController implements Initializable, Observer {
             
             if(keyEvent.getCode().toString().equals("S"))
             {
-                game.getCharacter().move(Direction.Right);
+                game.getCharacter().move(Direction.Down);
             }
             
             if(keyEvent.getCode().toString().equals("D"))
             {
-                game.getCharacter().move(Direction.Down);
+                game.getCharacter().move(Direction.Right);
             }
             
             if(keyEvent.getCode().toString().equals("Q"))
@@ -316,7 +317,7 @@ public class GameRoomController implements Initializable, Observer {
             if(keyEvent.getCode().toString().equals("E"))
             {
                 classes.Character c= (classes.Character) game.getCharacter();
-                c.createBallista(Direction.UP ,4 , 1);
+                c.createBallista(Direction.Up ,4 , 1);
             }
         });
    }

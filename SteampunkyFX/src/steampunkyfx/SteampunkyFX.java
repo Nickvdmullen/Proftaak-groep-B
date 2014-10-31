@@ -45,7 +45,7 @@ public class SteampunkyFX extends Application {
 
     protected void gotoLoginselect() {
         try {
-            SteampunkFXControllerLogin loginselect = (SteampunkFXControllerLogin) replaceSceneContent("LoginProftaak2.fxml");
+            SteampunkFXControllerLogin loginselect = (SteampunkFXControllerLogin) replaceSceneContent("loginProftaak2.fxml");
             loginselect.setApp(this); 
         } catch (Exception ex) {
             Logger.getLogger(SteampunkyFX.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +85,7 @@ public class SteampunkyFX extends Application {
         }
         
         Scene scene = null;
-        if(fxml.equals("LoginProftaak2.fxml"))
+        if(fxml.equals("loginProftaak2.fxml"))
         {
             this.stage.setMinWidth(300);
             this.stage.setMinHeight(268);

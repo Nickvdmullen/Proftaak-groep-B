@@ -739,6 +739,7 @@ public class Game
         {
             Character c = new Character(1, false, 1, 3, positions[i], true, true, directions[i], colors[i], this);
             p.setCharacter(c);
+            this.characters.add(c);
             this.objects.add(c);
             i++;
         }
