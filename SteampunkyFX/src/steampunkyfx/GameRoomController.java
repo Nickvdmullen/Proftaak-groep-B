@@ -5,6 +5,7 @@
  */
 package steampunkyfx;
 
+import classes.Direction;
 import classes.Game;
 import classes.Lobby;
 import classes.Object;
@@ -34,6 +35,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -211,63 +213,103 @@ public class GameRoomController implements Initializable, Observer {
         String number = "Game wil start in: " + countdown;
         this.LBLGameState.setText(number);
 
-        if (countdown == 0) {
-
+        if (countdown == 0) 
+        {
             //Teken code hier aan toevoegen
-            //Moeten groter zijn dan 9; melding?!
-            int width = Integer.parseInt(this.CBlevelsizeWidth.getValue().toString());
-            int height = Integer.parseInt(this.CBlevelsizeHeight.getValue().toString());
-
-            double time = Integer.parseInt(this.CBMinutes.getValue().toString()) * 60;
-            int botdif = 1; //afhankelijk van level spelers, nog niet geimplementeerd
-            int rounds = Integer.parseInt(this.CBrounds.getValue().toString());
-
-            this.game = new Game(width, height, time, botdif, rounds);
-            widthPixels = this.game.getWidthPixels();
-            widthCubes = this.game.getWidthCubes();
-            heightPixels = this.game.getHeightPixels();
-            heightCubes = this.game.getHeightCubes();
-
-            Group root = new Group();
-            Scene scene = new Scene(root, 1700, 900);
-
-            ScrollPane s1 = new ScrollPane();
-            s1.setLayoutX(50);
-            s1.setLayoutY(50);
-            s1.setPrefSize(1600, 800);
-
-            AnchorPane box = new AnchorPane();
-            s1.setContent(box);
-
-            field = new Rectangle(widthPixels, heightPixels);
-            field.setFill(Color.GRAY);
-            box.getChildren().add(field);
-
-            playfield = new Rectangle(100, 100, (widthCubes * 100), (heightCubes * 100));
-            playfield.setFill(Color.WHITE);
-            box.getChildren().add(playfield);
-
-            game.startRound(); // hier gaat het fout met debugen even naar kijken
-
-            for (Position p : game.getGrid()) {
-                List<Object> objects = p.getObjects();
-
-                for (Object o : objects) {
-                    Shape s = o.getShape();
-                    box.getChildren().add(s);
-                }
+        
+        //Moeten groter zijn dan 9; melding?!
+        int width = Integer.parseInt(this.CBlevelsizeWidth.getValue().toString());
+        int height = Integer.parseInt(this.CBlevelsizeHeight.getValue().toString());
+        
+        double time = Integer.parseInt(this.CBMinutes.getValue().toString()) * 60;
+        int botdif = 1; //afhankelijk van level spelers, nog niet geimplementeerd
+        int rounds = Integer.parseInt(this.CBrounds.getValue().toString());
+        
+        this.game = new Game(width, height, time, botdif, rounds);
+        widthPixels = this.game.getWidthPixels();
+        widthCubes = this.game.getWidthCubes();
+        heightPixels = this.game.getHeightPixels();
+        heightCubes = this.game.getHeightCubes();
+        
+        Group root = new Group();
+        Scene scene = new Scene(root, 1700, 900);
+        
+        ScrollPane s1 = new ScrollPane();
+        s1.setLayoutX(50);
+        s1.setLayoutY(50);
+        s1.setPrefSize(1600, 800);
+        
+        AnchorPane box = new AnchorPane();
+        s1.setContent(box);
+        
+        field = new Rectangle(widthPixels, heightPixels);
+        field.setFill(Color.GRAY);
+        box.getChildren().add(field);        
+        
+        playfield = new Rectangle(100, 100, (widthCubes*100), (heightCubes*100));
+        playfield.setFill(Color.WHITE);
+        box.getChildren().add(playfield);
+        
+        game.addPlayer(admin);
+        game.startRound(); // hier gaat het fout met debugen even naar kijken
+        
+        for (Position p : game.getGrid())
+        {
+            List<Object> objects = p.getObjects();
+            
+            for (Object o : objects)
+            {
+                Shape s = o.getShape();
+                box.getChildren().add(s);
             }
-
-            root.getChildren().add(s1);
-            this.stage.setMinHeight(900);
-            this.stage.setMinWidth(1700);
-            stage.setScene(scene);
         }
-    }
+        
+        root.getChildren().add(s1);
+        this.stage.setMinHeight(900);
+        this.stage.setMinWidth(1700);
+        stage.setScene(scene);  
+        
+        scene.setOnKeyPressed((KeyEvent keyEvent) -> {
+            if(keyEvent.getCode().toString().equals("W"))
+            {
+                game.getCharacter().move(Direction.Up);
+            }
+            
+            if(keyEvent.getCode().toString().equals("A"))
+            {
+                game.getCharacter().move(Direction.Left);
+            }
+            
+            if(keyEvent.getCode().toString().equals("S"))
+            {
+                game.getCharacter().move(Direction.Down);
+            }
+            
+            if(keyEvent.getCode().toString().equals("D"))
+            {
+                game.getCharacter().move(Direction.Right);
+            }
+            
+            if(keyEvent.getCode().toString().equals("Q"))
+            {
+             classes.Character c= (classes.Character) game.getCharacter();
+             c.createBallista(Direction.Right ,4 , 1);
+               
+            }
+            
+            if(keyEvent.getCode().toString().equals("E"))
+            {
+                classes.Character c= (classes.Character) game.getCharacter();
+                c.createBallista(Direction.Up ,4 , 1);
+            }
+        });
+     }
+}
+    
+        
 
     @FXML
     public void Gameready() {
-
         //System.out.print("Add game code here");
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -288,6 +330,10 @@ public class GameRoomController implements Initializable, Observer {
             }
         }, 0, 1000);
     }
+
+        
+   
+
 
     @Override
     public void update(Observable o, java.lang.Object o1) {
