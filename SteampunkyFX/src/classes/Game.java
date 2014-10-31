@@ -250,6 +250,10 @@ public class Game
         return this.objects;
     }
     
+    public Object getCharacter()
+    {
+        return this.characters.get(0);
+    }
     /**
      * Getter of Levels
      * @return a list of Levels
