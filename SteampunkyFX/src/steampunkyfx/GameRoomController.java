@@ -99,6 +99,9 @@ public class GameRoomController implements Initializable, Observer {
     private transient ObservableList<String> observableRoomsizewidth;
     private transient ObservableList<String> observableRoomsizeheight;
     private Timer timer;
+    private int i = 5;
+    private int countdown = 5;
+    private Label a;
 
     public void setApp(SteampunkyFX application, User admin, Lobby lobby,Stage stage)
     {
@@ -212,23 +215,15 @@ public class GameRoomController implements Initializable, Observer {
     }   
     
     public void Countdown()
-    {
-        for(int countdown = 5; countdown == 0; countdown--)
-        {
+    {      
             System.out.println(countdown);
             String number = "" + countdown;
             this.LBLGameState.setText(number);
-        }
-    }
-    
-    @FXML
-    public void Gameready() 
-    {
-//        System.out.print("Add game code here");
-//        TimerTask timerTask = this;
-//        timer = new Timer(true);
-//        timer.scheduleAtFixedRate(this, 0, 1000);
-        
+            countdown--;
+            
+            if(countdown == 0)
+            {
+                 
 
         //Teken code hier aan toevoegen
         
@@ -282,7 +277,36 @@ public class GameRoomController implements Initializable, Observer {
         this.stage.setMinHeight(900);
         this.stage.setMinWidth(1700);
         stage.setScene(scene);  
-   }
+            }
+    }
+    
+    @FXML
+    public void Gameready() 
+    {
+        
+        //System.out.print("Add game code here");
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask()
+        {
+        @Override
+        public void run() {
+            javafx.application.Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                System.out.println(i--);
+                Countdown();
+
+                if(i == 0)
+                {
+                    timer.cancel();
+                    i = 5;
+                }
+            }
+            });
+                }
+        },0,1500);
+    }
+   
 
     /**
      *
@@ -316,19 +340,9 @@ public class GameRoomController implements Initializable, Observer {
         this.LBSpectators.setItems(FXCollections.observableList(this.SpectatorNames));
         this.LBPlayers.setItems(FXCollections.observableList(this.PlayerNames));
     }
-
-//    @Override
-//    public void run() {
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() 
-//            {
-//                Countdown();
-//            }
-//        });
-//  
-//        }
+}
+        
 
         
-    }
+    
 
