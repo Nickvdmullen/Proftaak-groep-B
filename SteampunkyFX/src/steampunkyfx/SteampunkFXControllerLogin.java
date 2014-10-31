@@ -100,8 +100,6 @@ public class SteampunkFXControllerLogin implements Initializable
                System.out.println("longin succes"); 
                try
                {  
-                   System.out.println(TFUsernamelogin.getText());
-                   System.out.println(TFWachtwoordlogin.getText());
                    User tempuser = new User(TFUsernamelogin.getText(), TFWachtwoordlogin.getText());
                    server.Userlogedin(tempuser);
                    main.gotoLobbyselect(tempuser);
