@@ -194,11 +194,14 @@ public class Character extends Object
     public void createBallista(Direction direction , int shots , double projectileSpeed)
     {
         //todo
-        Position ballistaPosition = new Position(super.getPositionX() , super.getPositionY());
+        Game game = super.getGame();
+        Position ballistaPosition = game.getPosition(super.getPositionX(),super.getPositionY());
         boolean active = this.getActive();
 
         //Create new Ballista
-        ballistas.add(new Ballista("" , shots , projectileSpeed , ballistaPosition , active , direction,super.getGame()));
+        Ballista newBallista = new Ballista("Normal" , shots , projectileSpeed , ballistaPosition , active , direction,super.getGame());
+        this.ballistas.add(newBallista);
+        super.getPosition().addObject(newBallista);
     }
 
 }

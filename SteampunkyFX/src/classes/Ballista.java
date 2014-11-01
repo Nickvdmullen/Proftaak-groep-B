@@ -39,7 +39,7 @@ public class Ballista extends Object
      */
     public Ballista(String type , int shots , double projectileSpeed , Position position , boolean active, Direction direction,Game game)
     {
-        super(position , false , active , direction, game);
+        super(position , active, false , direction, game);
 
         if (shots % 4 != 0)
         {
@@ -122,5 +122,6 @@ public class Ballista extends Object
     private void createProjectile(Direction direction)
     {
         Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , false , direction,super.getGame());
+        super.getPosition().addObject(newProjectile);
     }
 }

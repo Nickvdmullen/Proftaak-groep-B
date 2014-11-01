@@ -5,10 +5,12 @@
  */
 package steampunkyfx;
 
+import classes.Ballista;
 import classes.Direction;
 import classes.Game;
 import classes.Lobby;
 import classes.Object;
+import classes.Obstacle;
 import classes.Position;
 import classes.Server;
 import static classes.Server.getServer;
@@ -287,7 +289,7 @@ public class GameRoomController implements Initializable, Observer {
         this.stage.setMinHeight(900);
         this.stage.setMinWidth(1700);
         this.stage.setScene(scene);  
-        
+        this.initMoveTimer();
         scene.setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
             {
@@ -375,5 +377,36 @@ public class GameRoomController implements Initializable, Observer {
         this.CBrounds.setItems(this.observableRounds);
         this.LBSpectators.setItems(FXCollections.observableList(this.SpectatorNames));
         this.LBPlayers.setItems(FXCollections.observableList(this.PlayerNames));
+    }
+    
+    public void initMoveTimer()
+    {
+        this.timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                javafx.application.Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (Position p : game.getGrid())
+                        {
+                            List<Object> objects = p.getObjects();
+
+                            for (Object o : objects)
+                            {
+                                Object obj = o;
+                                if(o instanceof Ballista || o instanceof Obstacle)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    o.move(o.getDirection());
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }, 0, 1000);
     }
 }
