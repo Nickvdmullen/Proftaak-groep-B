@@ -184,37 +184,53 @@ public class Bot {
             }
             if (P.getX() == X && P.getY() == Y + 1) {
                 if (this.isVisible(X, Y + 1)) {
-                    for (Object O : P.getObjects()) {
-                        if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Up);
+                    if(P.getObjects()!=null){
+                        for (Object O : P.getObjects()) {
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
+                                this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Up);
+                            }
                         }
+                    } else {
+                        this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Up);
                     }
                 }
             }
             if (P.getX() == X + 1 && P.getY() == Y) {
                 if (this.isVisible(X + 1, Y)) {
-                    for (Object O : P.getObjects()) {
-                        if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X + 1, Y, grid, MovableList,Direction.Right);
+                    if(P.getObjects()!=null){
+                        for (Object O : P.getObjects()) {
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
+                                this.getMovableGrid(X + 1, Y, grid, MovableList,Direction.Right);
+                            }
                         }
+                    } else {
+                        this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Right);
                     }
                 }
             }
             if (P.getX() == X && P.getY() == Y - 1) {
                 if (this.isVisible(X, Y - 1)) {
-                    for (Object O : P.getObjects()) {
-                        if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X, Y - 1, grid, MovableList,Direction.Down);
+                    if(P.getObjects()!=null){
+                        for (Object O : P.getObjects()) {
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
+                                this.getMovableGrid(X, Y - 1, grid, MovableList,Direction.Down);
+                            }
                         }
+                    } else {
+                        this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Down);
                     }
                 }
             }
             if (P.getX() == X - 1 && P.getY() == Y) {
                 if (this.isVisible(X - 1, Y)) {
-                    for (Object O : P.getObjects()) {
-                        if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
-                            this.getMovableGrid(X - 1, Y, grid, MovableList,Direction.Left);
+                    if(P.getObjects()!=null){
+                        for (Object O : P.getObjects()) {
+                            if (!(O instanceof Ballista) && !(O instanceof Obstacle)) {
+                                this.getMovableGrid(X - 1, Y, grid, MovableList,Direction.Left);
+                            }
                         }
+                    }else {
+                        this.getMovableGrid(X, Y + 1, grid, MovableList, Direction.Left);
                     }
                 }
             }
