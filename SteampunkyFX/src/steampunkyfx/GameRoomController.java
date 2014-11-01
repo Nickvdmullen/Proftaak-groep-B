@@ -321,9 +321,9 @@ public class GameRoomController implements Initializable, Observer {
                         System.out.println(timercount--);
                         Countdown();
 
-                        if (timercount == 0) {
+                        if (countdown == 0) {
                             timer.cancel();
-                            timercount=  6;
+                            countdown =  6;
                         }
                     }
                 });
