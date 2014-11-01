@@ -102,7 +102,6 @@ public class Game
                     setCurrentTime();
                 }
             };
-
             timer.scheduleAtFixedRate(task, 0, 1000);
         }
         else
@@ -698,6 +697,8 @@ public class Game
                 //einde van game
             }
         }
+        
+        
     }
     
     /**
