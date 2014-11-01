@@ -121,7 +121,7 @@ public class Ballista extends Object
      */
     private void createProjectile(Direction direction)
     {
-        Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , false , direction,super.getGame());
+        Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , true , direction,super.getGame());
         super.getPosition().addObject(newProjectile);
     }
 }

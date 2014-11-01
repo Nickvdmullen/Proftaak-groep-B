@@ -12,7 +12,10 @@ import classes.Lobby;
 import classes.Object;
 import classes.Obstacle;
 import classes.Position;
+import classes.Projectile;
 import classes.Server;
+import classes.Object;
+import classes.Character;
 import static classes.Server.getServer;
 import classes.User;
 import java.net.URL;
@@ -23,6 +26,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
@@ -106,6 +110,7 @@ public class GameRoomController implements Initializable, Observer {
     
     //Classe variable plus timer instantie
     private Timer timer;
+    private Timer timer2;
     private int timercount = 6;
     private int countdown = 6;
     private int slotsleft = 4;
@@ -323,6 +328,7 @@ public class GameRoomController implements Initializable, Observer {
                 c.createBallista(Direction.Up ,4 , 1);
             }
         });
+        
      }
 }
     
@@ -343,7 +349,8 @@ public class GameRoomController implements Initializable, Observer {
 
                         if (countdown == 0) {
                             timer.cancel();
-                            countdown =  6;
+                            GameUpdate();
+                            //countdown =  6;
                         }
                     }
                 });
@@ -351,6 +358,38 @@ public class GameRoomController implements Initializable, Observer {
         }, 0, 1000);
     }
 
+    public void GameUpdate()
+    {
+        this.timer2 = new Timer();
+        //Geeft momenteel ConcurrentModificationException error
+        // Maar deze timer zou dus voor updaten moeten zijn.
+    /*    this.timer2.scheduleAtFixedRate(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                javafx.application.Platform.runLater(new Runnable() 
+                {
+                    @Override
+                    public void run() 
+                    {
+                        game.getGrid().stream().forEach((p) ->
+                        {
+                            p.getObjects().stream().forEach((o) ->
+                            {
+                                Object obj = o;
+                                if (obj instanceof Projectile)
+                                {
+                                    o.move(o.getDirection());
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+        },1000,1000);
+            */
+    }
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
     @Override
     public void update(Observable o, java.lang.Object o1) {

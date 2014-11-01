@@ -186,72 +186,75 @@ public abstract class Object
                 if (direction == Direction.Right)
                 {
                     newPosition = myGame.getPosition(this.position.getX() +1,this.position.getY());
-                    if(newPosition.getX() != 0 && newPosition.getY() != 0)
+                    if(newPosition != null)
                     {
-                        if(this instanceof Character)
-                           {
-                               checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
-                               if(checkObject != null)
+                        if(newPosition.getX() != 0 && newPosition.getY() != 0)
+                        {
+                            if(this instanceof Character)
                                {
-                                   if(checkObject instanceof Projectile)
+                                   checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                   if(checkObject != null)
                                    {
-                                       Character c = (Character)this;
-                                       Projectile p = (Projectile)checkObject;
-                                       c.setDead(true);
-                                       canMove = false;
-                                       p.setActive(false);
-                                       Position positionP = p.getPosition();
-                                       this.position.removeObject(this);
-                                       positionP.removeObject(checkObject);
-                                   }
-                                   if(checkObject instanceof Obstacle)
-                                   {
-                                       canMove = false;
+                                       if(checkObject instanceof Projectile)
+                                       {
+                                           Character c = (Character)this;
+                                           Projectile p = (Projectile)checkObject;
+                                           c.setDead(true);
+                                           canMove = false;
+                                           p.setActive(false);
+                                           Position positionP = p.getPosition();
+                                           this.position.removeObject(this);
+                                           positionP.removeObject(checkObject);
+                                       }
+                                       if(checkObject instanceof Obstacle)
+                                       {
+                                           canMove = false;
+                                       }
                                    }
                                }
-                           }
-                        else if(this instanceof Projectile)
-                        {
-                            checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
-                            if(checkObject != null)
+                            else if(this instanceof Projectile)
                             {
-                                if(checkObject instanceof Character)
+                                checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                if(checkObject != null)
                                 {
-                                       Character c = (Character)checkObject;
-                                       c.setDead(true);
-                                       canMove = false;
-                                       Projectile p = (Projectile)this;
-                                       p.setActive(false);
-                                       Position positionC = c.getPosition();
-                                       positionC.removeObject(checkObject);
-                                       this.position.removeObject(this);
+                                    if(checkObject instanceof Character)
+                                    {
+                                           Character c = (Character)checkObject;
+                                           c.setDead(true);
+                                           canMove = false;
+                                           Projectile p = (Projectile)this;
+                                           p.setActive(false);
+                                           Position positionC = c.getPosition();
+                                           positionC.removeObject(checkObject);
+                                           this.position.removeObject(this);
+                                    }
+                                    if(checkObject instanceof Obstacle)
+                                    {
+                                        Obstacle o = (Obstacle)checkObject;
+                                        o.setBroken(true);
+                                        Projectile p = (Projectile)this;
+                                        p.setActive(false);
+                                        Position positionO = o.getPosition();
+                                        positionO.removeObject(checkObject);
+                                        this.position.removeObject(this);
+                                    }
                                 }
-                                if(checkObject instanceof Obstacle)
-                                {
-                                    Obstacle o = (Obstacle)checkObject;
-                                    o.setBroken(true);
-                                    Projectile p = (Projectile)this;
-                                    p.setActive(false);
-                                    Position positionO = o.getPosition();
-                                    positionO.removeObject(checkObject);
-                                    this.position.removeObject(this);
-                                }
-                            }
 
-                        }
-                        if(canMove)
-                        {
-                           for(Position p :allPosition)
-                           {                    
-                               if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
-                               {
-                                   this.position.removeObject(this);
-                                   this.position = p;
-                                   this.position.addObject(this);
-                                   this.shape.setLayoutX(p.getX()*100);
-                                   this.shape.setLayoutY(p.getY()*100);
+                            }
+                            if(canMove)
+                            {
+                               for(Position p :allPosition)
+                               {                    
+                                   if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
+                                   {
+                                       this.position.removeObject(this);
+                                       this.position = p;
+                                       this.position.addObject(this);
+                                       this.shape.setLayoutX(p.getX()*100);
+                                       this.shape.setLayoutY(p.getY()*100);
+                                   }
                                }
-                           }
+                            }
                         }
                     }
                 }
