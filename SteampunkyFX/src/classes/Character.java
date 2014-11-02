@@ -84,7 +84,6 @@ public class Character extends Object
         return this.characterID;
     }
 
-    
     /**
      The Getter of Speed.
      <p>

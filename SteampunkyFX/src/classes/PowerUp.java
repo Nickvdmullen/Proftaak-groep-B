@@ -55,6 +55,8 @@ public class PowerUp extends Object
                 //Shape s = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
                 Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
                 s.setFill(Color.LIGHTBLUE);
+                s.setStroke(Color.LIGHTSKYBLUE);
+                s.setStrokeWidth(2);
                 super.setShape(s);
 
                 switch (type)

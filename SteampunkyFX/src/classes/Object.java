@@ -85,11 +85,6 @@ public abstract class Object
         return this.position.getY();
     }
 
-    public boolean getMove()
-    {
-        return this.movable;
-    }
-    
     /**
      The Getter of this Objects Position.
      <p>
@@ -220,11 +215,6 @@ public abstract class Object
                                             {
                                                 canMove = false;
                                             }
-                                            if(checkObject instanceof PowerUp)
-                                            {
-                                                this.position.removeObject(checkObject);
-                                                checkObject.shape.setFill(Color.WHITE);
-                                            }
                                         }
                                    }
                               
@@ -318,11 +308,6 @@ public abstract class Object
                                             {
                                                 canMove = false;
                                             }
-                                             if(checkObject instanceof PowerUp)
-                                            {
-                                                this.position.removeObject(checkObject);
-                                                checkObject.shape.setFill(Color.WHITE);
-                                            }
                                         }
                                    }
                                
@@ -415,11 +400,6 @@ public abstract class Object
                                             {
                                                 canMove = false;
                                             }
-                                             if(checkObject instanceof PowerUp)
-                                            {
-                                                this.position.removeObject(checkObject);
-                                                checkObject.shape.setFill(Color.WHITE);
-                                            }
                                         }
                                    
                                }
@@ -511,12 +491,6 @@ public abstract class Object
                                             if(checkObject instanceof Ballista)
                                             {
                                                 canMove = false;
-                                            }
-                                             if(checkObject instanceof PowerUp)
-                                            {
-                                                this.position.removeObject(checkObject);
-                                                checkObject.shape.setFill(Color.WHITE);
-                                                
                                             }
                                         }
                                    
