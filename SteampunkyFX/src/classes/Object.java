@@ -194,15 +194,12 @@ public abstract class Object
                             if(this instanceof Character)
                                {
                                    Character c = (Character)this;
-                                   if(!c.getDead())
-                                   {
-                                        checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                   checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
                                             {
                                                 Projectile p = (Projectile)checkObject;
-                                                c.setDead(false);
                                                 canMove = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
@@ -219,7 +216,7 @@ public abstract class Object
                                             }
                                         }
                                    }
-                               }
+                              
                             else if(this instanceof Projectile)
                             {
                                 checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
@@ -228,10 +225,10 @@ public abstract class Object
                                     if(checkObject instanceof Character)
                                     {
                                            Character c = (Character)checkObject;
-                                           c.setDead(false);
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           p.setActive(false);
+                                           this.movable = false;
+                                           this.shape = null;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
                                            
@@ -244,7 +241,14 @@ public abstract class Object
                                             Obstacle o = (Obstacle)checkObject;
                                             o.setBroken(true);
                                             o.getPosition().removeObject(checkObject);
+                                            
+                                            this.shape = null;
                                         }
+                                        else if(checkObject.shape.getFill() == Color.BLACK)
+                                        {
+                                            this.shape.setFill(Color.BLACK);
+                                        }
+                                        this.movable = false;
                                     }
                                 }
 
@@ -281,15 +285,13 @@ public abstract class Object
                             if(this instanceof Character)
                                { 
                                    Character c = (Character)this;
-                                   if(!c.getDead())
-                                   {                               
+                                                                  
                                         checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
                                             {
                                                 Projectile p = (Projectile)checkObject;
-                                                c.setDead(false);
                                                 canMove = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
@@ -306,7 +308,7 @@ public abstract class Object
                                             }
                                         }
                                    }
-                               }
+                               
                             else if(this instanceof Projectile)
                             {
                                 checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
@@ -315,12 +317,12 @@ public abstract class Object
                                     if(checkObject instanceof Character)
                                     {
                                            Character c = (Character)checkObject;
-                                           c.setDead(false);
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           p.setActive(false);
+                                           this.movable = false;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
+                                           this.shape = null;
                                     }
                                     if(checkObject instanceof Obstacle)
                                     {
@@ -329,10 +331,15 @@ public abstract class Object
                                         Obstacle o = (Obstacle)checkObject;
                                         o.setBroken(true);
                                         Projectile p = (Projectile)this;
-                                        p.setActive(false);
                                         o.getPosition().removeObject(checkObject);
                                         this.position.removeObject(this);
+                                        this.shape = null;
                                         }
+                                        else if(checkObject.shape.getFill() == Color.BLACK)
+                                        {
+                                            this.shape.setFill(Color.BLACK);
+                                        }
+                                        this.movable = false;
                                     }
                                 }
 
@@ -369,15 +376,13 @@ public abstract class Object
                             if(this instanceof Character)
                                {
                                    Character c = (Character)this;
-                                   if(!c.getDead())
-                                   { 
+                                    
                                         checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
                                             {
                                                 Projectile p = (Projectile)checkObject;
-                                                c.setDead(false);
                                                 canMove = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
@@ -393,7 +398,7 @@ public abstract class Object
                                                 canMove = false;
                                             }
                                         }
-                                   }
+                                   
                                }
                             else if(this instanceof Projectile)
                             {
@@ -403,12 +408,12 @@ public abstract class Object
                                     if(checkObject instanceof Character)
                                     {
                                            Character c = (Character)checkObject;
-                                           c.setDead(false);
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           p.setActive(false);
+                                           this.movable = false;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
+                                           this.shape = null;
                                            
                                     }
                                     if(checkObject instanceof Obstacle)
@@ -417,11 +422,15 @@ public abstract class Object
                                         {
                                         Obstacle o = (Obstacle)checkObject;
                                         o.setBroken(true);
-                                        Projectile p = (Projectile)this;
-                                        p.setActive(false);
-                                        o.getPosition().removeObject(checkObject);
+                                        Projectile p = (Projectile)this;o.getPosition().removeObject(checkObject);
                                         this.position.removeObject(this);
+                                        this.shape = null;
                                         }
+                                        else if(checkObject.shape.getFill() == Color.BLACK)
+                                        {
+                                            this.shape.setFill(Color.BLACK);
+                                        }
+                                        this.movable = false;
                                     }
                                 }
 
@@ -458,15 +467,13 @@ public abstract class Object
                             if(this instanceof Character)
                                {
                                    Character c = (Character)this;
-                                   if(!c.getDead())
-                                   { 
+                                    
                                         checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
                                             {
                                                 Projectile p = (Projectile)checkObject;
-                                                c.setDead(false);
                                                 canMove = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
@@ -482,7 +489,7 @@ public abstract class Object
                                                 canMove = false;
                                             }
                                         }
-                                   }
+                                   
                                }
                             else if(this instanceof Projectile)
                             {
@@ -492,12 +499,12 @@ public abstract class Object
                                     if(checkObject instanceof Character)
                                     {
                                            Character c = (Character)checkObject;
-                                           c.setDead(false);
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           p.setActive(false);
+                                           this.movable = false;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
+                                           this.shape = null;
                                            
                                     }
                                     if(checkObject instanceof Obstacle)
@@ -506,11 +513,14 @@ public abstract class Object
                                         {
                                         Obstacle o = (Obstacle)checkObject;
                                         o.setBroken(true);
-                                        Projectile p = (Projectile)this;
-                                        p.setActive(false);
-                                        o.getPosition().removeObject(checkObject);
+                                        Projectile p = (Projectile)this;o.getPosition().removeObject(checkObject);
                                         this.position.removeObject(this);
                                         }
+                                        else if(checkObject.shape.getFill() == Color.BLACK)
+                                        {
+                                            this.shape.setFill(Color.BLACK);
+                                        }
+                                        this.movable = false;
                                     }
                                 }
 

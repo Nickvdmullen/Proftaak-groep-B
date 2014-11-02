@@ -244,7 +244,7 @@ public class Game
      * Getter of Characters
      * @return a list of objects with the type Character
      */
-    public List<Object> getCharacters()
+    public List<Object> getObjects()
     {
         return this.objects;
     }
