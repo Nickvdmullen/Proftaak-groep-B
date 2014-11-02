@@ -644,10 +644,20 @@ public class Game
      */
     public void updateGame()
     {   
-        for(Bot B : this.bots)
+        this.objects.clear();
+        
+        for (Position p : this.grid)
+        {
+            for (Object o : p.getObjects())
+            {
+                this.objects.add(o);
+            }
+        }        
+        
+        /*for(Bot B : this.bots)
         {
             B.AI();
-        }
+        }*/
         
         int dead = 0;
         

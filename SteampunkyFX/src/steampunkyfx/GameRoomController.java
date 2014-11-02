@@ -93,10 +93,12 @@ public class GameRoomController implements Initializable, Observer {
     private int widthCubes;
     private int heightPixels;
     private int heightCubes;
+    private Group root;
     private ScrollPane s1;
     private AnchorPane box;
     private Rectangle field;
-    private Rectangle playfield;    
+    private Rectangle playfield;
+    private List<Object> objects;
 
     //Listen die nodig zijn voor de gui te updaten
     private ArrayList<String> SpectatorNames;
@@ -259,7 +261,7 @@ public class GameRoomController implements Initializable, Observer {
             this.heightPixels = this.game.getHeightPixels();
             this.heightCubes = this.game.getHeightCubes();
 
-            Group root = new Group();
+            root = new Group();
             Scene scene = new Scene(root, 1700, 900);
 
             s1 = new ScrollPane();
@@ -283,7 +285,7 @@ public class GameRoomController implements Initializable, Observer {
 
             for (Position p : this.game.getGrid())
             {
-                List<Object> objects = p.getObjects();
+                objects = p.getObjects();
 
                 for (Object o : objects)
                 {
@@ -366,17 +368,20 @@ public class GameRoomController implements Initializable, Observer {
         this.game.updateGame();
         
         //Level opnieuw uittekenen met nieuwe posities
-        box.getChildren().removeAll();
-        box.getChildren().add(field);
-        box.getChildren().add(playfield);
+        for (Object o : objects)
+        {
+            boolean b = box.getChildren().remove(o);
+            System.out.println(b);
+        }
         
         for (Position p : this.game.getGrid())
         {
-            List<Object> objects = p.getObjects();
+            objects = p.getObjects();
 
             for (Object o : objects)
             {
                 Shape s = o.getShape();
+                System.out.println(o.toString());
                 box.getChildren().add(s);
             }
         }
