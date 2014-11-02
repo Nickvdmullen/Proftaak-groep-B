@@ -393,8 +393,16 @@ public class GameRoomController implements Initializable, Observer {
             {
                 javafx.application.Platform.runLater(() -> 
                 {
+                    try
+                    {
                     game.updateGame();
                     DrawGame();
+                    }
+                    catch(NullPointerException ex)
+                    {
+                    
+                    }
+                    
                 });
                 
             }
