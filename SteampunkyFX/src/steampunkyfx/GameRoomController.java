@@ -237,7 +237,12 @@ public class GameRoomController implements Initializable, Observer {
         this.BTstop.setDisable(true);
         this.BTReady.setDisable(false);
     }
-
+    
+    public void SetupStage(){
+            this.field = new Rectangle(this.widthPixels, this.heightPixels);
+            this.field.setFill(Color.GRAY);
+            box.getChildren().add(this.field);   
+    }
     //Start de game als de teller op 0 komt wordt het speel veld geladen
     public void Countdown() {
         this.countdown--;
@@ -246,44 +251,20 @@ public class GameRoomController implements Initializable, Observer {
 
         if (this.countdown == 0) 
         {
-            //Teken code hier aan toevoegen
-            //Moeten groter zijn dan 9; melding?!
-            int width = Integer.parseInt(this.CBlevelsizeWidth.getValue().toString());
-            int height = Integer.parseInt(this.CBlevelsizeHeight.getValue().toString());
-
-            double time = Integer.parseInt(this.CBMinutes.getValue().toString()) * 60;
-            int botdif = 1; //afhankelijk van level spelers, nog niet geimplementeerd
-            int rounds = Integer.parseInt(this.CBrounds.getValue().toString());
-
-            this.game = new Game(width, height, time, botdif, rounds);
-            this.widthPixels = this.game.getWidthPixels();
-            this.widthCubes = this.game.getWidthCubes();
-            this.heightPixels = this.game.getHeightPixels();
-            this.heightCubes = this.game.getHeightCubes();
-
-            root = new Group();
-            Scene scene = new Scene(root, 1700, 900);
-
-            s1 = new ScrollPane();
-            s1.setLayoutX(50);
-            s1.setLayoutY(50);
-            s1.setPrefSize(1600, 800);
-
-            box = new AnchorPane();
-            s1.setContent(box);
-
-            this.field = new Rectangle(this.widthPixels, this.heightPixels);
-            this.field.setFill(Color.GRAY);
-            box.getChildren().add(this.field);        
-
-            this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
-            this.playfield.setFill(Color.WHITE);
-            box.getChildren().add(this.playfield);
-
+            this.SetupDraw();
+            this.setKeyBindings();
             this.game.addPlayer(this.admin);
             this.game.startRound();
-
-            for (Position p : this.game.getGrid())
+            this.GameUpdate();
+        }
+    }
+    //clears the scene and draws new boxes for every object.
+    public void DrawGame(){
+        box.getChildren().clear();
+        box.getChildren().add(this.field);
+        box.getChildren().add(this.playfield);
+         
+        for (Position p : this.game.getGrid())
             {
                 objects = p.getObjects();
 
@@ -293,13 +274,52 @@ public class GameRoomController implements Initializable, Observer {
                     box.getChildren().add(s);
                 }
             }
+    }
+    
+    //Sets up the settings needed to draw.
+    public void SetupDraw(){
+        
+        //Teken code hier aan toevoegen
+        //Moeten groter zijn dan 9; melding?!
+        int width = Integer.parseInt(this.CBlevelsizeWidth.getValue().toString());
+        int height = Integer.parseInt(this.CBlevelsizeHeight.getValue().toString());
 
-            root.getChildren().add(s1);
-            this.stage.setMinHeight(900);
-            this.stage.setMinWidth(1700);
-            this.stage.setScene(scene);
+        double time = Integer.parseInt(this.CBMinutes.getValue().toString()) * 60;
+        int botdif = 1; //afhankelijk van level spelers, nog niet geimplementeerd
+        int rounds = Integer.parseInt(this.CBrounds.getValue().toString());
 
-            scene.setOnKeyPressed((KeyEvent keyEvent) -> {
+        this.game = new Game(width, height, time, botdif, rounds);
+        this.widthPixels = this.game.getWidthPixels();
+        this.widthCubes = this.game.getWidthCubes();
+        this.heightPixels = this.game.getHeightPixels();
+        this.heightCubes = this.game.getHeightCubes();
+
+        root = new Group();
+        Scene scene = new Scene(root, 1700, 900);
+
+        s1 = new ScrollPane();
+        s1.setLayoutX(50);
+        s1.setLayoutY(50);
+        s1.setPrefSize(1600, 800);
+
+        box = new AnchorPane();
+        s1.setContent(box);
+
+        this.field = new Rectangle(this.widthPixels, this.heightPixels);
+        this.field.setFill(Color.GRAY);      
+
+        this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
+        this.playfield.setFill(Color.WHITE);
+
+        root.getChildren().add(s1);
+        this.stage.setMinHeight(900);
+        this.stage.setMinWidth(1700);
+        this.stage.setScene(scene);
+    }
+    
+    //Set the keybindings for this Scene
+    public void setKeyBindings(){
+        this.stage.getScene().setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
             {
                 this.game.getCharacter().move(Direction.Up);
@@ -332,11 +352,8 @@ public class GameRoomController implements Initializable, Observer {
                 c.createBallista(Direction.Up ,4 , 1);
             }
         });
-        
-        }
     }
     
-        
     //Zodra er op ready wordt geklikt start de timer die aftelt tot de game start
     @FXML
     public void Gameready() {
@@ -353,42 +370,22 @@ public class GameRoomController implements Initializable, Observer {
 
                         if (countdown == 0) {
                             timer.cancel();
-                            GameUpdate();
-                            //countdown =  6;
                         }
                     }
                 });
             }
         }, 0, 1000);
+        GameUpdate();
     }
 
     public void GameUpdate()
     {
-        this.timer2 = new Timer();
-        this.game.updateGame();
-        
-        //Level opnieuw uittekenen met nieuwe posities
-        for (Object o : objects)
-        {
-            boolean b = box.getChildren().remove(o);
-            System.out.println(b);
-        }
-        
-        for (Position p : this.game.getGrid())
-        {
-            objects = p.getObjects();
-
-            for (Object o : objects)
-            {
-                Shape s = o.getShape();
-                System.out.println(o.toString());
-                box.getChildren().add(s);
-            }
-        }
-        
+        this.timer2 = new Timer();        
+        //Level opnieuw uittekenen met nieuwe posities      
+       
         //Geeft momenteel ConcurrentModificationException error
         // Maar deze timer zou dus voor updaten moeten zijn.
-    /*    this.timer2.scheduleAtFixedRate(new TimerTask()
+        this.timer2.scheduleAtFixedRate(new TimerTask()
         {
             @Override
             public void run()
@@ -398,22 +395,13 @@ public class GameRoomController implements Initializable, Observer {
                     @Override
                     public void run() 
                     {
-                        game.getGrid().stream().forEach((p) ->
-                        {
-                            p.getObjects().stream().forEach((o) ->
-                            {
-                                Object obj = o;
-                                if (obj instanceof Projectile)
-                                {
-                                    o.move(o.getDirection());
-                                }
-                            });
-                        });
+                        game.updateGame();
+                        DrawGame();
                     }
                 });
             }
         },1000,1000);
-            */
+            
     }
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
     @Override
