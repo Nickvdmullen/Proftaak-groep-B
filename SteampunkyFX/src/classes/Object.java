@@ -85,6 +85,10 @@ public abstract class Object
         return this.position.getY();
     }
 
+    public boolean getMove()
+    {
+        return this.movable;
+    }
     /**
      The Getter of this Objects Position.
      <p>

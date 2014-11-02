@@ -399,7 +399,7 @@ public class GameRoomController implements Initializable, Observer {
                 
             }
            
-        },16,1000);
+        },500,500);
             
     }
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
