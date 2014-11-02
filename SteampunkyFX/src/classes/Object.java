@@ -126,6 +126,7 @@ public abstract class Object
         //check if shape is cirlce or rectangle
         this.shape.setLayoutX(position.getX()*100);
         this.shape.setLayoutY(position.getY()*100);
+        this.shape.relocate(position.getX()*100,position.getY()*100);
     }
 
     /**
@@ -155,7 +156,9 @@ public abstract class Object
      */
     public Shape getShape()
     {
-        this.shape.relocate(this.getPositionX()*100, this.getPositionY()*100);
+//        this.shape.setLayoutX(this.getPositionX()*100);
+//        this.shape.setLayoutY(this.getPositionY()*100);
+//        this.shape.relocate(this.getPositionX()*100, this.getPositionY()*100);
         return this.shape;
     }
     
