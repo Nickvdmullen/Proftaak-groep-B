@@ -93,8 +93,10 @@ public class GameRoomController implements Initializable, Observer {
     private int widthCubes;
     private int heightPixels;
     private int heightCubes;
+    private ScrollPane s1;
+    private AnchorPane box;
     private Rectangle field;
-    private Rectangle playfield;
+    private Rectangle playfield;    
 
     //Listen die nodig zijn voor de gui te updaten
     private ArrayList<String> SpectatorNames;
@@ -260,12 +262,12 @@ public class GameRoomController implements Initializable, Observer {
             Group root = new Group();
             Scene scene = new Scene(root, 1700, 900);
 
-            ScrollPane s1 = new ScrollPane();
+            s1 = new ScrollPane();
             s1.setLayoutX(50);
             s1.setLayoutY(50);
             s1.setPrefSize(1600, 800);
 
-            AnchorPane box = new AnchorPane();
+            box = new AnchorPane();
             s1.setContent(box);
 
             this.field = new Rectangle(this.widthPixels, this.heightPixels);
@@ -362,6 +364,22 @@ public class GameRoomController implements Initializable, Observer {
     {
         this.timer2 = new Timer();
         this.game.updateGame();
+        
+        //Level opnieuw uittekenen met nieuwe posities
+        box.getChildren().removeAll();
+        box.getChildren().add(field);
+        box.getChildren().add(playfield);
+        
+        for (Position p : this.game.getGrid())
+        {
+            List<Object> objects = p.getObjects();
+
+            for (Object o : objects)
+            {
+                Shape s = o.getShape();
+                box.getChildren().add(s);
+            }
+        }
         
         //Geeft momenteel ConcurrentModificationException error
         // Maar deze timer zou dus voor updaten moeten zijn.
