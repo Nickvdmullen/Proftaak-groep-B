@@ -201,7 +201,6 @@ public abstract class Object
                                             {
                                                 Projectile p = (Projectile)checkObject;
                                                 canMove = false;
-                                                this.movable = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
@@ -228,7 +227,7 @@ public abstract class Object
                                            Character c = (Character)checkObject;
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           checkObject.movable = false;
+                                           this.movable = false;
                                            this.shape = null;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
@@ -294,7 +293,6 @@ public abstract class Object
                                             {
                                                 Projectile p = (Projectile)checkObject;
                                                 canMove = false;
-                                                this.movable = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
@@ -321,7 +319,7 @@ public abstract class Object
                                            Character c = (Character)checkObject;
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           checkObject.movable = false;
+                                           this.movable = false;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
                                            this.shape = null;
@@ -386,7 +384,6 @@ public abstract class Object
                                             {
                                                 Projectile p = (Projectile)checkObject;
                                                 canMove = false;
-                                                this.movable = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
@@ -413,7 +410,7 @@ public abstract class Object
                                            Character c = (Character)checkObject;
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           checkObject.movable = false;
+                                           this.movable = false;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
                                            this.shape = null;
@@ -478,7 +475,6 @@ public abstract class Object
                                             {
                                                 Projectile p = (Projectile)checkObject;
                                                 canMove = false;
-                                                this.movable = false;
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
@@ -505,7 +501,7 @@ public abstract class Object
                                            Character c = (Character)checkObject;
                                            canMove = false;
                                            Projectile p = (Projectile)this;
-                                           checkObject.movable = false;
+                                           this.movable = false;
                                            p.getPosition().removeObject(p);
                                            c.getPosition().removeObject(checkObject);
                                            this.shape = null;
