@@ -114,7 +114,7 @@ public class Bot {
             if(i!=0){
             Random rand = new Random();
             int randomNum = rand.nextInt(i) + 1;
-            this.character.move(dir.get(randomNum));
+            this.character.move(dir.get(randomNum-1));
             }
         }
         // </editor-fold>

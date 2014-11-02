@@ -390,14 +390,10 @@ public class GameRoomController implements Initializable, Observer {
             @Override
             public void run()
             {
-                javafx.application.Platform.runLater(new Runnable() 
+                javafx.application.Platform.runLater(() -> 
                 {
-                    @Override
-                    public void run() 
-                    {
-                        game.updateGame();
-                        DrawGame();
-                    }
+                    game.updateGame();
+                    DrawGame();
                 });
             }
         },1000,1000);
