@@ -650,14 +650,27 @@ public class Game
         {
             for (Object o : p.getObjects())
             {
-                this.objects.add(o);
+                if (!this.objects.contains(o)){
+                    this.objects.add(o);
+                }
             }
-        }        
+        }
         
-        /*for(Bot B : this.bots)
+        for (Object O : objects){
+            if(O instanceof Projectile)
+            {
+                O.move(O.getDirection());
+            }
+            if(O instanceof PowerUp)
+            {
+                PowerUp pUp = (PowerUp) O;
+            }           
+        }
+        
+        for(Bot B : this.bots)
         {
             B.AI();
-        }*/
+        }
         
         int dead = 0;
         
