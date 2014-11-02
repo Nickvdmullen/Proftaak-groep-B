@@ -201,7 +201,18 @@ public class Character extends Object
         //Create new Ballista
         Ballista newBallista = new Ballista("Normal" , shots , projectileSpeed , ballistaPosition , active , direction,super.getGame());
         this.ballistas.add(newBallista);
-        super.getPosition().addObject(newBallista);
+        Position p = super.getPosition();
+        p.addObject(newBallista);
+        Timer t = new Timer();
+        t.schedule(new TimerTask(){
+
+
+            @Override
+            public void run()
+            {
+                p.removeObject(newBallista);
+            }
+        },3000);
     }
 
 }
