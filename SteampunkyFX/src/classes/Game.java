@@ -644,6 +644,9 @@ public class Game
      */
     public void updateGame()
     {   
+        for(Bot B : this.bots){
+            B.AI();
+        }
         int dead = 0;
         
         //Check if characters are dead
