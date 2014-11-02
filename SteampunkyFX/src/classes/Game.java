@@ -696,9 +696,7 @@ public class Game
             {
                 //einde van game
             }
-        }
-        
-        
+        }        
     }
     
     /**
