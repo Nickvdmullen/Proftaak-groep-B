@@ -248,10 +248,8 @@ public abstract class Object
                                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                                    {
                                        this.position.removeObject(this);
-                                       this.position = p;
+                                       this.setPosition(p);
                                        this.position.addObject(this);
-                                       this.shape.setLayoutX(p.getX()*100);
-                                       this.shape.setLayoutY(p.getY()*100);
                                    }
                                }
                             }
@@ -323,10 +321,8 @@ public abstract class Object
                                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                                    {
                                        this.position.removeObject(this);
-                                       this.position = p;
+                                       this.setPosition(p);
                                        this.position.addObject(this);
-                                       this.shape.setLayoutX(p.getX()*100);
-                                       this.shape.setLayoutY(p.getY()*100);
                                    }
                                }
                             }
@@ -398,10 +394,8 @@ public abstract class Object
                                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                                    {
                                        this.position.removeObject(this);
-                                       this.position = p;
+                                       this.setPosition(p);
                                        this.position.addObject(this);
-                                       this.shape.setLayoutX(p.getX()*100);
-                                       this.shape.setLayoutY(p.getY()*100);
                                    }
                                }
                             }
@@ -473,10 +467,8 @@ public abstract class Object
                                    if((p.getY() == newPosition.getY()) && (p.getX() == newPosition.getX()))
                                    {
                                        this.position.removeObject(this);
-                                       this.position = p;
+                                       this.setPosition(p);
                                        this.position.addObject(this);
-                                       this.shape.setLayoutX(p.getX()*100);
-                                       this.shape.setLayoutY(p.getY()*100);
                                    }
                                }
                             }
