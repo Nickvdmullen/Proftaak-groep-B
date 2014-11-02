@@ -114,7 +114,7 @@ public class GameRoomController implements Initializable, Observer {
     
     //Classe variable plus timer instantie
     private Timer timer;
-    private Timer timer2;
+    private Timer gameTickTimer;
     private int timercount = 6;
     private int countdown = 6;
     private int slotsleft = 4;
@@ -380,12 +380,12 @@ public class GameRoomController implements Initializable, Observer {
 
     public void GameUpdate()
     {
-        this.timer2 = new Timer();        
+        this.gameTickTimer = new Timer();        
         //Level opnieuw uittekenen met nieuwe posities      
        
         //Geeft momenteel ConcurrentModificationException error
         // Maar deze timer zou dus voor updaten moeten zijn.
-        this.timer2.scheduleAtFixedRate(new TimerTask()
+        this.gameTickTimer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
             public void run()
