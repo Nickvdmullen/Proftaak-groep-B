@@ -199,6 +199,7 @@ public class Character extends Object
         boolean active = this.getActive();
 
         //Create new Ballista
+        if(this.ballistas.size()<this.maxBallistas){
         Ballista newBallista = new Ballista("Normal" , shots , projectileSpeed , ballistaPosition , active , direction,super.getGame());
         this.ballistas.add(newBallista);
         Position p = super.getPosition();
@@ -211,8 +212,10 @@ public class Character extends Object
             public void run()
             {
                 p.removeObject(newBallista);
+                ballistas.remove(newBallista);
             }
         },3000);
+        }
     }
 
 }
