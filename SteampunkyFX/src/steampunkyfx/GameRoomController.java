@@ -343,7 +343,7 @@ public class GameRoomController implements Initializable, Observer {
             if(keyEvent.getCode().toString().equals("Q"))
             {
                 Character c = (classes.Character) game.getCharacter();
-                c.createBallista(Direction.Right ,4 , 1);               
+                c.createBallista(Direction.Right ,4 , 1);
             }
             
             if(keyEvent.getCode().toString().equals("E"))

@@ -7,6 +7,7 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 /**
@@ -189,7 +190,7 @@ public abstract class Object
                     newPosition = myGame.getPosition(this.position.getX() +1,this.position.getY());
                     if(newPosition != null)
                     {
-                        if(newPosition.getX() != 0 && newPosition.getY() != 0)
+                        if(newPosition.getX() != 0 && newPosition.getY() != 0 && newPosition.getX() != 10 && newPosition.getY() != 10)
                         {
                             if(this instanceof Character)
                                {
@@ -220,24 +221,27 @@ public abstract class Object
                                 {
                                     if(checkObject instanceof Character)
                                     {
+                                           this.position.removeObject(this);
                                            Character c = (Character)checkObject;
                                            c.setDead(true);
                                            canMove = false;
                                            Projectile p = (Projectile)this;
                                            p.setActive(false);
-                                           Position positionC = c.getPosition();
-                                           positionC.removeObject(checkObject);
-                                           this.position.removeObject(this);
+                                           c.getPosition().removeObject(checkObject);
+                                           
                                     }
                                     if(checkObject instanceof Obstacle)
                                     {
-                                        Obstacle o = (Obstacle)checkObject;
-                                        o.setBroken(true);
-                                        Projectile p = (Projectile)this;
-                                        p.setActive(false);
-                                        Position positionO = o.getPosition();
-                                        positionO.removeObject(checkObject);
-                                        this.position.removeObject(this);
+                                        if(checkObject.shape.getFill() != Color.BLACK)
+                                        {
+                                            this.position.removeObject(this);
+                                            Obstacle o = (Obstacle)checkObject;
+                                            o.setBroken(true);
+                                            Projectile p = (Projectile)this;
+                                            p.setActive(false);
+                                            Position positionO = o.getPosition();
+                                            positionO.removeObject(checkObject);
+                                        }
                                     }
                                 }
 
@@ -304,6 +308,8 @@ public abstract class Object
                                     }
                                     if(checkObject instanceof Obstacle)
                                     {
+                                        if(checkObject.shape.getFill() != Color.BLACK)
+                                        {
                                         Obstacle o = (Obstacle)checkObject;
                                         o.setBroken(true);
                                         Projectile p = (Projectile)this;
@@ -311,6 +317,7 @@ public abstract class Object
                                         Position positionO = o.getPosition();
                                         positionO.removeObject(checkObject);
                                         this.position.removeObject(this);
+                                        }
                                     }
                                 }
 
@@ -377,6 +384,8 @@ public abstract class Object
                                     }
                                     if(checkObject instanceof Obstacle)
                                     {
+                                        if(checkObject.shape.getFill() != Color.BLACK)
+                                        {
                                         Obstacle o = (Obstacle)checkObject;
                                         o.setBroken(true);
                                         Projectile p = (Projectile)this;
@@ -384,6 +393,7 @@ public abstract class Object
                                         Position positionO = o.getPosition();
                                         positionO.removeObject(checkObject);
                                         this.position.removeObject(this);
+                                        }
                                     }
                                 }
 
@@ -408,7 +418,7 @@ public abstract class Object
                     newPosition = myGame.getPosition(this.position.getX(),this.position.getY()+1);
                     if(newPosition != null)
                     {
-                        if(newPosition.getX() != 0 && newPosition.getY() != 0)
+                        if(newPosition.getX() != 0 && newPosition.getY() != 0 && newPosition.getX() != 10 && newPosition.getY() != 10)
                         {
                             if(this instanceof Character)
                                {
@@ -427,6 +437,10 @@ public abstract class Object
                                            positionP.removeObject(checkObject);
                                        }
                                        if(checkObject instanceof Obstacle)
+                                       {
+                                           canMove = false;
+                                       }
+                                       if(checkObject instanceof Ballista)
                                        {
                                            canMove = false;
                                        }
@@ -450,6 +464,8 @@ public abstract class Object
                                     }
                                     if(checkObject instanceof Obstacle)
                                     {
+                                        if(checkObject.shape.getFill() != Color.BLACK)
+                                        {
                                         Obstacle o = (Obstacle)checkObject;
                                         o.setBroken(true);
                                         Projectile p = (Projectile)this;
@@ -457,6 +473,7 @@ public abstract class Object
                                         Position positionO = o.getPosition();
                                         positionO.removeObject(checkObject);
                                         this.position.removeObject(this);
+                                        }
                                     }
                                 }
 
