@@ -150,6 +150,7 @@ public abstract class Object
      */
     public Shape getShape()
     {
+        this.shape.relocate(this.getPositionX()*100, this.getPositionY()*100);
         return this.shape;
     }
     
