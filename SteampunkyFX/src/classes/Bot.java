@@ -83,65 +83,68 @@ public class Bot {
     }
 
     public void AI() {
-        int X = this.character.getPosition().getX();
-        int Y = this.character.getPosition().getY();
-        List<Position> grid = this.game.getGrid();
-        List<Position> movableGrid = new ArrayList<>();
-        movableGrid = getMovableGrid(X, Y, grid, null);
-        
-        // <editor-fold desc="difficulty 1." defaultstate="collapsed">
-        if (this.difficulty == 1) {
-            int i=0;
-            ArrayList<Direction> dir = new ArrayList<>();
-            for(Position P : movableGrid){
-                if(P.getX()== X && P.getY() == Y+1){
-                    i++;
-                    dir.add(Direction.Down);
+        if(!this.character.getDead()){
+            int X = this.character.getPosition().getX();
+            int Y = this.character.getPosition().getY();
+            List<Position> grid = this.game.getGrid();
+            List<Position> movableGrid = new ArrayList<>();
+            movableGrid = getMovableGrid(X, Y, grid, null);
+
+            // <editor-fold desc="difficulty 1." defaultstate="collapsed">
+            if (this.difficulty == 1) {
+                int i=0;
+                ArrayList<Direction> dir = new ArrayList<>();
+                for(Position P : movableGrid){
+                    if(P.getX()== X && P.getY() == Y+1){
+                        i++;
+                        dir.add(Direction.Down);
+                    }
+                    if(P.getX() == X+1 && P.getY() ==Y){
+                        i++;
+                        dir.add(Direction.Right);
+                    }
+                    if(P.getX() == X && P.getY() ==Y-1){
+                        i++;
+                        dir.add(Direction.Up);
+                    }
+                    if(P.getX() == X-1 && P.getY() ==Y){
+                        i++;
+                        dir.add(Direction.Left);
+                    }
                 }
-                if(P.getX() == X+1 && P.getY() ==Y){
-                    i++;
-                    dir.add(Direction.Right);
+                if(i==1){
+                    this.character.createBallista(Direction.Right,4,this.character.getSpeed());
+                    this.character.move(dir.get(0));
+                }else if(i!=0){
+                Random rand = new Random();
+                int randomNum = rand.nextInt(i) + 0;
+                this.character.move(dir.get(randomNum));
                 }
-                if(P.getX() == X && P.getY() ==Y-1){
-                    i++;
-                    dir.add(Direction.Up);
-                }
-                if(P.getX() == X-1 && P.getY() ==Y){
-                    i++;
-                    dir.add(Direction.Left);
-                }
+
             }
-            /*if(i==1){
-                this.character.createBallista(Direction.Right,4,this.character.getSpeed());
-                this.character.move(dir.get(0));
-            }else if(i!=0){*/
-            Random rand = new Random();
-            int randomNum = rand.nextInt(i) + 0;
-            this.character.move(dir.get(randomNum));
-            //}
-        }
-        // </editor-fold>
-        
-        if (this.difficulty == 2) {
-            List<Position> threat = new ArrayList<>();
-            for (Position P: movableGrid){
-                if(P.getX()== X || P.getY()==Y){
-                    for(Object O: P.getObjects()){
-                        if (O instanceof Projectile){
-                            Projectile projectile = (Projectile) O;
-                            if(X>P.getX() && projectile.getDirection() == Direction.Left){
+            // </editor-fold>
+
+            if (this.difficulty == 2) {
+                List<Position> threat = new ArrayList<>();
+                for (Position P: movableGrid){
+                    if(P.getX()== X || P.getY()==Y){
+                        for(Object O: P.getObjects()){
+                            if (O instanceof Projectile){
+                                Projectile projectile = (Projectile) O;
+                                if(X>P.getX() && projectile.getDirection() == Direction.Left){
+                                    threat.add(P);
+                                }else if (X<P.getX() && projectile.getDirection() == Direction.Right){
                                 threat.add(P);
-                            }else if (X<P.getX() && projectile.getDirection() == Direction.Right){
-                            threat.add(P);
-                            }
-                            else if (Y<P.getY() && projectile.getDirection() == Direction.Down){
-                                threat.add(P);
-                            }else if (Y>P.getY() && projectile.getDirection() == Direction.Up){
-                                threat.add(P);
+                                }
+                                else if (Y<P.getY() && projectile.getDirection() == Direction.Down){
+                                    threat.add(P);
+                                }else if (Y>P.getY() && projectile.getDirection() == Direction.Up){
+                                    threat.add(P);
+                                }
                             }
                         }
-                    }
-               }
+                   }
+                }
             }
         }
     }
