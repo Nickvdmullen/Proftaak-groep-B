@@ -87,7 +87,8 @@ public class Bot {
         int Y = this.character.getPosition().getY();
         List<Position> grid = this.game.getGrid();
         List<Position> movableGrid = new ArrayList<>();
-        movableGrid = getMovableGrid(X, Y, grid, null);
+        List<Position> fillList = new ArrayList<>();
+        movableGrid = getMovableGrid(X, Y, grid, fillList);
         
         // <editor-fold desc="difficulty 1." defaultstate="collapsed">
         if (this.difficulty == 1) {
@@ -179,97 +180,100 @@ public class Bot {
     }
 
    
-    public List<Position> getMovableGrid(int X, int Y, List<Position> grid, Direction D) {
+    public List<Position> getMovableGrid(int X, int Y, List<Position> grid,List<Position> fillList) {
         int x = this.character.getPosition().getX();
         int y = this.character.getPosition().getY();
         int t = this.character.getTorchRange();
-        List<Position> tempList = new ArrayList<>();
+        List<Position> tempList = fillList;
 
         for (Position P : grid) {
-            if (P.getX() == X && P.getY() == Y){
-                tempList.add(P);
-            }
-            if (P.getX() == X && P.getY() == Y + 1 && D != Direction.Up ) {
-                if (this.isVisible(X, Y + 1)) {
-                    if (P.getObjects().size()!=0){
-                        for (Object O : P.getObjects()) {
-                            if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
-                                for(Position Pos : this.getMovableGrid(X, Y + 1, grid,Direction.Down)){
-                                    if(!tempList.contains(Pos)){
-                                        tempList.add(Pos);
-                                    }     
-                                }  
-                            }
-                        }
-                    } else{
-                        for(Position Pos : this.getMovableGrid(X, Y + 1, grid,Direction.Down)){
-                            if(!tempList.contains(Pos)){
-                                tempList.add(Pos);
-                            }     
-                        }  
-                    }
-                    
+            if(!tempList.contains(P)){
+                if (P.getX() == X && P.getY() == Y){
+                    tempList.add(P);
                 }
-            }
-            if (P.getX() == X + 1 && P.getY() == Y && D != Direction.Left) {
-                if (this.isVisible(X + 1, Y)) {
-                    if (P.getObjects().size()!=0){
-                        for (Object O : P.getObjects()) {
-                            if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
-                                for(Position Pos :this.getMovableGrid(X + 1, Y, grid,Direction.Right)){
-                                    if(!tempList.contains(Pos)){
-                                        tempList.add(Pos);
+                if (P.getX() == X && P.getY() == Y + 1 ) {
+                    if (this.isVisible(X, Y + 1)) {
+                        if (P.getObjects().size()!=0){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    for(Position Pos : this.getMovableGrid(X, Y + 1, grid,tempList)){
+                                        if(!tempList.contains(Pos)){
+                                            tempList.add(Pos);
+
+                                        }     
+                                    }  
+                                }
+                            }
+                        } else{
+                            for(Position Pos : this.getMovableGrid(X, Y + 1, grid, tempList)){
+                                if(!tempList.contains(Pos)){
+                                    tempList.add(Pos);
+                                }     
+                            }  
+                        }
+
+                    }
+                }
+                if (P.getX() == X + 1 && P.getY() == Y) {
+                    if (this.isVisible(X + 1, Y)) {
+                        if (P.getObjects().size()!=0){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    for(Position Pos :this.getMovableGrid(X + 1, Y, grid, tempList)){
+                                        if(!tempList.contains(Pos)){
+                                            tempList.add(Pos);
+                                        }
                                     }
                                 }
                             }
-                        }
-                    } else {
-                        for(Position Pos :this.getMovableGrid(X + 1, Y, grid,Direction.Right)){
-                            if(!tempList.contains(Pos)){
-                            tempList.add(Pos);
-                            }
-                        }
-                    }
-                    
-                }
-            }
-            if (P.getX() == X && P.getY() == Y - 1 && D != Direction.Down) {
-                if (this.isVisible(X, Y - 1)) {
-                    if(P.getObjects().size()!=0){
-                        for (Object O : P.getObjects()) {
-                            if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
-                                for(Position Pos:this.getMovableGrid(X, Y - 1, grid,Direction.Up)){
-                                    if(!tempList.contains(Pos)){
-                                        tempList.add(Pos);
-                                    }
+                        } else {
+                            for(Position Pos :this.getMovableGrid(X + 1, Y, grid, tempList)){
+                                if(!tempList.contains(Pos)){
+                                tempList.add(Pos);
                                 }
                             }
                         }
-                    }else {
-                        for(Position Pos:this.getMovableGrid(X, Y - 1, grid,Direction.Up)){
-                            if(!tempList.contains(Pos)){
-                                tempList.add(Pos);
+
+                    }
+                }
+                if (P.getX() == X && P.getY() == Y - 1) {
+                    if (this.isVisible(X, Y - 1)) {
+                        if(P.getObjects().size()!=0){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    for(Position Pos:this.getMovableGrid(X, Y - 1, grid, tempList)){
+                                        if(!tempList.contains(Pos)){
+                                            tempList.add(Pos);
+                                        }
+                                    }
+                                }
+                            }
+                        }else {
+                            for(Position Pos:this.getMovableGrid(X, Y - 1, grid, tempList)){
+                                if(!tempList.contains(Pos)){
+                                    tempList.add(Pos);
+                                }
                             }
                         }
                     }
                 }
-            }
-            if (P.getX() == X - 1 && P.getY() == Y && D != Direction.Right) {
-                if (this.isVisible(X - 1, Y)) {
-                    if(P.getObjects().size()!=0){
-                        for (Object O : P.getObjects()) {
-                            if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
-                                for(Position Pos :this.getMovableGrid(X - 1, Y, grid,Direction.Left)){
-                                    if(!tempList.contains(Pos)){
-                                        tempList.add(Pos);
+                if (P.getX() == X - 1 && P.getY() == Y) {
+                    if (this.isVisible(X - 1, Y)) {
+                        if(P.getObjects().size()!=0){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    for(Position Pos :this.getMovableGrid(X - 1, Y, grid, tempList)){
+                                        if(!tempList.contains(Pos)){
+                                            tempList.add(Pos);
+                                        }
                                     }
                                 }
                             }
-                        }
-                    } else {
-                        for(Position Pos :this.getMovableGrid(X - 1, Y, grid,Direction.Left)){
-                            if(!tempList.contains(Pos)){
-                                tempList.add(Pos);
+                        } else {
+                            for(Position Pos :this.getMovableGrid(X - 1, Y, grid, tempList)){
+                                if(!tempList.contains(Pos)){
+                                    tempList.add(Pos);
+                                }
                             }
                         }
                     }
