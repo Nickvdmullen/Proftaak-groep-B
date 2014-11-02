@@ -339,6 +339,7 @@ public class Game
             {
                 Position p = getPosition(col, row);
                 Object ob = new Obstacle("cube", false, p, true, false, this);
+                p.addObject(ob);
                 cubes.add(ob);
                 col += 2;
             }
