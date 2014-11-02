@@ -111,9 +111,11 @@ public class Bot {
                     dir.add(Direction.Left);
                 }
             }
+            if(i!=0){
             Random rand = new Random();
             int randomNum = rand.nextInt(i) + 1;
             this.character.move(dir.get(randomNum));
+            }
         }
         // </editor-fold>
         
