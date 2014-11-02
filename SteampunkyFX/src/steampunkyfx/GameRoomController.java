@@ -255,7 +255,6 @@ public class GameRoomController implements Initializable, Observer {
             this.setKeyBindings();
             this.game.addPlayer(this.admin);
             this.game.startRound();
-            this.GameUpdate();
         }
     }
     //clears the scene and draws new boxes for every object.
@@ -385,8 +384,10 @@ public class GameRoomController implements Initializable, Observer {
        
         //Geeft momenteel ConcurrentModificationException error
         // Maar deze timer zou dus voor updaten moeten zijn.
+        
         this.gameTickTimer.scheduleAtFixedRate(new TimerTask()
         {
+            
             @Override
             public void run()
             {
@@ -395,8 +396,10 @@ public class GameRoomController implements Initializable, Observer {
                     game.updateGame();
                     DrawGame();
                 });
+                
             }
-        },1000,1000);
+           
+        },16,1000);
             
     }
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
