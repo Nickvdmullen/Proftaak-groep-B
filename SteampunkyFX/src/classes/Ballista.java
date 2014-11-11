@@ -5,6 +5,8 @@
  */
 package classes;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -63,10 +65,25 @@ public class Ballista extends Object
                 this.shots = shots;
                 this.shotsShot = 0;
                 this.projectileSpeed = projectileSpeed;
-
+                
+                Timer ProjectileTimer = new Timer();
+                ProjectileTimer.schedule(new TimerTask(){
+                    @Override
+                    public void run() {
+                        shootProjectile();
+                    }
+                }, 2000
+                );
+                        
+                
                 //While # of shots fired is less then maxNumber of shots, continues through loop
                 //Then uses the Direction given to determine what sides should fire first.
-                while (shotsShot < shots)
+                
+            }
+        }
+    }
+    private void shootProjectile(){
+        while (shotsShot < shots)
                 {
                     if (direction == Direction.Up || this.direction == Direction.Down)
                     {
@@ -84,10 +101,7 @@ public class Ballista extends Object
                         shotsShot += 4;
                     }
                 }
-            }
-        }
     }
-
     //**********************methoden****************************************
     /**
      The getter of the Ballista ID.

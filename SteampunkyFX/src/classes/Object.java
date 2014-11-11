@@ -210,9 +210,12 @@ public abstract class Object
                                                 canMove = false;
                                                 this.movable = false;
                                                 p.setActive(false);
+                                                c.setDead(true);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
                                                 positionP.removeObject(checkObject);
+                                                this.getGame().getObjects().remove(p);
+                                                this.getGame().getObjects().remove(this);
                                             }
                                             if(checkObject instanceof Obstacle)
                                             {
@@ -234,11 +237,13 @@ public abstract class Object
                                     {
                                            Character c = (Character)checkObject;
                                            canMove = false;
+                                           c.setDead(true);
                                            Projectile p = (Projectile)this;
                                            checkObject.movable = false;
                                            this.shape = null;
-                                           p.getPosition().removeObject(p);
-                                           c.getPosition().removeObject(checkObject);
+                                       
+                                           p.getPosition().removeObject(p); this.getGame().getObjects().remove(p);
+                                           c.getPosition().removeObject(checkObject); this.getGame().getObjects().remove(checkObject);
                                            
                                     }
                                     if(checkObject instanceof Obstacle)
@@ -303,9 +308,12 @@ public abstract class Object
                                                 canMove = false;
                                                 this.movable = false;
                                                 p.setActive(false);
+                                                c.setDead(true);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
                                                 positionP.removeObject(checkObject);
+                                                this.getGame().getObjects().remove(p);
+                                                this.getGame().getObjects().remove(this);
                                             }
                                             if(checkObject instanceof Obstacle)
                                             {
@@ -329,8 +337,9 @@ public abstract class Object
                                            canMove = false;
                                            Projectile p = (Projectile)this;
                                            checkObject.movable = false;
-                                           p.getPosition().removeObject(p);
-                                           c.getPosition().removeObject(checkObject);
+                                           c.setDead(true);
+                                           p.getPosition().removeObject(p); this.getGame().getObjects().remove(p);
+                                           c.getPosition().removeObject(checkObject); this.getGame().getObjects().remove(checkObject);
                                            this.shape = null;
                                     }
                                     if(checkObject instanceof Obstacle)
@@ -394,10 +403,13 @@ public abstract class Object
                                                 Projectile p = (Projectile)checkObject;
                                                 canMove = false;
                                                 this.movable = false;
+                                                c.setDead(true);
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
                                                 positionP.removeObject(checkObject);
+                                                this.getGame().getObjects().remove(p);
+                                                this.getGame().getObjects().remove(this);
                                             }
                                             if(checkObject instanceof Obstacle)
                                             {
@@ -421,8 +433,9 @@ public abstract class Object
                                            canMove = false;
                                            Projectile p = (Projectile)this;
                                            checkObject.movable = false;
-                                           p.getPosition().removeObject(p);
-                                           c.getPosition().removeObject(checkObject);
+                                           c.setDead(true);
+                                           p.getPosition().removeObject(p); this.getGame().getObjects().remove(p);
+                                           c.getPosition().removeObject(checkObject); this.getGame().getObjects().remove(checkObject);
                                            this.shape = null;
                                            
                                     }
@@ -486,10 +499,13 @@ public abstract class Object
                                                 Projectile p = (Projectile)checkObject;
                                                 canMove = false;
                                                 this.movable = false;
+                                                c.setDead(true);
                                                 p.setActive(false);
                                                 Position positionP = p.getPosition();
                                                 this.position.removeObject(this);
                                                 positionP.removeObject(checkObject);
+                                                this.getGame().getObjects().remove(p);
+                                                this.getGame().getObjects().remove(this);
                                             }
                                             if(checkObject instanceof Obstacle)
                                             {
@@ -513,8 +529,9 @@ public abstract class Object
                                            canMove = false;
                                            Projectile p = (Projectile)this;
                                            checkObject.movable = false;
-                                           p.getPosition().removeObject(p);
-                                           c.getPosition().removeObject(checkObject);
+                                           c.setDead(true);
+                                           p.getPosition().removeObject(p); this.getGame().getObjects().remove(p);
+                                           c.getPosition().removeObject(checkObject); this.getGame().getObjects().remove(checkObject);
                                            this.shape = null;
                                            
                                     }
@@ -561,7 +578,7 @@ public abstract class Object
             }
             else
             {
-                System.out.println("Can't move an immovable object");
+                System.out.println("Can't move an immovable object"+this.toString());
             }
         }
 

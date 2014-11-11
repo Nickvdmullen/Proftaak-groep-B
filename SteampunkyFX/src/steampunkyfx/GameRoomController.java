@@ -395,6 +395,7 @@ public class GameRoomController implements Initializable, Observer {
                 {
                     try
                     {
+                    if(game.getGameEnd()){gameTickTimer.cancel();}
                     game.updateGame();
                     DrawGame();
                     }
@@ -408,7 +409,7 @@ public class GameRoomController implements Initializable, Observer {
             }
            
         },500,500);
-            
+        main.gotoLobbyselect(admin);
     }
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
     @Override

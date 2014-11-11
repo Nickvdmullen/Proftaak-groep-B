@@ -88,7 +88,7 @@ public class Bot {
             int Y = this.character.getPosition().getY();
             List<Position> grid = this.game.getGrid();
             List<Position> movableGrid = new ArrayList<>();
-            movableGrid = getMovableGrid(X, Y, grid, null);
+//            movableGrid = getMovableGrid(X, Y, grid, null);
 
             // <editor-fold desc="difficulty 1." defaultstate="collapsed">
             if (this.difficulty == 1) {
@@ -181,6 +181,101 @@ public class Bot {
         return false;
     }
 
+    public List<Position> getDirectMovableGrid(List<Position> grid){
+      int x = this.character.getPosition().getX();
+        int y = this.character.getPosition().getY();
+        int t = this.character.getTorchRange();
+        List<Position> tempList = new ArrayList<>();        
+        if(this.character.getMove())
+        {
+            boolean blockUp = false;
+            boolean blockRight = false;
+            boolean blockDown = false;
+            boolean blockLeft = false;
+            
+            for (Position P : grid) {
+                boolean breakdown = false;
+                for (int i=0; i >= t ; i++){
+                    if (P.getX() == x+i && P.getY()== y && !blockRight){
+                        if (!P.getObjects().isEmpty()){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    if(!tempList.contains(P)){
+                                        tempList.add(P);
+                                        breakdown = true;
+                                    }    
+                                }
+                            if(breakdown){break;}
+                            }
+                        } else{
+                            if(!tempList.contains(P)){
+                                tempList.add(P);
+                                breakdown=true;
+                            }     
+                        }  
+                    }
+                    if(breakdown){break;}     
+                    if (P.getX() == x-i && P.getY() == y && !blockLeft){
+                        if (!P.getObjects().isEmpty()){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    if(!tempList.contains(P)){
+                                        tempList.add(P);
+                                        breakdown = true;
+                                    }    
+                                }
+                            if(breakdown){break;}
+                            }
+                        } else{
+                            if(!tempList.contains(P)){
+                                tempList.add(P);
+                                breakdown=true;
+                            }     
+                        }
+                    }
+                    if(breakdown){break;}
+                    if (P.getX() == x && P.getY() == y+i && !blockUp){
+                        if (!P.getObjects().isEmpty()){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    if(!tempList.contains(P)){
+                                        tempList.add(P);
+                                        breakdown = true;
+                                    }    
+                                }
+                            if(breakdown){break;}
+                            }
+                        } else{
+                            if(!tempList.contains(P)){
+                                tempList.add(P);
+                                breakdown=true;
+                            }     
+                        }
+                    }
+                    if(breakdown){break;}
+                    if (P.getX() == x && P.getY() == y-i && !blockDown){
+                        if (!P.getObjects().isEmpty()){
+                            for (Object O : P.getObjects()) {
+                                if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
+                                    if(!tempList.contains(P)){
+                                        tempList.add(P);
+                                        breakdown = true;
+                                    }    
+                                }
+                                if(breakdown){break;}
+                            }
+                        } else{
+                            if(!tempList.contains(P)){
+                                tempList.add(P);
+                                breakdown=true;
+                            }     
+                        }
+                    }   
+                }
+            }
+        }
+        return tempList;
+    }
    
     public List<Position> getMovableGrid(int X, int Y, List<Position> grid, Direction D) {
         int x = this.character.getPosition().getX();
@@ -218,7 +313,7 @@ public class Bot {
             }
             if (P.getX() == X + 1 && P.getY() == Y && D != Direction.Left) {
                 if (this.isVisible(X + 1, Y)) {
-                    if (P.getObjects().size()!=0){
+                    if (!P.getObjects().isEmpty()){
                         for (Object O : P.getObjects()) {
                             if ((O instanceof Ballista)==false && (O instanceof Obstacle)==false) {
                                 for(Position Pos :this.getMovableGrid(X + 1, Y, grid,Direction.Right)){
