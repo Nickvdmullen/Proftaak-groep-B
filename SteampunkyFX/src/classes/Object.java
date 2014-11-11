@@ -5,8 +5,12 @@
  */
 package classes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.String;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
@@ -24,7 +28,9 @@ public abstract class Object
     private boolean movable;
     private Direction direction;
     private Game myGame;
-    private Shape shape;
+    //private Shape shape;
+    private Image image;
+    private ImageView imageview;
 
     //***********************constructoren***********************************
     /**
@@ -51,7 +57,6 @@ public abstract class Object
         }
 
         this.interfaceID++;
-        //position.addObject(this);
     }
 
     //**********************methoden****************************************
@@ -123,10 +128,9 @@ public abstract class Object
     {
         this.position = position;
         
-        //check if shape is cirlce or rectangle
-        this.shape.setLayoutX(position.getX()*100);
-        this.shape.setLayoutY(position.getY()*100);
-        this.shape.relocate(position.getX()*100,position.getY()*100);
+        this.imageview.setX(position.getX()*100);
+        this.imageview.setY(position.getY()*100);
+        this.imageview.relocate(position.getX()*100,position.getY()*100);
     }
 
     /**
@@ -150,25 +154,41 @@ public abstract class Object
     }
     
     /**
-     * The Getter of the shape of the object
+     * The Getter of the image of the object
      * 
-     * @return 
+     * @return image
      */
-    public Shape getShape()
+    public Image getImage()
     {
-//        this.shape.setLayoutX(this.getPositionX()*100);
-//        this.shape.setLayoutY(this.getPositionY()*100);
-//        this.shape.relocate(this.getPositionX()*100, this.getPositionY()*100);
-        return this.shape;
+        return this.image;
     }
     
     /**
-     * The Setter of the shape of the object
-     * @param shape of the object
+     * The Getter of the imageview of the object
+     * 
+     * @return image
      */
-    public void setShape(Shape shape)
+    public ImageView getImageView()
     {
-        this.shape = shape;
+        return this.imageview;
+    }
+    
+    /**
+     * The Setter of the image of the object
+     * @param imageurl of the object
+     */
+    public void setImage(String imageurl)
+    {
+        try
+        {
+            this.image = new Image(imageurl, 100, 100, false, true);
+        }
+        catch (NullPointerException | IllegalArgumentException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        
+        this.imageview.setImage(image);
     }
     
     /**

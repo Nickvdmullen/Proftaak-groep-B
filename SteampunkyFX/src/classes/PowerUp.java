@@ -51,29 +51,24 @@ public class PowerUp extends Object
                 this.name = name;
                 this.type = type;
                 this.description = description;
-                
-                //Shape s = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
-                Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-                s.setFill(Color.LIGHTBLUE);
-                s.setStroke(Color.LIGHTSKYBLUE);
-                s.setStrokeWidth(2);
-                super.setShape(s);
 
                 switch (type)
                 {
                     case "runspeed":
-                        this.imgURL = "powerup01";
+                        this.imgURL = "images/powerup01.png";
                         break;
                     case "torch":
-                        this.imgURL = "powerup02";
+                        this.imgURL = "images/powerup02.png";
                         break;
                     case "shield":
-                        this.imgURL = "powerup03";
+                        this.imgURL = "images/powerup03.png";
                         break;
                     case "projectile":
-                        this.imgURL = "powerup03";
+                        this.imgURL = "images/powerup05.png";
                         break;
                 }
+                        
+                super.setImage(this.imgURL);
             }
         } else
         {

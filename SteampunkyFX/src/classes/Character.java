@@ -66,11 +66,8 @@ public class Character extends Object
         }
         ballistas = new ArrayList<>();
         powerups = new ArrayList<>();
-        
-        //Shape s = new Circle((position.getX()*100)+50, (position.getY()*100)+50, 50);
-        Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-        s.setFill(color);
-        super.setShape(s);
+          
+        super.setImage("images/player.png");
     }
 
     //**********************methoden****************************************

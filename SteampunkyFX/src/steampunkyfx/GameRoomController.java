@@ -6,6 +6,7 @@
 package steampunkyfx;
 
 import classes.Ballista;
+import classes.Character;
 import classes.Direction;
 import classes.Game;
 import classes.Lobby;
@@ -14,8 +15,6 @@ import classes.Obstacle;
 import classes.Position;
 import classes.Projectile;
 import classes.Server;
-import classes.Object;
-import classes.Character;
 import static classes.Server.getServer;
 import classes.User;
 import java.net.URL;
@@ -39,6 +38,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -269,8 +269,8 @@ public class GameRoomController implements Initializable, Observer {
 
                 for (Object o : objects)
                 {
-                    Shape s = o.getShape();
-                    box.getChildren().add(s);
+                    ImageView img = o.getImageView();
+                    box.getChildren().add(img);
                 }
             }
     }
@@ -395,12 +395,11 @@ public class GameRoomController implements Initializable, Observer {
                 {
                     try
                     {
-                    game.updateGame();
-                    DrawGame();
+                        game.updateGame();
+                        DrawGame();
                     }
                     catch(NullPointerException ex)
-                    {
-                    
+                    {                    
                     }
                     
                 });
