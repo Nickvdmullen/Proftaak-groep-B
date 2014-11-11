@@ -41,10 +41,8 @@ public class Projectile extends Object
         this.type = type;
         this.speed = speed;
         this.direction = direction;
-        
-        Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-        s.setFill(Color.LIME);
-        super.setShape(s);
+             
+        super.setImage("images/arrow.png");
     }
 
     //**********************methoden****************************************

@@ -5,8 +5,10 @@
  */
 package classes;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -46,11 +48,9 @@ public class Ballista extends Object
         if (shots % 4 != 0)
         {
             throw new IllegalArgumentException("A ballista must have a multitude of 4 as # of shots.");
-        }
-        
-        Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-        s.setFill(Color.DARKGOLDENROD);
-        super.setShape(s);
+        }        
+ 
+        super.setImage("images/ballista.png");
         
         //Check if values entered are correct.
         if (type != null)

@@ -54,18 +54,12 @@ public class Obstacle extends Object
         this.type = type;
         
         if (this.type.equals("box"))
-        {
-            Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-            s.setFill(Color.BLANCHEDALMOND);
-            s.setStroke(Color.BURLYWOOD);
-            s.setStrokeWidth(2);
-            super.setShape(s);
+        {      
+            super.setImage("images/obstacle.png");
         }
         else if (this.type.equals("cube"))
-        {
-            Shape s = new Rectangle(position.getX()*100, position.getY()*100, 100, 100);
-            s.setFill(Color.BLACK);
-            super.setShape(s);
+        {     
+            super.setImage("images/box01.png");
         }
         
         this.broken = broken;

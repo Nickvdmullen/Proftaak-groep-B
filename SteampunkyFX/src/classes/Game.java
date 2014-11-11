@@ -657,7 +657,8 @@ public class Game
             }
         }
         
-        for (Object O : objects){
+        for (Object O : objects)
+        {
             if(O instanceof Projectile)
             {
                 O.move(O.getDirection());
