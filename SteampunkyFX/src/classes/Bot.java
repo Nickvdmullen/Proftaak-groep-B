@@ -112,14 +112,14 @@ public class Bot {
                         dir.add(Direction.Left);
                     }
                 }
-                if(i==1){
-                    this.character.createBallista(Direction.Right,4,this.character.getSpeed());
-                    this.character.move(dir.get(0));
-                }else if(i!=0){
+//                if(i==1){
+//                    this.character.createBallista(Direction.Right,4,this.character.getSpeed());
+//                    this.character.move(dir.get(0));
+//                }else if(i!=0){
                 Random rand = new Random();
                 int randomNum = rand.nextInt(i) + 0;
                 this.character.move(dir.get(randomNum));
-                }
+//                }
 
             }
             // </editor-fold>

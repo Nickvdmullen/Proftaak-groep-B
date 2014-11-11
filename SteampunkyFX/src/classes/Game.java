@@ -685,7 +685,7 @@ public class Game
         }
         
         //Stop game if all characters are dead
-        if (dead == 4)
+        if (dead == 3)
         {
             setGameEnd();
         }
