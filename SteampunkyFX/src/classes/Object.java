@@ -191,6 +191,28 @@ public abstract class Object
         this.imageview.setImage(image);
     }
     
+    public void movement(Direction direction)
+    {
+        int nextX = this.getPositionX();
+        int nextY = this.getPositionY();
+        if (direction == Direction.Right)
+        {
+            nextX++;
+        } else if(direction == Direction.Left){
+            nextX--;
+        } else if(direction == Direction.Up){
+            nextY--;
+        } else {
+            nextY++;
+        }
+        
+        if(this instanceof Projectile)
+        {
+            Projectile P = (Projectile)this;
+            P.checkCollision(nextX, nextY);
+        }
+    }
+    
     /**
      A Method for moving this Object
      <p>
@@ -200,13 +222,7 @@ public abstract class Object
     {
         boolean canMove = true;
         List<Position> allPosition = myGame.getGrid();
-        List<Object> allObjects = new ArrayList();
         Object checkObject;
-        
-        allPosition.stream().forEach((p) ->
-        {
-            allObjects.addAll(p.getObjects());
-        });
         
         Position newPosition = null;
         if (movable)
@@ -221,7 +237,7 @@ public abstract class Object
                             if(this instanceof Character)
                                {
                                    Character c = (Character)this;
-                                   checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                   checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
@@ -250,7 +266,7 @@ public abstract class Object
                               
                             else if(this instanceof Projectile)
                             {
-                                checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                 if(checkObject != null)
                                 {
                                     if(checkObject instanceof Character)
@@ -319,7 +335,7 @@ public abstract class Object
                                { 
                                    Character c = (Character)this;
                                                                   
-                                        checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                        checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
@@ -348,7 +364,7 @@ public abstract class Object
                                
                             else if(this instanceof Projectile)
                             {
-                                checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                 if(checkObject != null)
                                 {
                                     if(checkObject instanceof Character)
@@ -415,7 +431,7 @@ public abstract class Object
                                {
                                    Character c = (Character)this;
                                     
-                                        checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                        checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
@@ -444,7 +460,7 @@ public abstract class Object
                                }
                             else if(this instanceof Projectile)
                             {
-                                checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                 if(checkObject != null)
                                 {
                                     if(checkObject instanceof Character)
@@ -511,7 +527,7 @@ public abstract class Object
                                {
                                    Character c = (Character)this;
                                     
-                                        checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                        checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                         if(checkObject != null)
                                         {
                                             if(checkObject instanceof Projectile)
@@ -540,7 +556,7 @@ public abstract class Object
                                }
                             else if(this instanceof Projectile)
                             {
-                                checkObject = this.checkCollision(allObjects,newPosition.getX(),newPosition.getY());
+                                checkObject = this.checkCollision(newPosition.getX(),newPosition.getY());
                                 if(checkObject != null)
                                 {
                                     if(checkObject instanceof Character)
@@ -610,30 +626,31 @@ public abstract class Object
      @return Returns an object if the next p of this projectile collides with the object
      else it returns null.
      */
-    public Object checkCollision(List<Object> objects,int positionX,int positionY)
+    public Object checkCollision(int posX,int posY)
     {
-        int tempPositionX = positionX;
-        int tempPositionY = positionY;
+        List<Object> objects = this.myGame.getObjectsFromGrid(posX, posY);
         Object hitObject = null;
-
-        for (Object nxtObject : objects)
+        
+        if(this instanceof Character)
         {
-            int oPositionX = nxtObject.getPositionX();
-            int oPositionY = nxtObject.getPositionY();
-
-            if ((tempPositionX == oPositionX) && (tempPositionY == oPositionY))
+            for (Object O : objects)
             {
-                if(nxtObject instanceof Character)
-                {
-                    hitObject = null;
-                }
-                else
-                {
-                    hitObject = nxtObject;
-                    break;
-                }
-            }
+                int oPosX = O.getPositionX();
+                int oPosY = O.getPositionY();
 
+                if ((posX == oPosX) && (oPosY == oPosY))
+                {
+                    if(O instanceof Character)
+                    {
+                        hitObject = null;
+                    }
+                    else
+                    {
+                        hitObject = O;
+                        break;
+                    }
+                }
+            }    
         }
         return hitObject;
     }

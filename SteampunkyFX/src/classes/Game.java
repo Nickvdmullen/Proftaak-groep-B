@@ -646,44 +646,55 @@ public class Game
     public void updateGame()
     {   
         this.objects.clear();
+        List<Character> tempCharacters = new ArrayList();
+        List<Projectile> tempProjectiles = new ArrayList();
+        List<PowerUp> tempPowerUps = new ArrayList();
         
-        for (Position p : this.grid)
-        {
-            for (Object o : p.getObjects())
-            {
-                if (!this.objects.contains(o)){
-                    this.objects.add(o);
+        this.grid.stream().forEach((p) -> {
+            p.getObjects().stream().map((o) -> {
+                if (!this.objects.contains(o))
+                {
+                    this.objects.add(o);  
                 }
-            }
+                return o;
+            }).map((o) -> {
+                if (o instanceof Character && !tempCharacters.contains((Character)o))
+                {
+                    tempCharacters.add((Character)o);
+                }
+                return o;
+            }).map((o) -> {
+                if (o instanceof Projectile && !tempProjectiles.contains((Projectile)o))
+                {
+                    tempProjectiles.add((Projectile)o);
+                }
+                return o;
+            }).filter((o) -> (o instanceof PowerUp && !tempPowerUps.contains((PowerUp)o))).forEach((o) -> {
+                tempPowerUps.add((PowerUp)o);
+            });
+        });
+        
+        tempCharacters.stream().forEach((C) -> {
+            C.move(C.getDirection());
+        });
+        
+        tempProjectiles.stream().forEach((P) -> {
+            P.move(P.getDirection());
+        });
+        
+        for (PowerUp P : tempPowerUps)
+        {
+            //addpowerup to characters
         }
         
-        for (Object O : objects)
-        {
-            if(O instanceof Projectile)
-            {
-                O.move(O.getDirection());
-            }
-            if(O instanceof PowerUp)
-            {
-                PowerUp pUp = (PowerUp) O;
-            }           
-        }
-        
-        for(Bot B : this.bots)
-        {
+        this.bots.stream().forEach((B) -> {
             B.AI();
-        }
+        });
         
         int dead = 0;
         
         //Check if characters are dead
-        for (Character c : this.characters)
-        {
-            if (c.getDead())
-            {
-                dead++;
-            }
-        }
+        dead = this.characters.stream().filter((c) -> (c.getDead())).map((_item) -> 1).reduce(dead, Integer::sum);
         
         //Stop game if all characters are dead
         if (dead == 3)
