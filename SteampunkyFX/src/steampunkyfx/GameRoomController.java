@@ -258,7 +258,8 @@ public class GameRoomController implements Initializable, Observer {
         }
     }
     //clears the scene and draws new boxes for every object.
-    public void DrawGame(){
+    public void DrawGame()
+    {
         box.getChildren().clear();
         box.getChildren().add(this.field);
         box.getChildren().add(this.playfield);
@@ -270,6 +271,8 @@ public class GameRoomController implements Initializable, Observer {
                 for (Object o : objects)
                 {
                     ImageView img = o.getImageView();
+                    //img.setX(p.getX() * 100);
+                    //img.setY(p.getY() * 100);
                     box.getChildren().add(img);
                 }
             }

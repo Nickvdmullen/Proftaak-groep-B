@@ -55,11 +55,11 @@ public class Obstacle extends Object
         
         if (this.type.equals("box"))
         {      
-            super.setImage("images/obstacle.png");
+            super.setImage("obstacle.png");
         }
         else if (this.type.equals("cube"))
         {     
-            super.setImage("images/box01.png");
+            super.setImage("box01.png");
         }
         
         this.broken = broken;

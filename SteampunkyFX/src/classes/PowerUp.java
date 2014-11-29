@@ -55,16 +55,16 @@ public class PowerUp extends Object
                 switch (type)
                 {
                     case "runspeed":
-                        this.imgURL = "images/powerup01.png";
+                        this.imgURL = "powerup01.png";
                         break;
                     case "torch":
-                        this.imgURL = "images/powerup02.png";
+                        this.imgURL = "powerup02.png";
                         break;
                     case "shield":
-                        this.imgURL = "images/powerup03.png";
+                        this.imgURL = "powerup03.png";
                         break;
                     case "projectile":
-                        this.imgURL = "images/powerup05.png";
+                        this.imgURL = "powerup05.png";
                         break;
                 }
                         

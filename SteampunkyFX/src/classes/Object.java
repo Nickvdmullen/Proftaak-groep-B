@@ -180,15 +180,15 @@ public abstract class Object
     public void setImage(String imageurl)
     {
         try
-        {
-            this.image = new Image(imageurl, 100, 100, false, true);
+        {            
+            String url = "/images/" + imageurl;
+            this.image = new Image(url, 100, 100, false, true);
+            this.imageview.setImage(image);
         }
         catch (NullPointerException | IllegalArgumentException ex)
         {
             System.out.println(ex.getMessage());
         }
-        
-        this.imageview.setImage(image);
     }
     
     public void movement(Direction direction)
@@ -220,7 +220,7 @@ public abstract class Object
      */
     public void move(Direction direction)
     {
-        boolean canMove = true;
+        /*boolean canMove = true;
         List<Position> allPosition = myGame.getGrid();
         Object checkObject;
         
@@ -615,7 +615,7 @@ public abstract class Object
             else
             {
                 System.out.println("Can't move an immovable object"+this.toString());
-            }
+            }*/
         }
 
     /**

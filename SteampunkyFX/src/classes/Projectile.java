@@ -42,7 +42,7 @@ public class Projectile extends Object
         this.speed = speed;
         this.direction = direction;
              
-        super.setImage("images/arrow.png");
+        super.setImage("arrow.png");
     }
 
     //**********************methoden****************************************

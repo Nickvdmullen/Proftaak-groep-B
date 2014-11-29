@@ -50,7 +50,7 @@ public class Ballista extends Object
             throw new IllegalArgumentException("A ballista must have a multitude of 4 as # of shots.");
         }        
  
-        super.setImage("images/ballista.png");
+        super.setImage("ballista.png");
         
         //Check if values entered are correct.
         if (type != null)
