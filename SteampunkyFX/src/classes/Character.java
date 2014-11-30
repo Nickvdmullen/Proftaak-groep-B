@@ -25,6 +25,7 @@ public class Character extends Object
     private boolean dead;
     private int maxBallistas;
     private int torchLight;
+    private int shots;
     private Direction direction;
     //relaties
     private List<Ballista> ballistas;
@@ -170,7 +171,26 @@ public class Character extends Object
     {
         this.torchLight = range;
     }
+    
+    public int getMaxBallistas()
+    {
+        return this.maxBallistas;
+    }
+    
+    public void setMaxBallistas(int nr)
+    {
+        this.maxBallistas = nr;
+    }
 
+    public int getShots()
+    {
+       return shots;
+    }
+    
+    public void setShots(int nr)
+    {
+        this.shots = nr;
+    }
     /**
      The Setter of Direction
      <p>
@@ -185,10 +205,9 @@ public class Character extends Object
      A Method for setting down a new Ballista
      <p>
      @param direction       A Direction object to set which sides of the Ballista should fire first.
-     @param shots           An int for the ammount of shots a Ballista can fire.
      @param projectileSpeed A Double for the speed the Projectiles this Ballista shoots can move with.
      */
-    public void createBallista(Direction direction , int shots , double projectileSpeed)
+    public void createBallista(Direction direction , double projectileSpeed)
     {
         //todo
         Game game = super.getGame();

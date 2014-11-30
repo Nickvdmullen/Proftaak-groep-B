@@ -655,4 +655,28 @@ public abstract class Object
         return hitObject;
     }
 
+    
+    private void PickUp(String type)
+    {
+        if(this instanceof Character)
+        {
+            Character c = (Character)this;
+            int t;
+            if(type.equals("Torch"))
+            {              
+              t = c.getTorchRange();
+              c.setTorch(t++);
+            }
+            if(type.equals("Ballista"))
+            {
+                t = c.getMaxBallistas();
+                c.setMaxBallistas(t++);
+            }
+            if(type.equals("Projectiles"))
+            {
+                t = c.getShots();
+                c.setShots(t+4);
+            }
+        }
+    }
 }
