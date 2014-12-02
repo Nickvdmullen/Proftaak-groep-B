@@ -30,9 +30,7 @@ public abstract class Object
     private boolean movable;
     private Direction direction;
     private Game myGame;
-    //private Shape shape;
-    private Image image;
-    private ImageView imageview;
+    private String imagestring;
 
     //***********************constructoren***********************************
     /**
@@ -129,10 +127,6 @@ public abstract class Object
     public void setPosition(Position position)
     {
         this.position = position;
-        
-        this.imageview.setX(position.getX()*100);
-        this.imageview.setY(position.getY()*100);
-        this.imageview.relocate(position.getX()*100,position.getY()*100);
     }
 
     /**
@@ -158,42 +152,21 @@ public abstract class Object
     /**
      * The Getter of the image of the object
      * 
-     * @return image
+     * @return image string
      */
-    public Image getImage()
+    public String getImageString()
     {
-        return this.image;
+        return this.imagestring;
     }
     
     /**
-     * The Getter of the imageview of the object
+     * The Getter of the image of the object
      * 
-     * @return image
+     * @return image string
      */
-    public ImageView getImageView()
+    public void setImageString(String image)
     {
-        return this.imageview;
-    }
-    
-    /**
-     * The Setter of the image of the object
-     * @param imageurl of the object
-     */
-    public void setImage(String imageurl)
-    {
-        try
-        {            
-            //System.out.println(imageurl);
-            //String url = "src/classes/images/" + imageurl;
-            //System.out.println(url);
-            this.image = new Image(Object.class.getResourceAsStream("player.png"));
-            //this.image = new Image(url, 100, 100, false, true);
-            this.imageview.setImage(image);
-        }
-        catch (NullPointerException | IllegalArgumentException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
+        this.imagestring = image;
     }
     
     public void movement(Direction direction)

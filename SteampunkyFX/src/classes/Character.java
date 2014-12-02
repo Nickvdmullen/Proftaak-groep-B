@@ -68,7 +68,7 @@ public class Character extends Object
         ballistas = new ArrayList<>();
         powerups = new ArrayList<>();
           
-        super.setImage("player.png");
+        super.setImageString("player.png");
     }
 
     //**********************methoden****************************************

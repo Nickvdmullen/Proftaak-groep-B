@@ -38,6 +38,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -270,7 +271,10 @@ public class GameRoomController implements Initializable, Observer {
 
                 for (Object o : objects)
                 {
-                    ImageView img = o.getImageView();
+                    String imageurl = o.getImageString();
+                    String urlString = "/images/" + imageurl;
+                    Image image = new Image (urlString);
+                    ImageView img = new ImageView(image);
                     //img.setX(p.getX() * 100);
                     //img.setY(p.getY() * 100);
                     box.getChildren().add(img);

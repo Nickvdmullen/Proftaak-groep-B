@@ -68,7 +68,7 @@ public class PowerUp extends Object
                         break;
                 }
                         
-                super.setImage(this.imgURL);
+                super.setImageString(this.imgURL);
             }
         } else
         {
