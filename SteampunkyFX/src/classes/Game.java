@@ -338,7 +338,7 @@ public class Game
             while (col < this.widthCubes)
             {
                 Position p = getPosition(col, row);
-                Object ob = new Obstacle("cube", false, p, true, false, this);
+                Object ob = new Obstacle("Obstacle","cube", false, p, true, false, this);
                 p.addObject(ob);
                 cubes.add(ob);
                 col += 2;
@@ -370,31 +370,31 @@ public class Game
         
         //first boxes around player
         Position p = getPosition(3, 1);
-        Object ob = new Obstacle("box", false, p, true, false, this);
+        Object ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         p = getPosition(1, 3);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         
         p = getPosition(this.widthCubes - 2, 1);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         p = getPosition(this.widthCubes, 3);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         
         p = getPosition(1, this.heightCubes - 2);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         p = getPosition(3, this.heightCubes);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         
         p = getPosition(this.widthCubes - 2, this.heightCubes);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         p = getPosition(this.widthCubes, this.heightCubes - 2);
-        ob = new Obstacle("box", false, p, true, false, this);
+        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
         boxes.add(ob);
         
         //fill rest of field with random boxes
@@ -419,7 +419,7 @@ public class Game
                     if (getRandomBool(perc))
                     {
                         p = getPosition(col, row);
-                        ob = new Obstacle("box", false, p, true, false, this);
+                        ob = new Obstacle("Obstacle","box", false, p, true, false, this);
                         boxes.add(ob);
                     }
                 }
@@ -461,7 +461,7 @@ public class Game
                 while (x <= maxWidth)
                 {
                     Position p = getPosition(x, y);
-                    Object ob = new Obstacle("cube", false, p, true, false, this);
+                    Object ob = new Obstacle("Obstacle","cube", false, p, true, false, this);
                     this.objects.add(ob);
                     x++;
                 }
@@ -471,7 +471,7 @@ public class Game
                 while (y <= maxHeight)
                 {
                     Position p = getPosition(x, y);
-                    Object ob = new Obstacle("cube", false, p, true, false, this);
+                    Object ob = new Obstacle("Obstacle","cube", false, p, true, false, this);
                     this.objects.add(ob);
                     y++;
                 }
@@ -481,7 +481,7 @@ public class Game
                 while (x >= minWidth)
                 {
                     Position p = getPosition(x, y);
-                    Object ob = new Obstacle("cube", false, p, true, false, this);
+                    Object ob = new Obstacle("Obstacle","cube", false, p, true, false, this);
                     this.objects.add(ob);
                     x--;
                 }
@@ -491,7 +491,7 @@ public class Game
                 while (y >= minHeight)
                 {
                     Position p = getPosition(x, y);
-                    Object ob = new Obstacle("cube", false, p, true, false, this);
+                    Object ob = new Obstacle("Obstacle","cube", false, p, true, false, this);
                     this.objects.add(ob);
                     y--;
                 }
@@ -540,7 +540,7 @@ public class Game
                     ((row%2 == 1 && col%2 == 0) || (row%2 == 0 && col%2 == 1) || (row%2 == 1 && col%2 == 1)))
             {
                 //place boxes random
-                Object ob = new PowerUp("test", types[intType], "test desc", true, p, true, false, Direction.Right, this);
+                Object ob = new PowerUp("Powerup","test", types[intType], "test desc", true, p, true, false, Direction.Right, this);
                 this.objects.add(ob);
                 return true;
             }
@@ -777,7 +777,7 @@ public class Game
         //Add character to player
         for (User p : this.players)
         {
-            Character c = new Character(1, false, 1, 3, positions[i], true, true, directions[i], colors[i], this);
+            Character c = new Character("Character",1, false, 1, 3, positions[i], true, true, directions[i], colors[i], this);
             p.setCharacter(c);
             this.characters.add(c);
             this.objects.add(c);
@@ -794,7 +794,7 @@ public class Game
                 Bot b = new Bot(namen[k], this.botDifficulty, this);
                 this.bots.add(b);
                 
-                Character c = new Character(1, false, 1, 3, positions[k], true, true, directions[k], colors[k], this);
+                Character c = new Character("Character",1, false, 1, 3, positions[k], true, true, directions[k], colors[k], this);
                 b.setCharacter(c);
                 this.objects.add(c);
             }

@@ -36,9 +36,9 @@ public class Obstacle extends Object
       * @param movable A boolean which holds the state of this Obstacle.
       * @param game Game in which obstacle is used
       */
-    public Obstacle(String type , boolean broken , Position position , boolean active , boolean movable, Game game)
+    public Obstacle(String objecttype,String type , boolean broken , Position position , boolean active , boolean movable, Game game)
     {
-        super(position , active , movable , null, game);
+        super(objecttype,position , active , movable , null, game);
 
         interfaceID = super.getInterfaceID();
         if (interfaceID == 0)

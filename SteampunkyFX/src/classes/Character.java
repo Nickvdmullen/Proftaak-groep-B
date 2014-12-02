@@ -43,11 +43,11 @@ public class Character extends Object
      @param movable     A boolean if the character can move or not
      @param direction   A Direction to which the character is moving
      */
-    public Character(double speed , boolean dead , int maxBallista , int torch ,
+    public Character(String objecttype,double speed , boolean dead , int maxBallista , int torch ,
             Position position , boolean active , boolean movable , Direction direction, Color color,Game game)
     {
         //todo
-        super(position , active , movable , direction,game);
+        super(objecttype,position , active , movable , direction,game);
 
         //Checks if the value dead is false, since a Character can't be dead when starting.
         if (dead == true)
@@ -216,7 +216,7 @@ public class Character extends Object
 
         //Create new Ballista
         if(this.ballistas.size()<this.maxBallistas){
-        Ballista newBallista = new Ballista("Normal" , shots , projectileSpeed , ballistaPosition , active , direction,super.getGame());
+        Ballista newBallista = new Ballista("Ballista","Normal", shots , projectileSpeed , ballistaPosition , active , direction,super.getGame());
         this.ballistas.add(newBallista);
         Position p = super.getPosition();
         p.addObject(newBallista);

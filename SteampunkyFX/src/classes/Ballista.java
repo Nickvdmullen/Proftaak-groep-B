@@ -41,9 +41,9 @@ public class Ballista extends Object
      @param direction       An attribute of Object that is used to decide which way to shoot first.
      *
      */
-    public Ballista(String type , int shots , double projectileSpeed , Position position , boolean active, Direction direction,Game game)
+    public Ballista(String objecttype,String type , int shots , double projectileSpeed , Position position , boolean active, Direction direction,Game game)
     {
-        super(position , active, false , direction, game);
+        super(objecttype,position , active, false , direction, game);
 
         if (shots % 4 != 0)
         {
@@ -135,7 +135,7 @@ public class Ballista extends Object
      */
     private void createProjectile(Direction direction)
     {
-        Projectile newProjectile = new Projectile(this.ballistaType , this.projectileSpeed , super.getPosition() , false , true , direction,super.getGame());
+        Projectile newProjectile = new Projectile("Projectile",this.ballistaType , this.projectileSpeed , super.getPosition() , false , true , direction,super.getGame());
         super.getPosition().addObject(newProjectile);
     }
 }

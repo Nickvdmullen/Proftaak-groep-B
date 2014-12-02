@@ -38,9 +38,9 @@ public class PowerUp extends Object
      @param movable     A boolean that holds the current state of this PowerUp.
      @param direction   An Object of the Class Direction which holds the direction in which this PowerUp moves.
      */
-    public PowerUp(String name , String type , String description , boolean available , Position position , boolean active , boolean movable , Direction direction,Game game)
+    public PowerUp(String objecttype,String name , String type , String description , boolean available , Position position , boolean active , boolean movable , Direction direction,Game game)
     {
-        super(position , active , movable , direction,game);
+        super(objecttype,position , active , movable , direction,game);
 
         // The Name, Type and Description of the constructor can't be null or empty.
         if ((name != null) || (type != null) || (description != null))

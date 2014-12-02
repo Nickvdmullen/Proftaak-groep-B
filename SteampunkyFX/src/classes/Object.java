@@ -31,6 +31,7 @@ public abstract class Object
     private Direction direction;
     private Game myGame;
     private String imagestring;
+    private String type;
 
     //***********************constructoren***********************************
     /**
@@ -43,13 +44,14 @@ public abstract class Object
      @param direction A Object of the Class Direction which holds the direction in which this Object is moving.
      @param game      A Object of the Class Game in which this object is placed.
      */
-    public Object(Position position , boolean Active , boolean Movable , Direction direction, Game game)
+    public Object(String type,Position position , boolean Active , boolean Movable , Direction direction, Game game)
     {
         this.position = position;
         this.active = Active;
         this.movable = Movable;
         this.direction = direction;
         this.myGame = game;
+        this.type = type;
 
         if (!movable)
         {

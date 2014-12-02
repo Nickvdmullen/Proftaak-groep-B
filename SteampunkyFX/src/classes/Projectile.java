@@ -33,9 +33,9 @@ public class Projectile extends Object
      @param movable   A boolean to check if the object can move.
      @param direction An Object of the Class Direction which holds the direction in which this projectile will move.
      */
-    public Projectile(String type , double speed , Position position , boolean active , boolean movable , Direction direction , Game game)
+    public Projectile(String objecttype,String type , double speed , Position position , boolean active , boolean movable , Direction direction , Game game)
     {
-        super(position , active , movable , direction,game);
+        super(objecttype,position , active , movable , direction,game);
 
         this.projectileID = super.getInterfaceID();
         this.type = type;
