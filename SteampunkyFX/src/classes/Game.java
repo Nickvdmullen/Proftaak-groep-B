@@ -687,9 +687,9 @@ public class Game
             //addpowerup to characters
         }
         
-        this.bots.stream().forEach((B) -> {
+        /*this.bots.stream().forEach((B) -> {
             B.AI();
-        });
+        });*/
         
         int dead = 0;
         

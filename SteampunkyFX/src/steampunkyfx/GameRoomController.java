@@ -266,20 +266,31 @@ public class GameRoomController implements Initializable, Observer {
         box.getChildren().add(this.playfield);
          
         for (Position p : this.game.getGrid())
-            {
-                objects = p.getObjects();
+        {
+            objects = p.getObjects();
 
-                for (Object o : objects)
+            for (Object o : objects)
+            {
+                String imageurl = o.getImageString();
+                String urlString = "/images/" + imageurl;
+                Image image = null;
+                ImageView img = null;                
+
+                try
                 {
-                    String imageurl = o.getImageString();
-                    String urlString = "/images/" + imageurl;
-                    Image image = new Image (urlString);
-                    ImageView img = new ImageView(image);
-                    //img.setX(p.getX() * 100);
-                    //img.setY(p.getY() * 100);
+                    //image = new Image(urlString, 100, 100, false, false);
+                    image = new Image(Object.class.getResourceAsStream(urlString));
+                    img = new ImageView(image);
+                    img.setX(p.getX() * 100);
+                    img.setY(p.getY() * 100);
                     box.getChildren().add(img);
                 }
+                catch (Exception ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
             }
+        }
     }
     
     //Sets up the settings needed to draw.
