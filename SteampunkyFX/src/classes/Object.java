@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package classes;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import steampunkyfx.SteampunkyFX;
 
 /**
  <p>
@@ -181,8 +183,11 @@ public abstract class Object
     {
         try
         {            
-            String url = "/images/" + imageurl;
-            this.image = new Image(url, 100, 100, false, true);
+            //System.out.println(imageurl);
+            //String url = "src/classes/images/" + imageurl;
+            //System.out.println(url);
+            this.image = new Image(Object.class.getResourceAsStream("player.png"));
+            //this.image = new Image(url, 100, 100, false, true);
             this.imageview.setImage(image);
         }
         catch (NullPointerException | IllegalArgumentException ex)
