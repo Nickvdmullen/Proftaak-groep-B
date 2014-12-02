@@ -413,6 +413,46 @@ public class GameRoomController implements Initializable, Observer {
         },500,500);
         main.gotoLobbyselect(admin);
     }
+    
+    public int getScale()
+    {
+        int scale = 100;
+        
+        //check scale for admin
+        for (String name : this.PlayerNames)
+        {
+            if (name.equals(this.admin.getUsername()))
+            {
+                scale = 100;
+            }
+        }
+        
+        for (String name : this.SpectatorNames)
+        {
+            if (name.equals(this.admin.getUsername()))
+            {
+                int hoogteScherm = 800;
+                int breedteScherm = 1600;
+                int hoogteSpel = game.getHeightPixels();
+                int breedteSpel = game.getWidthPixels();
+                
+                int hoogteScale = (int)((hoogteScherm/hoogteSpel)*100);
+                int breedteScale = (int)((breedteScherm/breedteSpel)*100);
+                
+                if (hoogteScale < breedteScale)
+                {
+                    scale = hoogteScale;
+                }
+                else
+                {
+                    scale = breedteScale;
+                }
+            }
+        }
+        
+        return scale;
+    }
+    
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
     @Override
     public void update(Observable o, java.lang.Object o1) {
