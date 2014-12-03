@@ -34,25 +34,12 @@ public class ImageTest extends Application
         selector = new ImageSelector();
         
         StackPane root = new StackPane();
-        
-        String urlString = "/images/player.png";
-        String urlString2 = "player.png";
-        String urlString3 = "." + File.separatorChar + "images" + File.separatorChar + "player.png";
-        //FileInputStream stream = null;
-        //File file = null;
+                
         Image image = null;
         ImageView img = null; 
 
         try
         {
-            //image = new Image(urlString, 100, 100, false, false);
-            //URL url = getClass().getResource(urlString2);
-            //System.out.println("File exists: " + url.getPath());
-            //File file = new File(url.getPath());
-            //System.out.println("File exists: " + file.exists());            
-            //image = new Image(file.toURI().toString());
-            
-            //image = new Image(this.getClass().getResourceAsStream(urlString2));
             image = selector.getImage("character");
             img = new ImageView(image);
             root.getChildren().add(img);

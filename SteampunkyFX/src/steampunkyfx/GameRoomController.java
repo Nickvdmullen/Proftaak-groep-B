@@ -8,12 +8,14 @@ package steampunkyfx;
 import classes.Character;
 import classes.Direction;
 import classes.Game;
+import classes.Level;
 import classes.Lobby;
 import classes.Object;
 import classes.Position;
 import classes.Server;
 import static classes.Server.getServer;
 import classes.User;
+import images.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
@@ -91,6 +93,7 @@ public class GameRoomController implements Initializable, Observer {
     private int widthCubes;
     private int heightPixels;
     private int heightCubes;
+    private ImageSelector selector;
     private Group root;
     private ScrollPane s1;
     private AnchorPane box;
@@ -124,6 +127,7 @@ public class GameRoomController implements Initializable, Observer {
         this.lobby = lobby;
         this.lobby.addObserver(this);
         this.game = null;
+        this.selector = new ImageSelector();
 
         this.LBLusername.setText("Welcome: " + admin.getUsername());
         this.LBLRemaining.setText("Remaining slots: " + this.slotsleft);
@@ -257,8 +261,27 @@ public class GameRoomController implements Initializable, Observer {
     }
     //clears the scene and draws new boxes for every object.
     public void DrawGame()
-    {
+    {     
+        int level = 3;
+        
         box.getChildren().clear();
+        
+        switch (level)
+        {
+            case 1:
+                this.field.setFill(Color.SADDLEBROWN);
+                this.playfield.setFill(Color.BURLYWOOD);
+                break;
+            case 2:
+                this.field.setFill(Color.DIMGRAY);
+                this.playfield.setFill(Color.LIGHTGRAY);
+                break;
+            case 3:
+                this.field.setFill(Color.PERU);
+                this.playfield.setFill(Color.BEIGE);
+                break;
+        }
+        
         box.getChildren().add(this.field);
         box.getChildren().add(this.playfield);
          
@@ -266,19 +289,15 @@ public class GameRoomController implements Initializable, Observer {
         {
             objects = p.getObjects();
 
-            for (Object o : objects)
+            for (Object object : objects)
             {                      
-                String imageurl = o.getImageString();
-                String urlString = File.separator + "images" + File.separator + imageurl;
-                //FileInputStream stream = null;
-                //File file = null;
                 Image image = null;
                 ImageView img = null; 
-                
+
                 try
-                {                    
-                    //image = new Image(urlString, 100, 100, false, false);
-                    image = new Image(getClass().getResourceAsStream(urlString));
+                {
+                    //level nog niet geimplementeerd
+                    image = selector.getImage(object, level);
                     img = new ImageView(image);
                     img.setX(p.getX() * 100);
                     img.setY(p.getY() * 100);

@@ -91,6 +91,11 @@ public abstract class Object
     {
         return this.position.getY();
     }
+    
+    public String getType()
+    {
+        return this.type;
+    }
 
     public boolean getMove()
     {
