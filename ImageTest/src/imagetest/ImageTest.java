@@ -42,6 +42,8 @@ public class ImageTest extends Application
         {
             image = selector.getImage("character");
             img = new ImageView(image);
+            img.setScaleX(0.2);
+            img.setScaleY(0.2);
             root.getChildren().add(img);
         }
         catch (Exception ex)

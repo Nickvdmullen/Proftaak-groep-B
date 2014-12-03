@@ -299,6 +299,8 @@ public class GameRoomController implements Initializable, Observer {
                     //level nog niet geimplementeerd
                     image = selector.getImage(object, level);
                     img = new ImageView(image);
+                    img.setScaleX(this.getScale());
+                    img.setScaleY(this.getScale());
                     img.setX(p.getX() * 100);
                     img.setY(p.getY() * 100);
                     box.getChildren().add(img);
@@ -447,30 +449,30 @@ public class GameRoomController implements Initializable, Observer {
         main.gotoLobbyselect(admin);
     }
     
-    public int getScale()
+    public double getScale()
     {
-        int scale = 100;
+        int scale = 1;
         
         //check scale for admin
-        for (String name : this.PlayerNames)
+        /*for (String name : this.PlayerNames)
         {
             if (name.equals(this.admin.getUsername()))
             {
-                scale = 100;
+                scale = 1;
             }
         }
         
         for (String name : this.SpectatorNames)
         {
             if (name.equals(this.admin.getUsername()))
-            {
+            {*/
                 int hoogteScherm = 800;
                 int breedteScherm = 1600;
                 int hoogteSpel = game.getHeightPixels();
                 int breedteSpel = game.getWidthPixels();
                 
-                int hoogteScale = (int)((hoogteScherm/hoogteSpel)*100);
-                int breedteScale = (int)((breedteScherm/breedteSpel)*100);
+                int hoogteScale = (int)((hoogteScherm/hoogteSpel));
+                int breedteScale = (int)((breedteScherm/breedteSpel));
                 
                 if (hoogteScale < breedteScale)
                 {
@@ -480,8 +482,8 @@ public class GameRoomController implements Initializable, Observer {
                 {
                     scale = breedteScale;
                 }
-            }
-        }
+            /*}
+        }*/
         
         return scale;
     }
