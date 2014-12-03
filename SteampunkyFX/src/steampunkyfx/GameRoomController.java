@@ -5,18 +5,17 @@
  */
 package steampunkyfx;
 
-import classes.Ballista;
 import classes.Character;
 import classes.Direction;
 import classes.Game;
 import classes.Lobby;
 import classes.Object;
-import classes.Obstacle;
 import classes.Position;
-import classes.Projectile;
 import classes.Server;
 import static classes.Server.getServer;
 import classes.User;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
@@ -44,7 +42,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -270,16 +267,18 @@ public class GameRoomController implements Initializable, Observer {
             objects = p.getObjects();
 
             for (Object o : objects)
-            {
+            {                      
                 String imageurl = o.getImageString();
-                String urlString = "/images/" + imageurl;
+                String urlString = File.separator + "images" + File.separator + imageurl;
+                //FileInputStream stream = null;
+                //File file = null;
                 Image image = null;
-                ImageView img = null;                
-
+                ImageView img = null; 
+                
                 try
-                {
+                {                    
                     //image = new Image(urlString, 100, 100, false, false);
-                    image = new Image(Object.class.getResourceAsStream(urlString));
+                    image = new Image(getClass().getResourceAsStream(urlString));
                     img = new ImageView(image);
                     img.setX(p.getX() * 100);
                     img.setY(p.getY() * 100);
