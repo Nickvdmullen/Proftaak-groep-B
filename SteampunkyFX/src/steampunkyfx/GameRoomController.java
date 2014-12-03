@@ -262,7 +262,7 @@ public class GameRoomController implements Initializable, Observer {
     //clears the scene and draws new boxes for every object.
     public void DrawGame()
     {     
-        int level = 3;
+        int level = 1;
         
         box.getChildren().clear();
         
@@ -299,10 +299,11 @@ public class GameRoomController implements Initializable, Observer {
                     //level nog niet geimplementeerd
                     image = selector.getImage(object, level);
                     img = new ImageView(image);
+                    img.setX(p.getX()*100*this.getScale());
+                    img.setY(p.getY()*100*this.getScale());
+                    System.out.println("object x; " + p.getX()*100*this.getScale() + ", y; " + p.getY()*100*this.getScale());
                     img.setScaleX(this.getScale());
-                    img.setScaleY(this.getScale());
-                    img.setX(p.getX() * 100);
-                    img.setY(p.getY() * 100);
+                    img.setScaleY(this.getScale());                    
                     box.getChildren().add(img);
                 }
                 catch (Exception ex)
@@ -342,10 +343,14 @@ public class GameRoomController implements Initializable, Observer {
         box = new AnchorPane();
         s1.setContent(box);
 
-        this.field = new Rectangle(this.widthPixels, this.heightPixels);
+        
+        this.field = new Rectangle(this.widthPixels*this.getScale(), this.heightPixels*this.getScale());
+        //this.field = new Rectangle(this.widthPixels, this.heightPixels);
         this.field.setFill(Color.GRAY);      
 
-        this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
+        this.playfield = new Rectangle(100*this.getScale(), 100*this.getScale(), (this.widthCubes*100*this.getScale()), (this.heightCubes*100*this.getScale()));
+        System.out.println("playfield x; " + 100*this.getScale() + ", y; " + 100*this.getScale());
+        //this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
         this.playfield.setFill(Color.WHITE);
 
         root.getChildren().add(s1);
@@ -405,7 +410,7 @@ public class GameRoomController implements Initializable, Observer {
                     public void run() {
                         Countdown();
 
-                        if (countdown == 0) {
+                        if (countdown == 0){
                             timer.cancel();
                         }
                     }
@@ -433,9 +438,13 @@ public class GameRoomController implements Initializable, Observer {
                 {
                     try
                     {
-                    if(game.getGameEnd()){gameTickTimer.cancel();}
-                    game.updateGame();
-                    DrawGame();
+                        if(game.getGameEnd())
+                        {
+                            gameTickTimer.cancel();
+                        }
+                        
+                        game.updateGame();
+                        DrawGame();
                     }
                     catch(NullPointerException ex)
                     {                    
@@ -485,7 +494,8 @@ public class GameRoomController implements Initializable, Observer {
             /*}
         }*/
         
-        return scale;
+        //return scale;
+        return 0.75;
     }
     
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
