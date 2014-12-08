@@ -32,12 +32,14 @@ public abstract class Object
     private Game myGame;
     private String imagestring;
     private String type;
+    
 
     //***********************constructoren***********************************
     /**
      Constructor of the SuperClass Object
      creates an abstract class object with ...
      <p>
+     @param type
      @param position  An object of the Class Position which holds a coordinate.
      @param Active    A Boolean which holds the current state of this Object.
      @param Movable   A boolean which holds the current state of this Object
@@ -606,6 +608,8 @@ public abstract class Object
     /**
      An method to check if the next Position of this projectile will collide with another object.
      <p>
+     * @param posX
+     * @param posY
      @param objects An list of all object currently in the game.
      <p>
      @return Returns an object if the next p of this projectile collides with the object

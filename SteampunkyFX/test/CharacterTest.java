@@ -37,7 +37,7 @@ public class CharacterTest {
     public void setUp() {
         Position position = new Position(1,1);
         Game game = new Game(9,9,4.00, 1, 3);
-        test = new Character(5.0,  false, 1, 1, position, true, true, Direction.Down, Color.RED, game);
+        test = new Character("Character",5.0,  false, 1, 1, position, true, true, Direction.Down, Color.RED, game);
     }
     
     @After
@@ -84,6 +84,6 @@ public class CharacterTest {
     {
         Position position = new Position(1,1);
         Game game = new Game(9,9,4.00, 1, 3);
-        Character nieuw = new Character(5.0,  true, 1, 1, position, true, true, Direction.Down, Color.RED, game);
+        Character nieuw = new Character("Character",5.0,  true, 1, 1, position, true, true, Direction.Down, Color.RED, game);
     }
 }

@@ -27,8 +27,8 @@ public class PowerUpTest {
     public void setUp() {
         Position position = new Position(1,1);
         Game game = new Game(9,9,4.00, 1, 3);
-        this.Powerup = new PowerUp("Fast","runspeed","run faster",true,position,true,false,Direction.Left, game);
-        this.Powerup2 = new PowerUp(null,null,null,true,position,true,false,Direction.Left, game);
+        this.Powerup = new PowerUp("Powerup","Fast","runspeed","run faster",true,position,true,false,Direction.Left, game);
+        this.Powerup2 = new PowerUp("Powerup",null,null,null,true,position,true,false,Direction.Left, game);
     }
     
     @Test

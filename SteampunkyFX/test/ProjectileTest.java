@@ -33,9 +33,9 @@ public class ProjectileTest {
         //String type , double speed , Position position , boolean active , boolean movable , Direction direction , Game game)
         Position position = new Position(1,1);
         Game game = new Game(9,9,4.00, 1, 3);
-        firstProjectile = new Projectile("normal",1,position,true,true,Direction.Left, game);
-        secondProjectile = new Projectile("normal",1,position,true,true,Direction.Left, game);
-        thirdProjectile = new Projectile(null,1,position,true,true,Direction.Left, game);
+        firstProjectile = new Projectile("Projectile","normal",1,position,true,true,Direction.Left, game);
+        secondProjectile = new Projectile("Projectile","normal",1,position,true,true,Direction.Left, game);
+        thirdProjectile = new Projectile("Projectile",null,1,position,true,true,Direction.Left, game);
         myObjects = new ArrayList();
         myObjects.add(firstProjectile);
         myObjects.add(secondProjectile);

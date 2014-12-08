@@ -27,8 +27,8 @@ public class BallistaTest {
         Position position = new Position(0,0);
         Game game= new Game(9,9,4.00, 1, 3);
 
-    firstBallista = new Ballista("normal",4,1.0,position,true,Direction.Left, game);
-    secondBallista = new Ballista(null,7,2,position,false,Direction.Right, game);
+    firstBallista = new Ballista("Ballista","normal",4,1.0,position,true,Direction.Left, game);
+    secondBallista = new Ballista("Ballista",null,7,2,position,false,Direction.Right, game);
     }
     
     @Test

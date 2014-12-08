@@ -26,7 +26,7 @@ public class ObstacleTest {
     public ObstacleTest() {
         Position position = new Position(1,1);
         Game game = new Game(9,9,4.00, 1, 3);
-        ob = new Obstacle("Obstacle", false, position, true, false, game);
+        ob = new Obstacle("Obstacle","Obstacle", false, position, true, false, game);
     }
     
 
