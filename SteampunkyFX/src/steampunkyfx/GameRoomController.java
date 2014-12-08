@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -119,6 +120,8 @@ public class GameRoomController implements Initializable, Observer {
     private int timercount = 6;
     private int countdown = 6;
     private int slotsleft = 4;
+    
+    private int level = 0;
 
     public void setApp(SteampunkyFX application, User admin, Lobby lobby, Stage stage) {
         this.stage = stage;
@@ -241,8 +244,8 @@ public class GameRoomController implements Initializable, Observer {
     }
     
     public void SetupStage(){
-            this.field = new Rectangle(this.widthPixels, this.heightPixels);
-            this.field.setFill(Color.GRAY);
+            this.field = new Rectangle(this.widthPixels*this.getScale(), this.heightPixels*this.getScale());
+            this.field.setFill(Color.GRAY);  
             box.getChildren().add(this.field);   
     }
     //Start de game als de teller op 0 komt wordt het speel veld geladen
@@ -253,6 +256,10 @@ public class GameRoomController implements Initializable, Observer {
 
         if (this.countdown == 0) 
         {
+            //get random level from 1 to 3
+            Random levelInt = new Random();
+            level = levelInt.nextInt(3) + 1;
+            
             this.SetupDraw();
             this.setKeyBindings();
             this.game.addPlayer(this.admin);
@@ -261,9 +268,7 @@ public class GameRoomController implements Initializable, Observer {
     }
     //clears the scene and draws new boxes for every object.
     public void DrawGame()
-    {     
-        int level = 1;
-        
+    { 
         box.getChildren().clear();
         
         switch (level)
@@ -299,11 +304,17 @@ public class GameRoomController implements Initializable, Observer {
                     //level nog niet geimplementeerd
                     image = selector.getImage(object, level);
                     img = new ImageView(image);
-                    img.setX(p.getX()*100*this.getScale());
-                    img.setY(p.getY()*100*this.getScale());
-                    System.out.println("object x; " + p.getX()*100*this.getScale() + ", y; " + p.getY()*100*this.getScale());
                     img.setScaleX(this.getScale());
-                    img.setScaleY(this.getScale());                    
+                    img.setScaleY(this.getScale());
+                    
+                    //img.setX(-50 * (1-this.getScale()));
+                    //img.setY(-50 * (1-this.getScale()));
+                    
+                    //img.setX(0 + (100 * this.getScale()));
+                    //img.setY(0 - (100 * this.getScale()));
+                    img.setX((p.getX()*100*this.getScale()) + (-50 * (1-this.getScale())));
+                    img.setY((p.getY()*100*this.getScale()) + (-50 * (1-this.getScale())));  
+                    
                     box.getChildren().add(img);
                 }
                 catch (Exception ex)
@@ -342,17 +353,15 @@ public class GameRoomController implements Initializable, Observer {
 
         box = new AnchorPane();
         s1.setContent(box);
-
         
         this.field = new Rectangle(this.widthPixels*this.getScale(), this.heightPixels*this.getScale());
         //this.field = new Rectangle(this.widthPixels, this.heightPixels);
         this.field.setFill(Color.GRAY);      
 
         this.playfield = new Rectangle(100*this.getScale(), 100*this.getScale(), (this.widthCubes*100*this.getScale()), (this.heightCubes*100*this.getScale()));
-        System.out.println("playfield x; " + 100*this.getScale() + ", y; " + 100*this.getScale());
         //this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
-        this.playfield.setFill(Color.WHITE);
-
+        this.playfield.setFill(Color.WHITE);        
+        
         root.getChildren().add(s1);
         this.stage.setMinHeight(900);
         this.stage.setMinWidth(1700);
@@ -460,7 +469,7 @@ public class GameRoomController implements Initializable, Observer {
     
     public double getScale()
     {
-        int scale = 1;
+        double scale = 1;
         
         //check scale for admin
         /*for (String name : this.PlayerNames)
@@ -475,27 +484,14 @@ public class GameRoomController implements Initializable, Observer {
         {
             if (name.equals(this.admin.getUsername()))
             {*/
-                int hoogteScherm = 800;
-                int breedteScherm = 1600;
-                int hoogteSpel = game.getHeightPixels();
-                int breedteSpel = game.getWidthPixels();
-                
-                int hoogteScale = (int)((hoogteScherm/hoogteSpel));
-                int breedteScale = (int)((breedteScherm/breedteSpel));
-                
-                if (hoogteScale < breedteScale)
-                {
-                    scale = hoogteScale;
-                }
-                else
-                {
-                    scale = breedteScale;
-                }
+                double hoogteScherm = 800;
+                double hoogteSpel = game.getHeightPixels();                
+                scale = hoogteScherm/hoogteSpel;
             /*}
         }*/
         
-        //return scale;
-        return 0.75;
+        return scale;
+        //return 0.5;
     }
     
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
