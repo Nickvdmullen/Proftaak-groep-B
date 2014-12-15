@@ -137,6 +137,11 @@ public abstract class Object
     {
         this.position = position;
     }
+    
+    public void setDirection(Direction d)
+    {
+        this.direction = d;
+    }
 
     /**
      The Setter of this Objects Active
