@@ -375,25 +375,55 @@ public class GameRoomController implements Initializable, Observer {
         this.stage.getScene().setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
             {
-                this.game.getCharacter().move(Direction.Up);
+                //this.game.getCharacter().move(Direction.Up);                
+                Object c = this.game.getCharacter();
+                this.game.getGrid().remove(c);
+                int x = c.getPosition().getX();
+                int y = c.getPosition().getY() - 1;
+                Position p = game.getPosition(x, y);
+                c.setPosition(p);
+                this.game.setObjectInGrid(c);
+                
+                
                 System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("A"))
             {
-                this.game.getCharacter().move(Direction.Left);
+                //this.game.getCharacter().move(Direction.Left);
+                Object c = this.game.getCharacter();
+                this.game.getGrid().remove(c);
+                int x = c.getPosition().getX() - 1;
+                int y = c.getPosition().getY();
+                Position p = game.getPosition(x, y);
+                c.setPosition(p);
+                this.game.setObjectInGrid(c);
                 System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("S"))
             {
-                this.game.getCharacter().move(Direction.Down);
+                //this.game.getCharacter().move(Direction.Down);
+                Object c = this.game.getCharacter();
+                this.game.getGrid().remove(c);
+                int x = c.getPosition().getX();
+                int y = c.getPosition().getY() + 1;
+                Position p = game.getPosition(x, y);
+                c.setPosition(p);
+                this.game.setObjectInGrid(c);
                 System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("D"))
             {
-                this.game.getCharacter().move(Direction.Right);
+                //this.game.getCharacter().move(Direction.Right);
+                Object c = this.game.getCharacter();
+                this.game.getGrid().remove(c);
+                int x = c.getPosition().getX() + 1;
+                int y = c.getPosition().getY();
+                Position p = game.getPosition(x, y);
+                c.setPosition(p);
+                this.game.setObjectInGrid(c);
                 System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             

@@ -179,7 +179,7 @@ public abstract class Object
     }
     
     public void move(Direction direction) {
-        int nextX = this.getPositionX();
+        /*int nextX = this.getPositionX();
         int nextY = this.getPositionY();
         if (direction == Direction.Right) {
             nextX++;
@@ -194,7 +194,7 @@ public abstract class Object
             this.myGame.getObjectsFromGrid(nextX, nextY).add(this);
             this.position.removeObject(this);
             this.setPosition(this.myGame.getPosition(nextX, nextY));
-        }
+        }*/
     }
 
     /**
