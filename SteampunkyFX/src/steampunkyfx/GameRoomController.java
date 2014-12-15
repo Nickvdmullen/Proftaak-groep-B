@@ -122,6 +122,8 @@ public class GameRoomController implements Initializable, Observer {
     private int slotsleft = 4;
     
     private int level = 0;
+    
+    private int character;
 
     public void setApp(SteampunkyFX application, User admin, Lobby lobby, Stage stage) {
         this.stage = stage;
@@ -295,7 +297,7 @@ public class GameRoomController implements Initializable, Observer {
             objects = p.getObjects();
 
             for (Object object : objects)
-            {                      
+            {                   
                 Image image = null;
                 ImageView img = null; 
 
@@ -374,21 +376,25 @@ public class GameRoomController implements Initializable, Observer {
             if(keyEvent.getCode().toString().equals("W"))
             {
                 this.game.getCharacter().move(Direction.Up);
+                System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("A"))
             {
                 this.game.getCharacter().move(Direction.Left);
+                System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("S"))
             {
                 this.game.getCharacter().move(Direction.Down);
+                System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("D"))
             {
                 this.game.getCharacter().move(Direction.Right);
+                System.out.println(this.game.getCharacter().getPositionX() + ", " + this.game.getCharacter().getPositionY());
             }
             
             if(keyEvent.getCode().toString().equals("Q"))
@@ -402,6 +408,8 @@ public class GameRoomController implements Initializable, Observer {
                 Character c = (classes.Character) game.getCharacter();
                 c.createBallista(Direction.Up , 1);
             }
+            
+            
         });
     }
     
