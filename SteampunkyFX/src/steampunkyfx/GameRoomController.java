@@ -300,7 +300,22 @@ public class GameRoomController implements Initializable, Observer {
             for (Object object : objects)
             {   
                 double rotation = 0;
-                
+                if (object instanceof Projectile){
+                    switch(object.getDirection()){
+                        case Up:
+                            rotation = 0;
+                            break;
+                        case Right:
+                            rotation = 90;
+                            break;
+                        case Down:
+                            rotation = 180;
+                            break;
+                        case Left:
+                            rotation = 270;
+                            break; 
+                    }
+                }
                 if (object.equals(this.game.getCharacter()))
                 {                    
                     switch (this.game.getCharacter().getDirection())
@@ -528,7 +543,7 @@ public class GameRoomController implements Initializable, Observer {
                 
             }
            
-        },500,500);
+        },200,200);
         main.gotoLobbyselect(admin);
     }
     
