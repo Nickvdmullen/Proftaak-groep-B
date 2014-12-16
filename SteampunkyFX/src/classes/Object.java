@@ -183,8 +183,15 @@ public abstract class Object
         this.imagestring = image;
     }
     
+    //<editor-fold defaultstate="collapsed" desc="movement and collision code">
+    /**
+     * A Method for moving this Object
+     * <p>
+     * @param direction A Object of the Class Direction which holds the
+     * direction in which direction this Object is moving.
+     */
     public void move(Direction direction) {
-        /*int nextX = this.getPositionX();
+        int nextX = this.getPositionX();
         int nextY = this.getPositionY();
         if (direction == Direction.Right) {
             nextX++;
@@ -196,78 +203,110 @@ public abstract class Object
             nextY++;
         }
         if (this.checkCollision(nextX, nextY)) {
-            this.myGame.getObjectsFromGrid(nextX, nextY).add(this);
+            this.myGame.getPosition(nextX, nextY).addObject(this);
             this.position.removeObject(this);
             this.setPosition(this.myGame.getPosition(nextX, nextY));
-        }*/
+            this.setDirection(direction);
+        }
     }
 
     /**
-     An method to check if the next Position of this projectile will collide with another object.
-     <p>
-     * @param posX
-     * @param posY
-     @param objects An list of all object currently in the game.
-     <p>
-     @return Returns an object if the next p of this projectile collides with the object
-     else it returns null.
+     * An method to check if the next Position of this object will collide with
+     * another object or wall.
+     * <p>
+     * @param posX the X coordinate of the position to be checked.
+     * @param posY the Y coordinate of the position to be checked.
+     * <p>
+     * @return Returns a boolean that states if the object can move to the
+     * desired position.
      */
-    public boolean checkCollision(int posX,int posY)
-    {
-        List<Object> objects = this.myGame.getObjectsFromGrid(posX, posY);
-        Object hitObject = null;
-        
-        if(this instanceof Character)
-        {
-            for (Object O : objects)
-            {
-                int oPosX = O.getPositionX();
-                int oPosY = O.getPositionY();
-
-                if ((posX == oPosX) && (oPosY == oPosY))
-                {
-                    if(O instanceof Character)
-                    {
-                        hitObject = null;
+    public Boolean checkCollision(int posX, int posY) {
+        Boolean Movable = true;
+        if (this.myGame.getPosition(posX, posY) != null) {
+            if (!this.myGame.getObjectsFromGrid(posX, posY).isEmpty()) {
+                List<Object> objects = this.myGame.getObjectsFromGrid(posX, posY);
+                //if this is a Character
+                if (this instanceof Character) {
+                    //for every object on the desired position
+                    for (Object O : objects) {
+                        //if the Object is a Projectile
+                        if (O instanceof Projectile) {
+                            //if the direction of this character is opposite to the direciton of the projectile.
+                            if ((this.direction == Direction.Up && this.direction == Direction.Down) || (this.direction == Direction.Right && this.direction == Direction.Left) || (this.direction == Direction.Down && this.direction == Direction.Up) || (this.direction == Direction.Left && this.direction == Direction.Right)) {
+                                O.RemoveFromGame();
+                                this.RemoveFromGame();
+                                Movable = false;
+                            }
+                        } else if (O instanceof Ballista || O instanceof Obstacle) {
+                            Movable = false;
+                        } else if (O instanceof PowerUp) {
+                            PowerUp tempPowerUp = (PowerUp) O;
+                            PickUp(tempPowerUp.getType());
+                            O.RemoveFromGame();
+                        }
                     }
-                    else
-                    {
-                        hitObject = O;
+                    // if this is Projectile
+                } else if (this instanceof Projectile) {
+                    //for every object on desired position
+                    for (Object O : objects) {
+                        if (O instanceof Obstacle) {
+                            Obstacle tempObstacle = (Obstacle) O;
+                            if (tempObstacle.getType().matches("cube")) {
+                                this.RemoveFromGame();
+                                Movable = false;
+                            } else {
+                                this.RemoveFromGame();
+                                O.RemoveFromGame();
+                                Movable = false;
+                            }
+                        } else {
+                            O.RemoveFromGame();
+                            this.RemoveFromGame();
+                            Movable = false;
+                        }
                     }
                 }
-            }    
+            }
+        } else {
+            if(this instanceof Projectile){
+                this.RemoveFromGame();
+            }
+            Movable = false;
         }
-        
-        if (hitObject != null)
-        {
-            return true;
-        }
-        
-        return false;
+        return Movable;
     }
 
-    
-    private void PickUp(String type)
-    {
-        if(this instanceof Character)
-        {
-            Character c = (Character)this;
+    public void RemoveFromGame() {
+        if (this instanceof Character) {
+            Character C = (Character) this;
+            C.setDead(true);
+        } else if (this instanceof Obstacle) {
+            Obstacle O = (Obstacle) this;
+            O.setBroken(true);
+        }
+        this.setActive(false);
+        this.position.removeObject(this);
+        this.myGame.getObjects().remove(this);
+    }
+
+    private void PickUp(String type) {
+        if (this instanceof Character) {
+            Character c = (Character) this;
             int t;
-            if(type.equals("Torch"))
-            {              
-              t = c.getTorchRange();
-              c.setTorch(t++);
+            if (type.equals("torch")) {
+                t = c.getTorchRange();
+                c.setTorch(t++);
             }
-            if(type.equals("Ballista"))
-            {
+            if (type.equals("ballista")) {
                 t = c.getMaxBallistas();
                 c.setMaxBallistas(t++);
             }
-            if(type.equals("Projectiles"))
-            {
+            if (type.equals("projectiles")) {
                 t = c.getShots();
-                c.setShots(t+4);
+                c.setShots(t + 4);
             }
         }
     }
+    //</editor-fold>
+
 }

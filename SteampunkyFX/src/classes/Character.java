@@ -61,6 +61,7 @@ public class Character extends Object
         this.maxBallistas = maxBallista;
         this.torchLight = torch;
         this.direction = direction;
+        this.shots = 4;
         if (!movable)
         {
             this.direction = null;

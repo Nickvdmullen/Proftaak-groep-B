@@ -674,18 +674,14 @@ public class Game
             });
         });
         
-        tempCharacters.stream().forEach((C) -> {
-            C.move(C.getDirection());
-        });
+//        tempCharacters.stream().forEach((C) -> {
+//            C.move(C.getDirection());
+//        });
         
         tempProjectiles.stream().forEach((P) -> {
             P.move(P.getDirection());
         });
         
-        for (PowerUp P : tempPowerUps)
-        {
-            //addpowerup to characters
-        }
         
         /*this.bots.stream().forEach((B) -> {
             B.AI();

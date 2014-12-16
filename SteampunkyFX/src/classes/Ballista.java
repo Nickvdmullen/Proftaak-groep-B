@@ -8,10 +8,6 @@ package classes;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 /**
  OK
@@ -33,6 +29,7 @@ public class Ballista extends Object
      when this object is made a number of Projectiles is made to match shots.
      Depending on the direction give it depends which direction is made first.
      <p>
+     * @param objecttype
      @param type            The type thats give so the ballista knows what type of Projectiles is must make.
      @param shots           The number of shots a ballista can fire, must be a multitude of 4.
      @param projectileSpeed The speed of the Projectiles the ballista makes.
