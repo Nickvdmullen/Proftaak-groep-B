@@ -30,13 +30,11 @@ public class Game
     private int totalRounds;
     private int currentRound;    
     private boolean gameEnd;
-    private Level currentLevel;
     
     private double boxStartTime;
     private boolean fillUp;
     
     private List<Position> grid;
-    private List<Level> levels;
     private List<Object> objects;
     private List<User> players;
     private List<Bot> bots;
@@ -87,7 +85,6 @@ public class Game
                 row ++;
             }
 
-            this.levels = new ArrayList<>();
             this.objects = new ArrayList<>();
             this.players = new ArrayList<>();
             this.bots = new ArrayList<>();
@@ -253,23 +250,6 @@ public class Game
     {
         return this.characters.get(0);
     }
-    /**
-     * Getter of Levels
-     * @return a list of Levels
-     */
-    public List<Level> getLevels()
-    {
-        return this.levels;
-    }
-    
-    /**
-     * Getter of current level
-     * @return current level
-     */
-    public Level getCurrentLevel()
-    {
-        return this.currentLevel;
-    }
     
     /**
      * Getter of boolean game end
@@ -292,15 +272,6 @@ public class Game
         //Check if this botDifficulty isn't to low or to high???
         return false;
     }    
-
-    /**
-     * Add level to game
-     * @param level 
-     */
-    public void addLevel(Level level)
-    {
-        this.levels.add(level);
-    }
     
     /**
      * Add player to game

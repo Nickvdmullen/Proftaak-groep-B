@@ -8,7 +8,6 @@ package steampunkyfx;
 import classes.Character;
 import classes.Direction;
 import classes.Game;
-import classes.Level;
 import classes.Lobby;
 import classes.Object;
 import classes.Position;
@@ -17,8 +16,6 @@ import classes.Server;
 import static classes.Server.getServer;
 import classes.User;
 import images.*;
-import java.io.File;
-import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -299,42 +296,6 @@ public class GameRoomController implements Initializable, Observer {
 
             for (Object object : objects)
             {   
-                double rotation = 0;
-                if (object instanceof Projectile){
-                    switch(object.getDirection()){
-                        case Up:
-                            rotation = 0;
-                            break;
-                        case Right:
-                            rotation = 90;
-                            break;
-                        case Down:
-                            rotation = 180;
-                            break;
-                        case Left:
-                            rotation = 270;
-                            break; 
-                    }
-                }
-                if (object.equals(this.game.getCharacter()))
-                {                    
-                    switch (this.game.getCharacter().getDirection())
-                    {
-                        case Up:
-                            rotation = 0;
-                            break;
-                        case Right:
-                            rotation = 90;
-                            break;
-                        case Down:
-                            rotation = 180;
-                            break;
-                        case Left:
-                            rotation = 270;
-                            break;                            
-                    }
-                }                
-                
                 Image image = null;
                 ImageView img = null; 
 
@@ -345,15 +306,17 @@ public class GameRoomController implements Initializable, Observer {
                     img = new ImageView(image);
                     img.setScaleX(this.getScale());
                     img.setScaleY(this.getScale());
-                    
-                    //img.setX(-50 * (1-this.getScale()));
-                    //img.setY(-50 * (1-this.getScale()));
-                    
-                    //img.setX(0 + (100 * this.getScale()));
-                    //img.setY(0 - (100 * this.getScale()));
                     img.setX((p.getX()*100*this.getScale()) + (-50 * (1-this.getScale())));
                     img.setY((p.getY()*100*this.getScale()) + (-50 * (1-this.getScale())));  
-                    img.setRotate(rotation);
+                    
+                    if (object instanceof Projectile || object.equals(this.game.getCharacter()))
+                    {
+                        img.setRotate(getRotation(object));
+                    }
+                    else
+                    {
+                        img.setRotate(0);
+                    }
                     
                     box.getChildren().add(img);
                 }
@@ -365,11 +328,33 @@ public class GameRoomController implements Initializable, Observer {
         }
     }
     
+    public double getRotation(Object o)
+    {
+        double rotation = 0;
+
+        switch(o.getDirection())
+        {
+            case Up:
+                rotation = 0;
+                break;
+            case Right:
+                rotation = 90;
+                break;
+            case Down:
+                rotation = 180;
+                break;
+            case Left:
+                rotation = 270;
+                break; 
+        }
+        
+        return rotation;
+    }
+    
     //Sets up the settings needed to draw.
     public void SetupDraw(){
         
         //Teken code hier aan toevoegen
-        //Moeten groter zijn dan 9; melding?!
         int width = Integer.parseInt(this.CBlevelsizeWidth.getValue().toString());
         int height = Integer.parseInt(this.CBlevelsizeHeight.getValue().toString());
 
@@ -395,11 +380,9 @@ public class GameRoomController implements Initializable, Observer {
         s1.setContent(box);
         
         this.field = new Rectangle(this.widthPixels*this.getScale(), this.heightPixels*this.getScale());
-        //this.field = new Rectangle(this.widthPixels, this.heightPixels);
         this.field.setFill(Color.GRAY);      
 
         this.playfield = new Rectangle(100*this.getScale(), 100*this.getScale(), (this.widthCubes*100*this.getScale()), (this.heightCubes*100*this.getScale()));
-        //this.playfield = new Rectangle(100, 100, (this.widthCubes*100), (this.heightCubes*100));
         this.playfield.setFill(Color.WHITE);        
         
         root.getChildren().add(s1);
@@ -413,60 +396,22 @@ public class GameRoomController implements Initializable, Observer {
         this.stage.getScene().setOnKeyPressed((KeyEvent keyEvent) -> {
             if(keyEvent.getCode().toString().equals("W"))
             {
-                this.game.getCharacter().move(Direction.Up);
-//                Object c = this.game.getCharacter();
-//                c.getPosition().removeObject(c);
-//                
-//                c.setDirection(Direction.Up);
-//                int x = c.getPosition().getX();
-//                int y = c.getPosition().getY() - 1;
-//                Position p = game.getPosition(x, y);
-//                c.setPosition(p);
-//                
-//                this.game.setObjectInGrid(c);                
+                this.game.getCharacter().move(Direction.Up);             
             }
             
             if(keyEvent.getCode().toString().equals("A"))
             {
                 this.game.getCharacter().move(Direction.Left);               
-//                Object c = this.game.getCharacter();
-//                c.getPosition().removeObject(c);
-//                int x = c.getPosition().getX() - 1;
-//                int y = c.getPosition().getY();
-//                Position p = game.getPosition(x, y);
-//                c.setPosition(p);
-//                
-//                this.game.setObjectInGrid(c);     
             }
             
             if(keyEvent.getCode().toString().equals("S"))
             {
                 this.game.getCharacter().move(Direction.Down);
-//                Object c = this.game.getCharacter();
-//                c.getPosition().removeObject(c);
-//                
-//                c.setDirection(Direction.Down);
-//                int x = c.getPosition().getX();
-//                int y = c.getPosition().getY() + 1;
-//                Position p = game.getPosition(x, y);
-//                c.setPosition(p);
-//                
-//                this.game.setObjectInGrid(c); 
             }
             
             if(keyEvent.getCode().toString().equals("D"))
             {
                 this.game.getCharacter().move(Direction.Right);
-//                Object c = this.game.getCharacter();                
-//                c.getPosition().removeObject(c);
-//                
-//                c.setDirection(Direction.Right);
-//                int x = c.getPosition().getX() + 1;
-//                int y = c.getPosition().getY();
-//                Position p = game.getPosition(x, y);
-//                c.setPosition(p);
-//                
-//                this.game.setObjectInGrid(c); 
             }
             
             if(keyEvent.getCode().toString().equals("Q"))
@@ -479,9 +424,7 @@ public class GameRoomController implements Initializable, Observer {
             {
                 Character c = (classes.Character) game.getCharacter();
                 c.createBallista(Direction.Up , 1);
-            }
-            
-            
+            }            
         });
     }
     
@@ -512,14 +455,9 @@ public class GameRoomController implements Initializable, Observer {
     public void GameUpdate()
     {
         this.gameTickTimer = new Timer();        
-        //Level opnieuw uittekenen met nieuwe posities      
-       
-        //Geeft momenteel ConcurrentModificationException error
-        // Maar deze timer zou dus voor updaten moeten zijn.
         
         this.gameTickTimer.scheduleAtFixedRate(new TimerTask()
-        {
-            
+        {            
             @Override
             public void run()
             {
@@ -537,12 +475,9 @@ public class GameRoomController implements Initializable, Observer {
                     }
                     catch(NullPointerException ex)
                     {                    
-                    }
-                    
-                });
-                
-            }
-           
+                    }                    
+                });                
+            }           
         },200,200);
         main.gotoLobbyselect(admin);
     }
@@ -571,7 +506,6 @@ public class GameRoomController implements Initializable, Observer {
         }*/
         
         return scale;
-        //return 0.5;
     }
     
     //Update methode als er iets wordt geupdate in een lijst dan worde de methode InitCombos aangeroepen
