@@ -36,6 +36,7 @@ public class Test extends Application
     private int heightPixels;
     private int heightCubes;
     private AnchorPane box;
+    private AnchorPane canvas;
     private Timer timer;
     
     private Rectangle player;
@@ -44,9 +45,13 @@ public class Test extends Application
     List<Rectangle> listCubes;
     List<Rectangle> listBoxes;
     
+    private int viewport;
+    
     @Override
     public void start(Stage primaryStage) throws Exception
-    {     
+    {    
+        viewport = 4;
+        
         gotoLobbyselect(primaryStage);
         
         this.timer = new Timer();
@@ -87,29 +92,18 @@ public class Test extends Application
         box = new AnchorPane();
         s1.setContent(box);
         
+        canvas = new AnchorPane();
+        box.getChildren().add(canvas);
+        
         field = new Rectangle(widthPixels, heightPixels);
-        field.setFill(Color.PINK);
-        //box.getChildren().add(field);        
+        field.setFill(Color.PINK);       
         
         playfield = new Rectangle(100, 100, (widthCubes*100), (heightCubes*100));
         playfield.setFill(Color.WHITE);
-        //box.getChildren().add(playfield);
         
         //player
         player = new Rectangle(100, (heightCubes*100), 100, 100);
-        //player = new Rectangle(400, (heightCubes*100)-300, 100, 100);
         player.setFill(Color.YELLOW);
-        //box.getChildren().add(player);
-        
-        /*for (Rectangle r : listCubes)
-        {
-            box.getChildren().add(r);
-        }
-        
-        for (Rectangle b : listBoxes)
-        {
-            box.getChildren().add(b);
-        }*/
         
         root.getChildren().add(s1);
 
@@ -177,28 +171,34 @@ public class Test extends Application
     
     public void updateGame()
     {
-        box.getChildren().clear();   
+        canvas.getChildren().clear();   
         Rectangle borderXleft = null;
         Rectangle borderXright = null;
-        Rectangle borderYleft = null;
-        Rectangle borderYright = null;
+        Rectangle borderYtop = null;
+        Rectangle borderYbottom = null;
         
         System.out.println(player.getX() + ", " + player.getY());        
         
         //set range
-        double range = 300;
+        double maxrange = 5 * 100;
+        double range = viewport * 100;        
+        double maxfieldsize = 1100;
         double fieldsize = (range*2)+100;
         
         //draw playfield
-        Rectangle testfield = new Rectangle(0,0,fieldsize,fieldsize);
+        Rectangle backfield = new Rectangle(0,0,maxfieldsize,maxfieldsize);
+        backfield.setFill(Color.BLACK);
+        canvas.getChildren().add(backfield);
+        
+        Rectangle testfield = new Rectangle(maxrange-range,maxrange-range,fieldsize,fieldsize);
         testfield.setFill(Color.LIGHTBLUE);
-        box.getChildren().add(testfield);
+        canvas.getChildren().add(testfield);
         
         //draw copy of player in range
         playerCopy = new Rectangle(player.getX(), player.getY(), 100, 100);
         playerCopy.setFill(player.getFill());
-        playerCopy.setX(range);
-        playerCopy.setY(range);
+        playerCopy.setX(maxrange);
+        playerCopy.setY(maxrange);
         box.getChildren().add(playerCopy);        
         
         //get min and max values
@@ -219,7 +219,7 @@ public class Test extends Application
                 double changeY = rY - player.getY();
                 Rectangle r2 = new Rectangle(playerCopy.getX() + changeX, playerCopy.getY() + changeY, 100, 100);
                 r2.setFill(r.getFill());
-                box.getChildren().add(r2);
+                canvas.getChildren().add(r2);
             }
         }
         
@@ -235,38 +235,44 @@ public class Test extends Application
                 double changeY = bY - player.getY();
                 Rectangle b2 = new Rectangle(playerCopy.getX() + changeX, playerCopy.getY() + changeY, 100, 100);
                 b2.setFill(b.getFill());
-                box.getChildren().add(b2);
+                canvas.getChildren().add(b2);
             }
-        }
+        }        
+        
+        double var1 = maxrange-range;        
+        double var2 = (widthCubes*100)-player.getX();
+        double var3 = (heightCubes*100)-player.getY();
         
         //set gamefield border
         if (player.getX() <= range)
         {
-            borderXleft = new Rectangle(0,0,range+100-player.getX(),fieldsize);
+            borderXleft = new Rectangle(var1,var1,range+100-player.getX(),fieldsize);
             borderXleft.setFill(Color.WHITE);
-            box.getChildren().add(borderXleft);
+            canvas.getChildren().add(borderXleft);
         }
         
         if (player.getX() >= (widthCubes*100)-range+100)
         {            
-            borderXright = new Rectangle(fieldsize-(range-((widthCubes*100)-player.getX())),0,range-((widthCubes*100)-player.getX()),fieldsize);
+            borderXright = new Rectangle(range+var1+var2+100,var1,range-((widthCubes*100)-player.getX()),fieldsize);
             borderXright.setFill(Color.WHITE);
-            box.getChildren().add(borderXright);
+            canvas.getChildren().add(borderXright);
         }
         
         if (player.getY() <= range)
         {
-            borderYleft = new Rectangle(0,0,fieldsize,range+100-player.getY());
-            borderYleft.setFill(Color.WHITE);
-            box.getChildren().add(borderYleft);
+            borderYtop = new Rectangle(var1,var1,fieldsize,range+100-player.getY());
+            borderYtop.setFill(Color.WHITE);
+            canvas.getChildren().add(borderYtop);
         }
         
         if (player.getY() >= (heightCubes*100)-range+100)
         {
-            borderYright = new Rectangle(0,fieldsize-(range-((widthCubes*100)-player.getY())),fieldsize,range-((widthCubes*100)-player.getY()));
-            borderYright.setFill(Color.WHITE);
-            box.getChildren().add(borderYright);
+            borderYbottom = new Rectangle(var1,range+var1+var3+100,fieldsize,range-var3);
+            borderYbottom.setFill(Color.WHITE);
+            canvas.getChildren().add(borderYbottom);
         }
+        
+        //canvas.setRotate(90);
     }
     
     /**
