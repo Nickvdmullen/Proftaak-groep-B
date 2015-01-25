@@ -273,6 +273,8 @@ public class Test extends Application
         }
         
         //canvas.setRotate(90);
+        canvas.setScaleX(0.7);
+        canvas.setScaleY(0.7);
     }
     
     /**
