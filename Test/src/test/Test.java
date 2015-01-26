@@ -84,13 +84,16 @@ public class Test extends Application
         Group root = new Group();
         Scene scene = new Scene(root, maxX, maxY);
         
-        ScrollPane s1 = new ScrollPane();
-        s1.setLayoutX(50);
-        s1.setLayoutY(50);
-        s1.setPrefSize(1600, 800);
+        //ScrollPane s1 = new ScrollPane();
+        //s1.setLayoutX(50);
+        //s1.setLayoutY(50);
+        //s1.setPrefSize(1600, 800);
         
         box = new AnchorPane();
-        s1.setContent(box);
+        box.setLayoutX(50);
+        box.setLayoutY(50);
+        box.setPrefSize(1600, 800);
+        //s1.setContent(box);
         
         canvas = new AnchorPane();
         box.getChildren().add(canvas);
@@ -105,7 +108,7 @@ public class Test extends Application
         player = new Rectangle(100, (heightCubes*100), 100, 100);
         player.setFill(Color.YELLOW);
         
-        root.getChildren().add(s1);
+        root.getChildren().add(box);
 
         // Define title and assign the scene for main window
         primaryStage.setTitle("Game test");
@@ -199,7 +202,7 @@ public class Test extends Application
         playerCopy.setFill(player.getFill());
         playerCopy.setX(maxrange);
         playerCopy.setY(maxrange);
-        box.getChildren().add(playerCopy);        
+        canvas.getChildren().add(playerCopy);        
         
         //get min and max values
         double minX = player.getX() - range;
@@ -275,6 +278,9 @@ public class Test extends Application
         //canvas.setRotate(90);
         canvas.setScaleX(0.7);
         canvas.setScaleY(0.7);
+        canvas.setMaxSize(1100, 1100);
+        canvas.setLayoutX(-150);
+        canvas.setLayoutY(-150);
     }
     
     /**
